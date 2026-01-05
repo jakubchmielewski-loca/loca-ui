@@ -1,7 +1,7 @@
 {
-  "name": "react-components-starter",
+  "name": "@grupa-loca/loca-ui",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A starter for creating a React component library.",
   "author": "Author Name <author.name@mail.com>",
   "license": "MIT",
