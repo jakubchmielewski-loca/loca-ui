@@ -28,8 +28,7 @@
   },
   "scripts": {
     "build": "tsdown",
-    "dev": "tsdown --watch",
-    "play": "vite",
+    "dev": "vite",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm publish",
