@@ -1,1 +1,2 @@
-export { Stepper } from "@mantine/core";
+export { Stepper } from "./stepper";
+export type { StepperProps, StepperStep } from "./stepper";

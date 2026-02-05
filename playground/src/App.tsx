@@ -24,20 +24,14 @@ export function App() {
       <Stack align="center" h="100vh">
         <Center h="100%">
           <Stack w={700}>
-            <Stepper active={active} onStepClick={setActive}>
-              <Stepper.Step label="First step" description="Create an account">
-                Step 1 content: Create an account
-              </Stepper.Step>
-              <Stepper.Step label="Second step" description="Verify email">
-                Step 2 content: Verify email
-              </Stepper.Step>
-              <Stepper.Step label="Final step" description="Get full access">
-                Step 3 content: Get full access
-              </Stepper.Step>
-              <Stepper.Completed>
-                Completed, click back button to get to previous step
-              </Stepper.Completed>
-            </Stepper>
+            <Stepper
+              active={active}
+              steps={[
+                { label: "Dane" },
+                { label: "Karty" },
+                { label: "Dostępy do systemów" },
+              ]}
+            />
           </Stack>
         </Center>
       </Stack>
