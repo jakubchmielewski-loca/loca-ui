@@ -1,40 +1,42 @@
 import React, { useState } from "react";
 
-import { Center, Stack, TextInput } from "@mantine/core";
+import { Burger, Center, Stack, TextInput } from "@mantine/core";
 
-import { LocaUiProvider } from "../../src/loca-ui-provider";
+import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 
-import { Modal } from "../../src/modal";
-import { Select } from "../../src/select";
-import { Table } from "../../src/table";
-import { Pagination } from "../../src/pagination";
-import { TableFooter } from "../../src/table-footer";
-import { SearchInput } from "../../src/search-input";
-import { Stepper } from "../../src/stepper";
+import { Modal } from "../../src/components/modal";
+import { Select } from "../../src/components/select";
+import { Table } from "../../src/components/table";
+import { Pagination } from "../../src/components/pagination";
+import { TableFooter } from "../../src/components/table-footer";
+import { SearchInput } from "../../src/components/search-input";
+import { Stepper } from "../../src/components/stepper";
+import { AppShell } from "../../src/components/app-shell";
+import { useDisclosure } from "@mantine/hooks";
+import { Navbar } from "../../src/components/navbar";
 
 export function App() {
-  const [active, setActive] = useState(1);
-  const nextStep = () =>
-    setActive((current) => (current < 3 ? current + 1 : current));
-  const prevStep = () =>
-    setActive((current) => (current > 0 ? current - 1 : current));
+  const [opened, { toggle }] = useDisclosure();
 
   return (
     <LocaUiProvider>
-      <Stack align="center" h="100vh">
-        <Center h="100%">
-          <Stack w={700}>
-            <Stepper
-              active={active}
-              steps={[
-                { label: "Dane" },
-                { label: "Karty" },
-                { label: "Dostępy do systemów" },
-              ]}
-            />
-          </Stack>
-        </Center>
-      </Stack>
+      <AppShell navbarOpened={opened}>
+        <AppShell.Header>
+          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+
+          <div>Logo</div>
+        </AppShell.Header>
+
+        <AppShell.Navbar>
+          <Navbar>
+            <Navbar.Top systemName="e-Kartoteka" />
+          </Navbar>
+        </AppShell.Navbar>
+
+        <AppShell.Main>
+          <div className="fs-[14px] p-[16px]">Main</div>
+        </AppShell.Main>
+      </AppShell>
     </LocaUiProvider>
   );
 }

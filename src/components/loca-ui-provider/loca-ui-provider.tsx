@@ -33,6 +33,31 @@ const theme = createTheme({
     navy,
   },
   components: {
+    AppShell: {
+      defaultProps: {
+        layout: "alt",
+        header: { height: { base: 72, md: 0 } },
+        footer: { height: 60 },
+        navbar: {
+          width: 300,
+          breakpoint: "sm",
+        },
+        padding: 0,
+      },
+    },
+
+    AppShellHeader: {
+      defaultProps: {
+        hiddenFrom: "sm",
+      },
+    },
+
+    AppShellMain: {
+      defaultProps: {
+        bg: "#ECECEF",
+      },
+    },
+
     Button: {
       vars: () => ({
         root: {
