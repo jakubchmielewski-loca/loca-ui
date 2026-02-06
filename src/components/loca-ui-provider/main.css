@@ -1,4 +1,1 @@
 @import "tailwindcss";
-
-/* Pozwól Tailwindowi skanować komponenty z katalogu src (poza rootem Vite `playground`) */
-@source "../../../src/**/*.{js,jsx,ts,tsx}";

@@ -2,7 +2,7 @@ import { AppShell } from "@mantine/core";
 
 export const AppShellNavbar = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AppShell.Navbar className="py-[16px] lg:pt-[40px] lg:pb-[24px]">
+    <AppShell.Navbar py={{ base: 16 }} pt={{ lg: 40 }} pb={{ lg: 24 }}>
       {children}
     </AppShell.Navbar>
   );

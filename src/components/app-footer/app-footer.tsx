@@ -1,12 +1,31 @@
-import { Box, Group, Stack, Text, useMantineTheme } from "@mantine/core";
+import {
+  Box,
+  Group,
+  Stack,
+  Text,
+  UnstyledButton,
+  useMantineTheme,
+} from "@mantine/core";
 import { Crown, Grid2x2, LogOut } from "lucide-react";
 
 const BackToOtherSerivcesButton = ({ url }: { url: string }) => {
   const theme = useMantineTheme();
 
   return (
-    <button
-      className="flex p-[16px] items-center justify-center gap-[12px] text-center border border-[#DEE8EF] rounded-[8px] cursor-pointer hover:bg-[#EAF0FB] transition-all duration-300"
+    <UnstyledButton
+      data-footer-back-button
+      display="flex"
+      p={16}
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 12,
+        textAlign: "center",
+        cursor: "pointer",
+        transition: "all 0.3s",
+      }}
+      bd="1px solid #DEE8EF"
+      bdrs={8}
       onClick={() => (window.location.href = url)}
     >
       <Box c={theme.primaryColor}>
@@ -15,18 +34,27 @@ const BackToOtherSerivcesButton = ({ url }: { url: string }) => {
       <Text fz={14} fw={600}>
         Przejdź do innej usługi
       </Text>
-    </button>
+    </UnstyledButton>
   );
 };
 
 const LogoutButton = ({ logoutFn }: { logoutFn: () => void }) => {
   return (
     <Group
-      className="cursor-pointer hover:bg-[#EAF0FB] px-[16px] py-[12px] transition-all duration-300"
-      onClick={logoutFn}
+      data-footer-logout
+      px={16}
+      py={12}
       gap={8}
+      style={{ cursor: "pointer", transition: "all 0.3s" }}
+      onClick={logoutFn}
     >
-      <LogOut className="text-[#2C4E97] w-[16px]" />
+      <Box
+        c="#2C4E97"
+        component="span"
+        style={{ display: "inline-flex", lineHeight: 0 }}
+      >
+        <LogOut size={16} />
+      </Box>
       <Text fz={14}>Wyloguj</Text>
     </Group>
   );
@@ -44,21 +72,21 @@ const UserInfo = ({
   logoutFn: () => void;
 }) => {
   return (
-    <Stack
-      className="border border-[#DEE8EF] rounded-[8px]"
-      justify="space-between"
-      gap={0}
-    >
-      <Stack className="px-[16px] py-[12px]" gap={0}>
+    <Stack bd="1px solid #DEE8EF" bdrs={8} justify="space-between" gap={0}>
+      <Stack px={16} py={12} gap={0}>
         <Group align="center" gap={6}>
-          {isAdmin && <Crown className="mt-0.25" width={16} />}
+          {isAdmin && (
+            <Box mt={1} component="span">
+              <Crown width={16} height={16} />
+            </Box>
+          )}
           <Text fw={500}>{username}</Text>
         </Group>
         <Text fz={12} c="gray.6">
           {email}
         </Text>
       </Stack>
-      <Stack className="border-t border-[#DEE8EF]">
+      <Stack style={{ borderTop: "1px solid #DEE8EF" }} gap={0}>
         <LogoutButton logoutFn={logoutFn} />
       </Stack>
     </Stack>
@@ -79,7 +107,7 @@ export const AppFooter = ({
   logoutFn: () => void;
 }) => {
   return (
-    <Stack className="mt-auto">
+    <Stack mt="auto">
       <BackToOtherSerivcesButton url={otherServicesUrl} />
       <UserInfo
         username={userInfo.username}

@@ -9,14 +9,14 @@ import {
 import useNavbar from "../../hooks/use-navbar";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
-  return <Stack className="h-full">{children}</Stack>;
+  return <Stack h="100%">{children}</Stack>;
 };
 
 const NavbarHeader = ({ systemName }: { systemName: string }) => {
   const { opened, toggle } = useNavbar();
 
   return (
-    <Group className="px-[16px] lg:px-0 lg:pb-[24px]" justify="space-between">
+    <Group px={{ base: 16, lg: 0 }} pb={{ lg: 24 }} justify="space-between">
       <Text fw={600} fz={24} ps={{ lg: 24 }} lh="16px">
         {systemName}
       </Text>
@@ -26,12 +26,16 @@ const NavbarHeader = ({ systemName }: { systemName: string }) => {
 };
 
 const NavbarMain = ({ children }: { children: React.ReactNode }) => {
-  return <Box className="flex-1 min-h-0">{children}</Box>;
+  return (
+    <Box flex={1} style={{ minHeight: 0 }}>
+      {children}
+    </Box>
+  );
 };
 
 const NavbarList = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Stack className="h-full overflow-y-auto" gap={0}>
+    <Stack h="100%" style={{ overflowY: "auto" }} gap={0}>
       {children}
     </Stack>
   );
@@ -58,17 +62,17 @@ const NavbarListItem = ({
 
   return (
     <LinkComponent href={href} onClick={onClick}>
-      <Group
-        className="px-[24px] py-3 relative hover:bg-[#EAF0FB]"
-        bg={isActive ? "#EAF0FB" : ""}
-      >
+      <Group pos="relative" px={24} py={8} bg={isActive ? "#EAF0FB" : ""}>
         {isActive && (
-          <Box className="absolute top-0 left-0 w-[5px] h-full bg-[#2C4E97]" />
+          <Box pos="absolute" top={0} left={0} w={5} h="100%" bg="#2C4E97" />
         )}
 
         {Icon && (
           <Box
-            className="w-8 h-8 flex justify-center items-center"
+            w={32}
+            h={32}
+            display="flex"
+            style={{ justifyContent: "center", alignItems: "center" }}
             c={theme.primaryColor}
           >
             <Icon width="20" />
@@ -84,7 +88,11 @@ const NavbarListItem = ({
 };
 
 const NavbarFooter = ({ children }: { children: React.ReactNode }) => {
-  return <Stack className="mt-auto px-[24px]">{children}</Stack>;
+  return (
+    <Stack mt="auto" px={24}>
+      {children}
+    </Stack>
+  );
 };
 
 Navbar.Header = NavbarHeader;

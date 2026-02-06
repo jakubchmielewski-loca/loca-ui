@@ -29,3 +29,12 @@
     --input-bg: #F4F6FA;
     --input-height: 48px !important;   
 }
+
+[data-navbar-item]:hover {
+    background-color: #EAF0FB;
+}
+
+[data-footer-back-button]:hover,
+[data-footer-logout]:hover {
+    background-color: #EAF0FB;
+}
