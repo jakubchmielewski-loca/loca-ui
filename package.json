@@ -24,7 +24,7 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "http://localhost:4873/"
+    "registry": "https://registry.loca.pl/"
   },
   "scripts": {
     "build": "tsdown",
