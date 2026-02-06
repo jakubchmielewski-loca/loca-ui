@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Burger, Center, Stack, TextInput } from "@mantine/core";
+import { Burger, Center, Paper, Stack, TextInput } from "@mantine/core";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 
@@ -14,6 +14,9 @@ import { Stepper } from "../../src/components/stepper";
 import { AppShell } from "../../src/components/app-shell";
 import { useDisclosure } from "@mantine/hooks";
 import { Navbar } from "../../src/components/navbar";
+import { HomeIcon } from "lucide-react";
+import { AppFooter } from "../../src/components/app-footer";
+import { PagePane } from "../../src/components/page-pane";
 
 export function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -29,12 +32,33 @@ export function App() {
 
         <AppShell.Navbar>
           <Navbar>
-            <Navbar.Top systemName="e-Kartoteka" />
+            <Navbar.Header systemName="e-Kartoteka" />
+            <Navbar.Main>
+              <Navbar.List>
+                <Navbar.ListItem href="/" Icon={HomeIcon} isActive>
+                  Main
+                </Navbar.ListItem>
+                <Navbar.ListItem href="/" Icon={HomeIcon}>
+                  Secondary
+                </Navbar.ListItem>
+              </Navbar.List>
+            </Navbar.Main>
+            <Navbar.Footer>
+              <AppFooter
+                userInfo={{
+                  username: "John Doe",
+                  email: "john.doe@example.com",
+                  isAdmin: false,
+                }}
+                otherServicesUrl="https://logowanie.loca.pl"
+                logoutFn={() => {}}
+              />
+            </Navbar.Footer>
           </Navbar>
         </AppShell.Navbar>
 
         <AppShell.Main>
-          <div className="fs-[14px] p-[16px]">Main</div>
+          <PagePane>Main</PagePane>
         </AppShell.Main>
       </AppShell>
     </LocaUiProvider>

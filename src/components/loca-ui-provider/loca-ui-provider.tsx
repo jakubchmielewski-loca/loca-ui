@@ -9,6 +9,8 @@ import {
 import "@mantine/core/styles.css";
 import "./fonts.css";
 import "./custom-style.css";
+import "./main.css";
+
 import { ChevronDown } from "lucide-react";
 
 const navy: MantineColorsTuple = [
@@ -44,6 +46,11 @@ const theme = createTheme({
         },
         padding: 0,
       },
+      vars: () => ({
+        root: {
+          "--app-shell-border-color": "#DEE8EF",
+        },
+      }),
     },
 
     AppShellHeader: {
