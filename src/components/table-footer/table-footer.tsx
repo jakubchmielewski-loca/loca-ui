@@ -1,7 +1,4 @@
-import { Pagination } from "../pagination";
-import { Group } from "../group";
-import { Text } from "../text";
-import { Select } from "../select";
+import { Group, Pagination, Select, Text } from "@mantine/core";
 
 export const TableFooter = ({ total }: { total: number }) => {
   return (
