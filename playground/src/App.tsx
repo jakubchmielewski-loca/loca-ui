@@ -1,29 +1,42 @@
 import React, { useState } from "react";
 
-import { Burger, Center, Paper, Stack, TextInput } from "@mantine/core";
+import { AppShell, Burger, Table } from "@mantine/core";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 
-import { Modal } from "../../src/components/modal";
-import { Select } from "../../src/components/select";
-import { Table } from "../../src/components/table";
-import { Pagination } from "../../src/components/pagination";
-import { TableFooter } from "../../src/components/table-footer";
-import { SearchInput } from "../../src/components/search-input";
-import { Stepper } from "../../src/components/stepper";
-import { AppShell } from "../../src/components/app-shell";
 import { useDisclosure } from "@mantine/hooks";
 import { Navbar } from "../../src/components/navbar";
 import { HomeIcon } from "lucide-react";
 import { AppFooter } from "../../src/components/app-footer";
 import { PagePane } from "../../src/components/page-pane";
+import { PageWrapper } from "../../src/components/page-wrapper";
+import { AltTableTh } from "../../src/components/alt-table-th";
+
+const elements = [
+  { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
+  { position: 7, mass: 14.007, symbol: "N", name: "Nitrogen" },
+  { position: 39, mass: 88.906, symbol: "Y", name: "Yttrium" },
+  { position: 56, mass: 137.33, symbol: "Ba", name: "Barium" },
+  { position: 58, mass: 140.12, symbol: "Ce", name: "Cerium" },
+];
 
 export function App() {
   const [opened, { toggle }] = useDisclosure();
+  const [sort, setSort] = useState<"asc" | "desc" | null>(null);
+
+  const handleSort = () => {
+    if (sort === "asc") {
+      setSort("desc");
+    } else if (sort === "desc") {
+      setSort(null);
+    } else {
+      setSort("asc");
+    }
+  };
 
   return (
     <LocaUiProvider>
-      <AppShell navbarOpened={opened}>
+      <AppShell>
         <AppShell.Header>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
 
@@ -58,7 +71,42 @@ export function App() {
         </AppShell.Navbar>
 
         <AppShell.Main>
-          <PagePane>Main</PagePane>
+          <PageWrapper>
+            <PagePane>
+              <Table>
+                <Table.Thead>
+                  <Table.Tr>
+                    <Table.Th>
+                      <AltTableTh
+                        text="Element position"
+                        order={sort}
+                        onSort={handleSort}
+                      />
+                    </Table.Th>
+                    <Table.Th>
+                      <AltTableTh text="Element name" />
+                    </Table.Th>
+                    <Table.Th>
+                      <AltTableTh text="Symbol" />
+                    </Table.Th>
+                    <Table.Th>
+                      <AltTableTh text="Atomic mass" />
+                    </Table.Th>
+                  </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>
+                  {elements.map((element) => (
+                    <Table.Tr key={element.name}>
+                      <Table.Td>{element.position}</Table.Td>
+                      <Table.Td>{element.name}</Table.Td>
+                      <Table.Td>{element.symbol}</Table.Td>
+                      <Table.Td>{element.mass}</Table.Td>
+                    </Table.Tr>
+                  ))}
+                </Table.Tbody>
+              </Table>
+            </PagePane>
+          </PageWrapper>
         </AppShell.Main>
       </AppShell>
     </LocaUiProvider>

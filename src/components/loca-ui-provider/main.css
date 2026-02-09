@@ -1,1 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 @import "tailwindcss";
+
+
+.mantine-Tabs-tab[data-active="true"] {
+    color: var(--mantine-primary-color-6);
+    background-color: var(--mantine-primary-color-0); 
+}
+
+.mantine-Tabs-tab[data-active="true"] .mantine-Tabs-tabLabel {
+    font-weight: 600 !important;
+}
+
+.mantine-Input-wrapper .mantine-Input-input {
+    --input-padding-inline-start: 1rem;
+    --input-padding-inline-end: 1rem;
+}
+
+.mantine-Input-wrapper[data-with-left-section] {
+    --section-size: 410px;
+}
+
+.mantine-Input-wrapper[data-with-left-section] .mantine-Input-input {
+    --input-padding-inline-start: 3.25rem;
+    --input-padding-inline-end: 2.25rem;
+}
+
+.mantine-Input-wrapper[data-with-left-section] .mantine-Input-section {
+    --section-size: 3.5rem;
+}
+
+.mantine-Input-input[data-variant="filled"] {
+    --input-bg: #F4F6FA;
+    --input-height: 48px !important;   
+}
+
+[data-navbar-item]:hover {
+    background-color: #EAF0FB;
+}
+
+[data-footer-back-button]:hover,
+[data-footer-logout]:hover {
+    background-color: #EAF0FB;
+}
+
+.mantine-Table-thead {
+    position: relative;
+    z-index: 0;
+}
+
+.mantine-Table-thead::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -24px;
+    width: calc(100% + 48px);
+    height: 100%;
+    background-color: #EFF8FD;
+    z-index: -1;
+}

@@ -62,7 +62,7 @@ const NavbarListItem = ({
 
   return (
     <LinkComponent href={href} onClick={onClick}>
-      <Group pos="relative" px={24} py={8} bg={isActive ? "#EAF0FB" : ""}>
+      <Group pos="relative" px={24} py={12} bg={isActive ? "#EAF0FB" : ""}>
         {isActive && (
           <Box pos="absolute" top={0} left={0} w={5} h="100%" bg="#2C4E97" />
         )}

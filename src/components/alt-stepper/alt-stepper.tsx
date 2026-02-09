@@ -1,18 +1,25 @@
-import { Box, Center, Group, Text, rem, useMantineTheme } from "@mantine/core";
+import {
+  Box,
+  Center,
+  Group,
+  Stack,
+  Text,
+  rem,
+  useMantineTheme,
+} from "@mantine/core";
 
-import { Stack } from "../stack";
 import { Check } from "lucide-react";
 
-export type StepperStep = {
+export type AltStepperStep = {
   label: string;
 };
 
-export type StepperProps = {
-  steps: StepperStep[];
+export type AltStepperProps = {
+  steps: AltStepperStep[];
   active: number;
 };
 
-export function Stepper({ steps, active }: StepperProps) {
+export function AltStepper({ steps, active }: AltStepperProps) {
   const theme = useMantineTheme();
 
   const getColors = (index: number) => {
