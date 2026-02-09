@@ -185,6 +185,13 @@ export const theme = createTheme({
       }),
     },
 
+    TableTd: {
+      defaultProps: {
+        fz: 16,
+        lh: 2,
+      },
+    },
+
     Pagination: {
       defaultProps: {
         radius: "xl",
