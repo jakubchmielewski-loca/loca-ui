@@ -15,7 +15,8 @@
   },
   "exports": {
     ".": "./dist/index.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./dist/index.css": "./dist/index.css"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
