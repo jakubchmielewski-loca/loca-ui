@@ -11,6 +11,7 @@ import { AppFooter } from "../../src/components/app-footer";
 import { PagePane } from "../../src/components/page-pane";
 import { PageWrapper } from "../../src/components/page-wrapper";
 import { AltTableTh } from "../../src/components/alt-table-th";
+import { TableFooter } from "../../src/components/table-footer";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -23,6 +24,10 @@ const elements = [
 export function App() {
   const [opened, { toggle }] = useDisclosure();
   const [sort, setSort] = useState<"asc" | "desc" | null>(null);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  console.log(page, itemsPerPage);
 
   const handleSort = () => {
     if (sort === "asc") {
@@ -104,6 +109,14 @@ export function App() {
                     </Table.Tr>
                   ))}
                 </Table.Tbody>
+                <TableFooter
+                  total={elements.length}
+                  totalPages={10}
+                  page={page}
+                  setPage={setPage}
+                  itemsPerPage={itemsPerPage}
+                  setItemsPerPage={setItemsPerPage}
+                />
               </Table>
             </PagePane>
           </PageWrapper>
