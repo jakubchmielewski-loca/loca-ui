@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { AppShell, Burger, Table } from "@mantine/core";
+import { AppShell, Burger, Button, Group, Table } from "@mantine/core";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 
@@ -11,6 +11,7 @@ import { AppFooter } from "../../src/components/app-footer";
 import { PagePane } from "../../src/components/page-pane";
 import { PageWrapper } from "../../src/components/page-wrapper";
 import { AltTableTh } from "../../src/components/alt-table-th";
+import { AltStepper } from "../../src/components/alt-stepper";
 import { TableFooter } from "../../src/components/table-footer";
 
 const elements = [
@@ -24,10 +25,12 @@ const elements = [
 export function App() {
   const [opened, { toggle }] = useDisclosure();
   const [sort, setSort] = useState<"asc" | "desc" | null>(null);
-  const [page, setPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  console.log(page, itemsPerPage);
+  const [active, setActive] = useState(1);
+  const nextStep = () =>
+    setActive((current) => (current < 3 ? current + 1 : current));
+  const prevStep = () =>
+    setActive((current) => (current > 0 ? current - 1 : current));
 
   const handleSort = () => {
     if (sort === "asc") {
@@ -78,46 +81,32 @@ export function App() {
         <AppShell.Main>
           <PageWrapper>
             <PagePane>
-              <Table>
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Th>
-                      <AltTableTh
-                        text="Element position"
-                        order={sort}
-                        onSort={handleSort}
-                      />
-                    </Table.Th>
-                    <Table.Th>
-                      <AltTableTh text="Element name" />
-                    </Table.Th>
-                    <Table.Th>
-                      <AltTableTh text="Symbol" />
-                    </Table.Th>
-                    <Table.Th>
-                      <AltTableTh text="Atomic mass" />
-                    </Table.Th>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {elements.map((element) => (
-                    <Table.Tr key={element.name}>
-                      <Table.Td>{element.position}</Table.Td>
-                      <Table.Td>{element.name}</Table.Td>
-                      <Table.Td>{element.symbol}</Table.Td>
-                      <Table.Td>{element.mass}</Table.Td>
-                    </Table.Tr>
-                  ))}
-                </Table.Tbody>
-                <TableFooter
-                  total={elements.length}
-                  totalPages={10}
-                  page={page}
-                  setPage={setPage}
-                  itemsPerPage={itemsPerPage}
-                  setItemsPerPage={setItemsPerPage}
-                />
-              </Table>
+              <AltStepper active={active} onStepClick={setActive}>
+                <AltStepper.Step
+                  label="First step"
+                  description="Create an account"
+                >
+                  Step 1 content: Create an account
+                </AltStepper.Step>
+                <AltStepper.Step label="Second step" description="Verify email">
+                  Step 2 content: Verify email
+                </AltStepper.Step>
+                <AltStepper.Step
+                  label="Final step"
+                  description="Get full access"
+                >
+                  Step 3 content: Get full access
+                </AltStepper.Step>
+                <AltStepper.Completed>
+                  Completed, click back button to get to previous step
+                </AltStepper.Completed>
+              </AltStepper>
+              <Group justify="center" mt="xl">
+                <Button variant="default" onClick={prevStep}>
+                  Back
+                </Button>
+                <Button onClick={nextStep}>Next step</Button>
+              </Group>
             </PagePane>
           </PageWrapper>
         </AppShell.Main>
