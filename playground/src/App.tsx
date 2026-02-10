@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { AppShell, Burger, Button, Group, Table } from "@mantine/core";
+import { AppShell, Burger, Button, Group, Modal, Table } from "@mantine/core";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 
@@ -23,7 +23,7 @@ const elements = [
 ];
 
 export function App() {
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle, open, close }] = useDisclosure();
   const [sort, setSort] = useState<"asc" | "desc" | null>(null);
 
   const [active, setActive] = useState(1);
@@ -81,32 +81,29 @@ export function App() {
         <AppShell.Main>
           <PageWrapper>
             <PagePane>
-              <AltStepper active={active} onStepClick={setActive}>
-                <AltStepper.Step
-                  label="First step"
-                  description="Create an account"
-                >
-                  Step 1 content: Create an account
-                </AltStepper.Step>
-                <AltStepper.Step label="Second step" description="Verify email">
-                  Step 2 content: Verify email
-                </AltStepper.Step>
-                <AltStepper.Step
-                  label="Final step"
-                  description="Get full access"
-                >
-                  Step 3 content: Get full access
-                </AltStepper.Step>
-                <AltStepper.Completed>
-                  Completed, click back button to get to previous step
-                </AltStepper.Completed>
-              </AltStepper>
-              <Group justify="center" mt="xl">
-                <Button variant="default" onClick={prevStep}>
-                  Back
-                </Button>
-                <Button onClick={nextStep}>Next step</Button>
-              </Group>
+              <Button onClick={open}>Open</Button>
+              <Modal opened={opened} onClose={close} title="Stepper">
+                <AltStepper active={active} onStepClick={setActive}>
+                  <AltStepper.Step label="First step">
+                    Step 1 content: Create an account
+                  </AltStepper.Step>
+                  <AltStepper.Step label="Second step">
+                    Step 2 content: Verify email
+                  </AltStepper.Step>
+                  <AltStepper.Step label="Final step">
+                    Step 3 content: Get full access
+                  </AltStepper.Step>
+                  <AltStepper.Completed>
+                    Completed, click back button to get to previous step
+                  </AltStepper.Completed>
+                </AltStepper>
+                <Group justify="center" mt="xl">
+                  <Button variant="default" onClick={prevStep}>
+                    Back
+                  </Button>
+                  <Button onClick={nextStep}>Next step</Button>
+                </Group>
+              </Modal>
             </PagePane>
           </PageWrapper>
         </AppShell.Main>

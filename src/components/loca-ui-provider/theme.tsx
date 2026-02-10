@@ -128,7 +128,7 @@ export const theme = createTheme({
       styles: () => ({
         header: {
           padding: 0,
-          paddingBottom: rem(24),
+          paddingBottom: rem(32),
         },
         title: {
           fontSize: rem(32),
@@ -137,6 +137,10 @@ export const theme = createTheme({
           paddingLeft: rem(24),
           paddingRight: rem(24),
           paddingBottom: 0,
+        },
+        body: {
+          paddingLeft: rem(24),
+          paddingRight: rem(24),
         },
         close: {
           width: rem(72),

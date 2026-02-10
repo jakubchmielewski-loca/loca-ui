@@ -1,6 +1,7 @@
 import {
   Box,
   Center,
+  Divider,
   Group,
   Stack,
   Text,
@@ -137,7 +138,7 @@ function AltStepperComponent({
 
   return (
     <AltStepperContext.Provider value={contextValue}>
-      <Stack gap={rem(24)}>
+      <Stack gap={0}>
         <Group gap={0}>
           {stepChildren.map((step, index) => {
             const colors = getColors(index);
@@ -149,7 +150,7 @@ function AltStepperComponent({
             return (
               <Box key={index} flex={1}>
                 <Stack gap={8}>
-                  <Group gap={8} align="center">
+                  <Group gap={8} align="center" pt={4}>
                     <Box flex={1} h={1} bg={colors.border} />
                     <Center
                       w={32}
@@ -195,7 +196,7 @@ function AltStepperComponent({
             );
           })}
         </Group>
-
+        <Divider mt={24} mb={40} />
         <Box>{renderContent()}</Box>
       </Stack>
     </AltStepperContext.Provider>
