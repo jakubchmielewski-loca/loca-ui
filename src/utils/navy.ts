@@ -1,7 +1,7 @@
 import type { MantineColorsTuple } from "@mantine/core";
 
 export const navy: MantineColorsTuple = [
-  "#EFF8FD",
+  "#EAF0FB",
   "#D9E1F2",
   "#B3C3E6",
   "#8DA5DA",

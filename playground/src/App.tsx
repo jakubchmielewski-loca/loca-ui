@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
-import { AppShell, Burger, Button, Group, Modal, Table } from "@mantine/core";
+import {
+  AppShell,
+  Burger,
+  Button,
+  Group,
+  Modal,
+  Table,
+  Tabs,
+} from "@mantine/core";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 
@@ -42,6 +50,15 @@ export function App() {
     }
   };
 
+  const rows = elements.map((element) => (
+    <Table.Tr key={element.name}>
+      <Table.Td>{element.position}</Table.Td>
+      <Table.Td>{element.name}</Table.Td>
+      <Table.Td>{element.symbol}</Table.Td>
+      <Table.Td>{element.mass}</Table.Td>
+    </Table.Tr>
+  ));
+
   return (
     <LocaUiProvider>
       <AppShell>
@@ -81,29 +98,30 @@ export function App() {
         <AppShell.Main>
           <PageWrapper>
             <PagePane>
-              <Button onClick={open}>Open</Button>
-              <Modal opened={opened} onClose={close} title="Stepper">
-                <AltStepper active={active} onStepClick={setActive}>
-                  <AltStepper.Step label="First step">
-                    Step 1 content: Create an account
-                  </AltStepper.Step>
-                  <AltStepper.Step label="Second step">
-                    Step 2 content: Verify email
-                  </AltStepper.Step>
-                  <AltStepper.Step label="Final step">
-                    Step 3 content: Get full access
-                  </AltStepper.Step>
-                  <AltStepper.Completed>
-                    Completed, click back button to get to previous step
-                  </AltStepper.Completed>
-                </AltStepper>
-                <Group justify="center" mt="xl">
-                  <Button variant="default" onClick={prevStep}>
-                    Back
-                  </Button>
-                  <Button onClick={nextStep}>Next step</Button>
-                </Group>
-              </Modal>
+              <Tabs defaultValue="gallery">
+                <Tabs.List>
+                  <Tabs.Tab value="gallery">Gallery</Tabs.Tab>
+                  <Tabs.Tab value="messages">Messages</Tabs.Tab>
+                  <Tabs.Tab value="settings">Settings</Tabs.Tab>
+                </Tabs.List>
+
+                <Tabs.Panel value="gallery">Gallery tab content</Tabs.Panel>
+
+                <Tabs.Panel value="messages">Messages tab content</Tabs.Panel>
+
+                <Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
+              </Tabs>
+              <Table>
+                <Table.Thead>
+                  <Table.Tr>
+                    <Table.Th>Element position</Table.Th>
+                    <Table.Th>Element name</Table.Th>
+                    <Table.Th>Symbol</Table.Th>
+                    <Table.Th>Atomic mass</Table.Th>
+                  </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>{rows}</Table.Tbody>
+              </Table>
             </PagePane>
           </PageWrapper>
         </AppShell.Main>
