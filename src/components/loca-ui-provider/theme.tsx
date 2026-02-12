@@ -120,13 +120,45 @@ export const theme = createTheme({
       }),
     },
 
+    Drawer: {
+      vars: () => ({
+        root: {
+          "--overlay-bg": "rgba(0, 0, 0, 0.3)",
+        },
+      }),
+      styles: () => ({
+        header: {
+          height: 0,
+          minHeight: 0,
+          alignItems: "flex-start",
+          padding: 0,
+        },
+        body: {
+          paddingTop: 36,
+          paddingRight: 24,
+          paddingBottom: 36,
+          paddingLeft: 24,
+        },
+        close: {
+          width: rem(72),
+          height: rem(72),
+          padding: rem(16),
+          backgroundColor: primaryColor[0],
+          color: primaryColor[6],
+          "&:hover": {
+            backgroundColor: primaryColor[1],
+          },
+        },
+      }),
+    },
+
     Modal: {
       defaultProps: {
         size: "lg",
       },
       vars: () => ({
         root: {
-          "--overlay-bg": "rgba(0, 0, 0, 0.1)",
+          "--overlay-bg": "rgba(0, 0, 0, 0.3)",
           "--modal-size-lg": rem(744),
         },
         content: {

@@ -4,10 +4,12 @@ import {
   AppShell,
   Burger,
   Button,
+  Drawer,
   Group,
   Modal,
   Table,
   Tabs,
+  Title,
 } from "@mantine/core";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
@@ -32,7 +34,10 @@ const elements = [
 ];
 
 export function App() {
-  const [opened, { toggle, open, close }] = useDisclosure();
+  const [openedModal, { open: openModal, close: closeModal }] =
+    useDisclosure(false);
+  const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
+    useDisclosure(false);
   const [sort, setSort] = useState<"asc" | "desc" | null>(null);
 
   const [active, setActive] = useState(1);
@@ -64,8 +69,6 @@ export function App() {
     <LocaUiProvider>
       <AppShell>
         <AppShell.Header>
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-
           <div>Logo</div>
         </AppShell.Header>
 
@@ -126,12 +129,31 @@ export function App() {
               <Button
                 onClick={() =>
                   notifications.show({
-                    title: "Default notification",
+                    color: "red",
                     message: "Do not forget to star Mantine on GitHub! 🌟",
                   })
                 }
               >
                 Show notification
+              </Button>
+              <Modal
+                opened={openedModal}
+                onClose={closeModal}
+                title="Authentication"
+              >
+                {/* Modal content */}
+              </Modal>
+
+              <Button variant="default" onClick={openModal}>
+                Open modal
+              </Button>
+
+              <Drawer opened={openedDrawer} onClose={closeDrawer}>
+                <Title order={2}>Authentication</Title>
+              </Drawer>
+
+              <Button variant="default" onClick={openDrawer}>
+                Open Drawer
               </Button>
             </PagePane>
           </PageWrapper>
