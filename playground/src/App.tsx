@@ -21,6 +21,7 @@ import { PageWrapper } from "../../src/components/page-wrapper";
 import { AltTableTh } from "../../src/components/alt-table-th";
 import { AltStepper } from "../../src/components/alt-stepper";
 import { TableFooter } from "../../src/components/table-footer";
+import { notifications } from "@mantine/notifications";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -122,6 +123,16 @@ export function App() {
                 </Table.Thead>
                 <Table.Tbody>{rows}</Table.Tbody>
               </Table>
+              <Button
+                onClick={() =>
+                  notifications.show({
+                    title: "Default notification",
+                    message: "Do not forget to star Mantine on GitHub! 🌟",
+                  })
+                }
+              >
+                Show notification
+              </Button>
             </PagePane>
           </PageWrapper>
         </AppShell.Main>
