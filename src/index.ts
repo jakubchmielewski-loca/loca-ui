@@ -13,3 +13,4 @@ export { default as useNavbar } from "./hooks/use-navbar";
 export * from "@mantine/core";
 export * from "@mantine/hooks";
 export * from "@mantine/notifications";
+export * from "@mantine/modals";
