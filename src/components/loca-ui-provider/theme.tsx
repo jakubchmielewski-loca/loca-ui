@@ -1,11 +1,12 @@
 import { createTheme, rem, type MantineTheme } from "@mantine/core";
 import { navy } from "../../utils/navy";
 import { ChevronDown } from "lucide-react";
+import "@fontsource-variable/open-sans";
 
 const primaryColor = navy;
 
 export const theme = createTheme({
-  fontFamily: "Open Sans, system-ui, -apple-system, sans-serif",
+  fontFamily: "'Open Sans Variable', sans-serif",
   primaryColor: "navy",
   colors: {
     navy,

@@ -7,6 +7,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import useNavbar from "../../hooks/use-navbar";
+import { useHover } from "@mantine/hooks";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   return <Stack h="100%">{children}</Stack>;
@@ -59,10 +60,16 @@ const NavbarListItem = ({
   LinkComponent = "a",
 }: NavbarListItemProps) => {
   const theme = useMantineTheme();
+  const { hovered, ref } = useHover();
 
   return (
-    <LinkComponent href={href} onClick={onClick}>
-      <Group pos="relative" px={24} py={12} bg={isActive ? "#EAF0FB" : ""}>
+    <LinkComponent href={href} onClick={onClick} ref={ref}>
+      <Group
+        pos="relative"
+        px={24}
+        py={12}
+        bg={isActive || hovered ? "#EAF0FB" : ""}
+      >
         {isActive && (
           <Box pos="absolute" top={0} left={0} w={5} h="100%" bg="#2C4E97" />
         )}
