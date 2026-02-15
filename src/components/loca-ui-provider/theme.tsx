@@ -225,6 +225,7 @@ export const theme = createTheme({
           paddingBottom: rem(12),
           paddingLeft: rem(24),
           paddingRight: rem(24),
+          color: "#454545",
         },
         tfoot: {
           borderTop: `${rem(2)} solid #DEE8EF`,

@@ -14,7 +14,6 @@ a {
 
 .mantine-Input-wrapper .mantine-Input-input {
     --input-padding-inline-start: 1rem;
-    --input-padding-inline-end: 1rem;
 }
 
 .mantine-Input-wrapper[data-with-left-section] {
