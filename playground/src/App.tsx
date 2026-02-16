@@ -81,7 +81,7 @@ export function App() {
                 <Navbar.ListItem href="/" Icon={HomeIcon} isActive>
                   Main
                 </Navbar.ListItem>
-                <Navbar.ListItem href="/" Icon={HomeIcon}>
+                <Navbar.ListItem href="/" Icon={HomeIcon} disabled>
                   Secondary
                 </Navbar.ListItem>
               </Navbar.List>

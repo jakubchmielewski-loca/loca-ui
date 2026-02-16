@@ -45,6 +45,7 @@ const NavbarList = ({ children }: { children: React.ReactNode }) => {
 type NavbarListItemProps = {
   children: React.ReactNode;
   href?: string;
+  disabled?: boolean;
   isActive?: boolean;
   onClick?: () => void;
   Icon?: React.ComponentType<{ className?: string; width?: string }>;
@@ -54,6 +55,7 @@ type NavbarListItemProps = {
 const NavbarListItem = ({
   children,
   href,
+  disabled,
   isActive,
   onClick,
   Icon,
@@ -63,12 +65,19 @@ const NavbarListItem = ({
   const { hovered, ref } = useHover();
 
   return (
-    <LinkComponent href={href} onClick={onClick} ref={ref}>
+    <LinkComponent
+      href={href}
+      onClick={onClick}
+      ref={ref}
+      disabled={disabled}
+      style={{ pointerEvents: disabled ? "none" : "auto" }}
+    >
       <Group
         pos="relative"
         px={24}
         py={12}
         bg={isActive || hovered ? "#EAF0FB" : ""}
+        opacity={disabled ? 0.5 : 1}
       >
         {isActive && (
           <Box pos="absolute" top={0} left={0} w={5} h="100%" bg="#2C4E97" />
