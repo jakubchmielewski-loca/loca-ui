@@ -253,5 +253,28 @@ export const theme = createTheme({
         },
       }),
     },
+
+    SegmentedControl: {
+      defaultProps: {
+        withItemsBorders: false,
+      },
+      vars: () => ({
+        root: {
+          "--sc-radius": rem(8),
+        },
+        label: {
+          "--sc-padding": `${rem(8)} ${rem(16)}`,
+        },
+        indicator: {
+          "--sc-shadow": "none",
+        },
+      }),
+      styles: () => ({
+        root: {
+          padding: rem(8),
+          backgroundColor: primaryColor[0],
+        },
+      }),
+    },
   },
 });

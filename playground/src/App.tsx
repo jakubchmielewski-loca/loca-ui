@@ -7,7 +7,9 @@ import {
   Drawer,
   Group,
   Modal,
+  SegmentedControl,
   Select,
+  Stack,
   Table,
   Tabs,
   Title,
@@ -103,59 +105,63 @@ export function App() {
         <AppShell.Main>
           <PageWrapper>
             <PagePane>
-              <Tabs defaultValue="gallery">
-                <Tabs.List>
-                  <Tabs.Tab value="gallery">Gallery</Tabs.Tab>
-                  <Tabs.Tab value="messages">Messages</Tabs.Tab>
-                  <Tabs.Tab value="settings">Settings</Tabs.Tab>
-                </Tabs.List>
+              <Stack gap="md" align="center">
+                <Tabs defaultValue="gallery">
+                  <Tabs.List>
+                    <Tabs.Tab value="gallery">Gallery</Tabs.Tab>
+                    <Tabs.Tab value="messages">Messages</Tabs.Tab>
+                    <Tabs.Tab value="settings">Settings</Tabs.Tab>
+                  </Tabs.List>
 
-                <Tabs.Panel value="gallery">Gallery tab content</Tabs.Panel>
+                  <Tabs.Panel value="gallery">Gallery tab content</Tabs.Panel>
 
-                <Tabs.Panel value="messages">Messages tab content</Tabs.Panel>
+                  <Tabs.Panel value="messages">Messages tab content</Tabs.Panel>
 
-                <Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
-              </Tabs>
-              <Table>
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Th>Element position</Table.Th>
-                    <Table.Th>Element name</Table.Th>
-                    <Table.Th>Symbol</Table.Th>
-                    <Table.Th>Atomic mass</Table.Th>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>{rows}</Table.Tbody>
-              </Table>
-              <Button
-                onClick={() =>
-                  notifications.show({
-                    color: "red",
-                    message: "Do not forget to star Mantine on GitHub! 🌟",
-                  })
-                }
-              >
-                Show notification
-              </Button>
-              <Modal
-                opened={openedModal}
-                onClose={closeModal}
-                title="Authentication"
-              >
-                {/* Modal content */}
-              </Modal>
+                  <Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
+                </Tabs>
+                <Table>
+                  <Table.Thead>
+                    <Table.Tr>
+                      <Table.Th>Element position</Table.Th>
+                      <Table.Th>Element name</Table.Th>
+                      <Table.Th>Symbol</Table.Th>
+                      <Table.Th>Atomic mass</Table.Th>
+                    </Table.Tr>
+                  </Table.Thead>
+                  <Table.Tbody>{rows}</Table.Tbody>
+                </Table>
+                <Button
+                  onClick={() =>
+                    notifications.show({
+                      color: "red",
+                      message: "Do not forget to star Mantine on GitHub! 🌟",
+                    })
+                  }
+                >
+                  Show notification
+                </Button>
+                <Modal
+                  opened={openedModal}
+                  onClose={closeModal}
+                  title="Authentication"
+                >
+                  {/* Modal content */}
+                </Modal>
 
-              <Button variant="default" onClick={openModal}>
-                Open modal
-              </Button>
+                <Button variant="default" onClick={openModal}>
+                  Open modal
+                </Button>
 
-              <Drawer opened={openedDrawer} onClose={closeDrawer}>
-                <Title order={2}>Authentication</Title>
-              </Drawer>
+                <Drawer opened={openedDrawer} onClose={closeDrawer}>
+                  <Title order={2}>Authentication</Title>
+                </Drawer>
 
-              <Button variant="default" onClick={openDrawer}>
-                Open Drawer
-              </Button>
+                <Button variant="default" onClick={openDrawer}>
+                  Open Drawer
+                </Button>
+
+                <SegmentedControl data={["Segment1", "Segment2", "Segment3"]} />
+              </Stack>
             </PagePane>
           </PageWrapper>
         </AppShell.Main>
