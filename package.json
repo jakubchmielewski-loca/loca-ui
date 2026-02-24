@@ -40,6 +40,10 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@mantine/core": "^8.3.14",
+    "@mantine/hooks": "^8.3.14",
+    "@mantine/modals": "^8.3.14",
+    "@mantine/notifications": "^8.3.14",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",
@@ -58,10 +62,6 @@
   },
   "dependencies": {
     "@fontsource-variable/open-sans": "^5.1.0",
-    "@mantine/core": "^8.3.14",
-    "@mantine/hooks": "^8.3.14",
-    "@mantine/modals": "^8.3.14",
-    "@mantine/notifications": "^8.3.14",
     "@tailwindcss/vite": "^4.1.18",
     "lucide-react": "^0.563.0",
     "tailwindcss": "^4.1.18",
