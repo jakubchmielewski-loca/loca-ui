@@ -39,6 +39,7 @@ export const theme = createTheme({
     AppShellMain: {
       defaultProps: {
         bg: "#ECECEF",
+        display: "flex",
       },
     },
 

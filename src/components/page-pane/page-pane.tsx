@@ -1,9 +1,6 @@
-import { Paper } from "@mantine/core";
+import { Paper, type PaperProps } from "@mantine/core";
+import type { PropsWithChildren } from "react";
 
-export const PagePane = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Paper p={24} radius={16}>
-      {children}
-    </Paper>
-  );
+export const PagePane = (props: PropsWithChildren<PaperProps>) => {
+  return <Paper p={24} radius={16} {...props} />;
 };
