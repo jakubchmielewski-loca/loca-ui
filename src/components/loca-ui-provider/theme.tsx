@@ -277,5 +277,13 @@ export const theme = createTheme({
         },
       }),
     },
+
+    Paper: {
+      vars: () => ({
+        root: {
+          "--paper-border-color": "#DEE8EF",
+        },
+      }),
+    },
   },
 });

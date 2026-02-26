@@ -27,6 +27,7 @@ import { AltTableTh } from "../../src/components/alt-table-th";
 import { AltStepper } from "../../src/components/alt-stepper";
 import { TableFooter } from "../../src/components/table-footer";
 import { notifications } from "@mantine/notifications";
+import { DateSwitcher } from "../../src/components/date-switcher";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -58,6 +59,8 @@ export function App() {
       setSort("asc");
     }
   };
+
+  const [date, setDate] = useState(new Date());
 
   const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
@@ -161,6 +164,7 @@ export function App() {
                 </Button>
 
                 <SegmentedControl data={["Segment1", "Segment2", "Segment3"]} />
+                <DateSwitcher value={date} onChange={setDate} mode="week" />
               </Stack>
             </PagePane>
           </PageWrapper>
