@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import "@mantine/dates/styles.css";
 import "./main.css";
 import { theme } from "./theme";
 import { Notifications } from "@mantine/notifications";
