@@ -15,3 +15,4 @@ export * from "@mantine/core";
 export * from "@mantine/hooks";
 export * from "@mantine/notifications";
 export * from "@mantine/modals";
+export * from "@mantine/dates";
