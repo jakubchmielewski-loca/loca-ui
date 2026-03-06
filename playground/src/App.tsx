@@ -5,6 +5,7 @@ import {
   Burger,
   Button,
   Drawer,
+  FileInput,
   Group,
   Modal,
   SegmentedControl,
@@ -12,6 +13,7 @@ import {
   Stack,
   Table,
   Tabs,
+  TextInput,
   Title,
 } from "@mantine/core";
 
@@ -132,6 +134,16 @@ export function App() {
                     </Table.Tr>
                   </Table.Thead>
                   <Table.Tbody>{rows}</Table.Tbody>
+                  <Table.Tfoot>
+                    <TableFooter
+                      total={100}
+                      totalPages={10}
+                      page={1}
+                      setPage={() => {}}
+                      itemsPerPage={10}
+                      setItemsPerPage={() => {}}
+                    />
+                  </Table.Tfoot>
                 </Table>
                 <Button
                   onClick={() =>
@@ -165,6 +177,8 @@ export function App() {
 
                 <SegmentedControl data={["Segment1", "Segment2", "Segment3"]} />
                 <DateSwitcher value={date} onChange={setDate} mode="week" />
+                <TextInput label="Text input" placeholder="Enter text" />
+                <FileInput label="File input" />
               </Stack>
             </PagePane>
           </PageWrapper>

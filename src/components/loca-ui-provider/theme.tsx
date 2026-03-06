@@ -1,6 +1,6 @@
 import { createTheme, rem, type MantineTheme } from "@mantine/core";
 import { navy } from "../../utils/navy";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, FileUp } from "lucide-react";
 import "@fontsource-variable/open-sans";
 
 const primaryColor = navy;
@@ -73,9 +73,6 @@ export const theme = createTheme({
       styles: () => ({
         tab: {
           padding: rem(16),
-          "&[data-active]": {
-            backgroundColor: "#ff00ff",
-          },
         },
         list: {
           paddingLeft: rem(24),
@@ -284,6 +281,13 @@ export const theme = createTheme({
           "--paper-border-color": "#DEE8EF",
         },
       }),
+    },
+
+    FileInput: {
+      defaultProps: {
+        leftSection: <FileUp size={16} />,
+        placeholder: "Wybierz plik",
+      },
     },
   },
 });
