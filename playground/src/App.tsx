@@ -124,6 +124,27 @@ export function App() {
 
                   <Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
                 </Tabs>
+                <Table stickyHeader>
+                  <Table.Thead>
+                    <Table.Tr>
+                      <Table.Th>Element position</Table.Th>
+                      <Table.Th>Element name</Table.Th>
+                      <Table.Th>Symbol</Table.Th>
+                      <Table.Th>Atomic mass</Table.Th>
+                    </Table.Tr>
+                  </Table.Thead>
+                  <Table.Tbody>{rows}</Table.Tbody>
+                  <Table.Tfoot>
+                    <TableFooter
+                      total={100}
+                      totalPages={10}
+                      page={1}
+                      setPage={() => {}}
+                      itemsPerPage={10}
+                      setItemsPerPage={() => {}}
+                    />
+                  </Table.Tfoot>
+                </Table>
                 <Table>
                   <Table.Thead>
                     <Table.Tr>

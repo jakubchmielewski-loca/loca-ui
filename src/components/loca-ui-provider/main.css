@@ -48,6 +48,10 @@ a {
     z-index: 0;
 }
 
+.mantine-Table-thead:where([data-sticky]) .mantine-Table-th {
+    background-color: #EFF8FD;
+}
+
 .mantine-Table-thead::before {
     content: "";
     position: absolute;
@@ -57,4 +61,8 @@ a {
     height: 100%;
     background-color: #EFF8FD;
     z-index: -1;
+}
+
+.mantine-Table-thead:where([data-sticky])::before {
+    content: none;
 }
