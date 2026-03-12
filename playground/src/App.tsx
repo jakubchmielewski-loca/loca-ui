@@ -140,8 +140,10 @@ export function App() {
                       totalPages={10}
                       page={1}
                       setPage={() => {}}
-                      itemsPerPage={10}
-                      setItemsPerPage={() => {}}
+                      paginationProps={{
+                        siblings: 0,
+                        hideWithOnePage: true,
+                      }}
                     />
                   </Table.Tfoot>
                 </Table>
