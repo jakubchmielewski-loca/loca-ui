@@ -17,11 +17,17 @@ const NavbarHeader = ({ systemName }: { systemName: string }) => {
   const { opened, toggle } = useNavbar();
 
   return (
-    <Group px={{ base: 16, lg: 0 }} pb={{ lg: 24 }} justify="space-between">
+    <Group px={{ base: 16, lg: 0 }} pb={{ lg: 24 }}>
       <Text fw={600} fz={24} ps={{ lg: 24 }} lh="16px">
         {systemName}
       </Text>
-      <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+      <Burger
+        opened={opened}
+        onClick={toggle}
+        hiddenFrom="sm"
+        size="sm"
+        ms="auto"
+      />
     </Group>
   );
 };

@@ -30,6 +30,8 @@ import { AltStepper } from "../../src/components/alt-stepper";
 import { TableFooter } from "../../src/components/table-footer";
 import { notifications } from "@mantine/notifications";
 import { DateSwitcher } from "../../src/components/date-switcher";
+import useNavbar from "../../src/hooks/use-navbar";
+import { Header } from "../../src/components/header";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -40,6 +42,7 @@ const elements = [
 ];
 
 export function App() {
+  const { opened, toggle } = useNavbar();
   const [openedModal, { open: openModal, close: closeModal }] =
     useDisclosure(false);
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
@@ -75,11 +78,16 @@ export function App() {
 
   return (
     <LocaUiProvider>
-      <AppShell>
+      <AppShell
+        navbar={{
+          width: 300,
+          breakpoint: "sm",
+          collapsed: { mobile: !opened },
+        }}
+      >
         <AppShell.Header>
-          <div>Logo</div>
+          <Header systemName="e-Kartoteka" opened={opened} toggle={toggle} />
         </AppShell.Header>
-
         <AppShell.Navbar>
           <Navbar>
             <Navbar.Header systemName="e-Kartoteka" />
@@ -111,81 +119,6 @@ export function App() {
           <PageWrapper>
             <PagePane>
               <Stack gap="md" align="center">
-                <Tabs defaultValue="gallery">
-                  <Tabs.List>
-                    <Tabs.Tab value="gallery">Gallery</Tabs.Tab>
-                    <Tabs.Tab value="messages">Messages</Tabs.Tab>
-                    <Tabs.Tab value="settings">Settings</Tabs.Tab>
-                  </Tabs.List>
-
-                  <Tabs.Panel value="gallery">Gallery tab content</Tabs.Panel>
-
-                  <Tabs.Panel value="messages">Messages tab content</Tabs.Panel>
-
-                  <Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
-                </Tabs>
-                <Table stickyHeader>
-                  <Table.Thead>
-                    <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Th>Element name</Table.Th>
-                      <Table.Th>Symbol</Table.Th>
-                      <Table.Th>Atomic mass</Table.Th>
-                    </Table.Tr>
-                  </Table.Thead>
-                  <Table.Tbody>{rows}</Table.Tbody>
-                  <Table.Tfoot>
-                    <TableFooter
-                      total={100}
-                      totalPages={10}
-                      page={1}
-                      setPage={() => {}}
-                      paginationProps={{
-                        siblings: 0,
-                        hideWithOnePage: true,
-                      }}
-                    />
-                  </Table.Tfoot>
-                </Table>
-                <Table>
-                  <Table.Thead>
-                    <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Th>Element name</Table.Th>
-                      <Table.Th>Symbol</Table.Th>
-                      <Table.Th>Atomic mass</Table.Th>
-                    </Table.Tr>
-                  </Table.Thead>
-                  <Table.Tbody>{rows}</Table.Tbody>
-                  <Table.Tfoot>
-                    <TableFooter
-                      total={100}
-                      totalPages={10}
-                      page={1}
-                      setPage={() => {}}
-                      itemsPerPage={10}
-                      setItemsPerPage={() => {}}
-                    />
-                  </Table.Tfoot>
-                </Table>
-                <Button
-                  onClick={() =>
-                    notifications.show({
-                      color: "red",
-                      message: "Do not forget to star Mantine on GitHub! 🌟",
-                    })
-                  }
-                >
-                  Show notification
-                </Button>
-                <Modal
-                  opened={openedModal}
-                  onClose={closeModal}
-                  title="Authentication"
-                >
-                  {/* Modal content */}
-                </Modal>
-
                 <Button variant="default" onClick={openModal}>
                   Open modal
                 </Button>
@@ -201,6 +134,27 @@ export function App() {
                 <SegmentedControl data={["Segment1", "Segment2", "Segment3"]} />
                 <DateSwitcher value={date} onChange={setDate} mode="week" />
                 <TextInput label="Text input" placeholder="Enter text" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
+                <FileInput label="File input" />
                 <FileInput label="File input" />
               </Stack>
             </PagePane>

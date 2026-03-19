@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   Group,
   Stack,
   Text,
@@ -28,9 +29,9 @@ const BackToOtherSerivcesButton = ({ url }: { url: string }) => {
       bdrs={8}
       onClick={() => (window.location.href = url)}
     >
-      <Box c={theme.primaryColor}>
+      <Center c={theme.primaryColor}>
         <Grid2x2 />
-      </Box>
+      </Center>
       <Text fz={14} fw={600}>
         Przejdź do innej usługi
       </Text>

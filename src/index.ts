@@ -2,6 +2,7 @@ export * from "./components/alt-stepper";
 export * from "./components/alt-table-th";
 export * from "./components/app-footer";
 export * from "./components/date-switcher";
+export * from "./components/header";
 export * from "./components/loca-ui-provider";
 export * from "./components/navbar";
 export * from "./components/page-pane";
