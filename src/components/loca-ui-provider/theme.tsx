@@ -71,17 +71,6 @@ export const theme = createTheme({
 
     Tabs: {
       styles: () => ({
-        tab: {
-          padding: rem(16),
-        },
-        list: {
-          paddingLeft: rem(24),
-          paddingRight: rem(24),
-        },
-        panel: {
-          paddingX: rem(24),
-          paddingY: rem(40),
-        },
         tabLabel: {
           fontWeight: 500,
         },
@@ -91,6 +80,24 @@ export const theme = createTheme({
           "--tabs-color": "transparent",
         },
       }),
+    },
+
+    TabsTab: {
+      defaultProps: {
+        p: 16,
+      },
+    },
+
+    TabsList: {
+      defaultProps: {
+        px: { base: 0, md: 24 },
+      },
+    },
+
+    TabsPanel: {
+      defaultProps: {
+        p: { base: `${rem(16)} 0 0`, md: `${rem(40)} ${rem(24)}` },
+      },
     },
 
     Input: {
