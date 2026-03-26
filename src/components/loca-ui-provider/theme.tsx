@@ -79,10 +79,8 @@ export const theme = createTheme({
           paddingRight: rem(24),
         },
         panel: {
-          paddingLeft: rem(24),
-          paddingRight: rem(24),
-          paddingTop: rem(40),
-          paddingBottom: rem(40),
+          paddingX: rem(24),
+          paddingY: rem(40),
         },
         tabLabel: {
           fontWeight: 500,
