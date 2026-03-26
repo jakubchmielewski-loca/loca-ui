@@ -1,6 +1,6 @@
 import { ActionIcon, Group, Paper, Text } from "@mantine/core";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 
 dayjs.extend(weekOfYear);
@@ -24,9 +24,16 @@ export const DateSwitcher = ({ value, onChange, mode }: DateNavigatorProps) => {
     onChange(date.add(1, mode).toDate());
   };
 
+  const isCurrentWeek = (date: Dayjs) => {
+    return date.week() === dayjs().week();
+  };
+
   const label = (() => {
     switch (mode) {
       case "week":
+        if (isCurrentWeek(date)) {
+          return "Obecny tydzień";
+        }
         return `Tydzień ${date.week()} • ${date.year()}`;
       case "month":
         return date.format("MMMM YYYY");
