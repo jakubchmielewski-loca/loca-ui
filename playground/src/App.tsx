@@ -2,17 +2,20 @@ import React, { useState } from "react";
 
 import {
   AppShell,
+  Badge,
   Burger,
   Button,
   Drawer,
   FileInput,
   Group,
   Modal,
+  Scroller,
   SegmentedControl,
   Select,
   Stack,
   Table,
   Tabs,
+  Text,
   TextInput,
   Title,
 } from "@mantine/core";
@@ -119,6 +122,14 @@ export function App() {
           <PageWrapper>
             <PagePane>
               <Stack gap="md" align="center">
+                <Scroller maw={400}>
+                  <Group gap="xs" wrap="nowrap">
+                    {Array.from({ length: 25 }).map((_, index) => (
+                      <Text key={index}>Badge {index + 1}</Text>
+                    ))}
+                  </Group>
+                </Scroller>
+
                 <Button variant="default" onClick={openModal}>
                   Open modal
                 </Button>
