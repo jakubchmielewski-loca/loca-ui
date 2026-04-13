@@ -132,7 +132,7 @@ export function App() {
           <PageWrapper>
             <PagePane>
               <Stack gap="md" align="center">
-                <Scroller maw={400}>
+                <Scroller>
                   <Group gap="xs" wrap="nowrap">
                     {Array.from({ length: 25 }).map((_, index) => (
                       <Text key={index}>Badge {index + 1}</Text>

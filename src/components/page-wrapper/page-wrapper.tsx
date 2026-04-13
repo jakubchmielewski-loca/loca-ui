@@ -7,6 +7,7 @@ export const PageWrapper = (props: PropsWithChildren<BoxProps>) => {
       px={{ base: 16, md: 54 }}
       py={{ base: 16, md: 40 }}
       flex={1}
+      maw="100%"
       {...props}
     />
   );
