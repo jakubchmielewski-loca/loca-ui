@@ -80,6 +80,7 @@ export function App() {
   };
 
   const [date, setDate] = useState(new Date());
+  const [search, setSearch] = useState("");
 
   const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
@@ -133,7 +134,11 @@ export function App() {
           <PageWrapper>
             <PagePane>
               <Stack gap="md" align="center">
-                <SearchInput placeholder="Search" />
+                <SearchInput
+                  placeholder="Search"
+                  value={search}
+                  onChange={(event) => setSearch(event.currentTarget.value)}
+                />
                 <Table highlightOnHover>
                   <Table.Thead>
                     <Table.Tr>
