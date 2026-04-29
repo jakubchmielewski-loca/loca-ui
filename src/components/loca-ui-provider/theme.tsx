@@ -202,6 +202,9 @@ export const theme = createTheme({
     },
 
     Table: {
+      defaultProps: {
+        highlightOnHoverColor: "#EFF8FD",
+      },
       vars: () => ({
         thead: {
           "--table-border-color": "transparent",

@@ -36,6 +36,7 @@ import { notifications } from "@mantine/notifications";
 import { DateSwitcher } from "../../src/components/date-switcher";
 import useNavbar from "../../src/hooks/use-navbar";
 import { Header } from "../../src/components/header";
+import { SearchInput } from "../../src/components/search-input";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -132,63 +133,30 @@ export function App() {
           <PageWrapper>
             <PagePane>
               <Stack gap="md" align="center">
-                <Scroller>
-                  <Group gap="xs" wrap="nowrap">
-                    {Array.from({ length: 25 }).map((_, index) => (
-                      <Text key={index}>Badge {index + 1}</Text>
-                    ))}
-                  </Group>
-                </Scroller>
-
-                <BarChart
-                  h={300}
-                  data={data}
-                  dataKey="month"
-                  series={[
-                    { name: "Smartphones", color: "violet.6" },
-                    { name: "Laptops", color: "blue.6" },
-                    { name: "Tablets", color: "teal.6" },
-                  ]}
-                  tickLine="y"
-                />
-
-                <Button variant="default" onClick={openModal}>
-                  Open modal
-                </Button>
-
-                <Drawer opened={openedDrawer} onClose={closeDrawer}>
-                  <Title order={2}>Authentication</Title>
-                </Drawer>
-
-                <Button variant="default" onClick={openDrawer}>
-                  Open Drawer
-                </Button>
-
-                <SegmentedControl data={["Segment1", "Segment2", "Segment3"]} />
-                <DateSwitcher value={date} onChange={setDate} mode="week" />
-                <TextInput label="Text input" placeholder="Enter text" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
-                <FileInput label="File input" />
+                <SearchInput placeholder="Search" />
+                <Table highlightOnHover>
+                  <Table.Thead>
+                    <Table.Tr>
+                      <Table.Th>Name</Table.Th>
+                      <Table.Th>Email</Table.Th>
+                      <Table.Th>Role</Table.Th>
+                    </Table.Tr>
+                  </Table.Thead>
+                  <Table.Tbody>
+                    <Table.Tr>
+                      <Table.Td>John Doe</Table.Td>
+                      <Table.Td>john.doe@example.com</Table.Td>
+                      <Table.Td>Admin</Table.Td>
+                    </Table.Tr>
+                  </Table.Tbody>
+                  <Table.Tfoot>
+                    <Table.Tr>
+                      <Table.Td colSpan={3}>
+                        <Button>Add User</Button>
+                      </Table.Td>
+                    </Table.Tr>
+                  </Table.Tfoot>
+                </Table>
               </Stack>
             </PagePane>
           </PageWrapper>

@@ -70,3 +70,24 @@ a {
 .mantine-Table-thead:where([data-sticky])::before {
     content: none;
 }
+
+.mantine-Table-tbody .mantine-Table-tr {
+    position: relative;
+    z-index: 0;
+}
+
+.mantine-Table-tbody .mantine-Table-tr[data-hover]:hover {
+    background-color: transparent;
+}
+
+.mantine-Table-tbody .mantine-Table-tr[data-hover]:hover .mantine-Table-td:first-child:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -24px;
+    width: calc(100% + 48px);
+    height: 100%;
+    background-color: #EFF8FD;
+    z-index: -1;
+    pointer-events: none;
+}
