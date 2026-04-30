@@ -2,6 +2,7 @@ import { ActionIcon, Group, Paper, Text } from "@mantine/core";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import dayjs, { Dayjs } from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 dayjs.extend(weekOfYear);
 
@@ -49,7 +50,7 @@ export const DateSwitcher = ({ value, onChange, mode }: DateNavigatorProps) => {
       py={16}
       withBorder
       style={{
-        backgroundColor: "#F4F6FA",
+        backgroundColor: uiColors.dateSwitcherBg,
       }}
     >
       <Group justify="space-between" gap={9}>

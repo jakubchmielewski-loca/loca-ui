@@ -12,6 +12,7 @@ import type { FC, ReactElement, ReactNode } from "react";
 import { Children, createContext, isValidElement, useContext } from "react";
 
 import { Check } from "lucide-react";
+import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 type AltStepperContextValue = {
   active: number;
@@ -92,14 +93,14 @@ function AltStepperComponent({
         check: theme.primaryColor,
         border: theme.primaryColor,
         bg: "transparent",
-        boxShadow: `0 0 0 4px #EAF0FB`,
+        boxShadow: `0 0 0 4px ${uiColors.primaryAccentSoftBg}`,
       };
     }
 
     if (index > active) {
       return {
-        text: "#7A7C7D",
-        check: "#7A7C7D",
+        text: uiColors.textMuted,
+        check: uiColors.textMuted,
         border: theme.colors.gray[4],
         bg: "transparent",
         boxShadow: "none",
@@ -107,7 +108,7 @@ function AltStepperComponent({
     }
 
     return {
-      text: "#1C1C1C",
+      text: uiColors.textStrong,
       check: theme.white,
       border: theme.primaryColor,
       bg: theme.primaryColor,
@@ -185,7 +186,7 @@ function AltStepperComponent({
                         </Text>
                       )}
                       {step.props.description && (
-                        <Text c="#7A7C7D" fz={rem(12)}>
+                        <Text c={uiColors.textMuted} fz={rem(12)}>
                           {step.props.description}
                         </Text>
                       )}

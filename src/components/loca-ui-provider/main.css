@@ -8,8 +8,8 @@ a {
 }
 
 .mantine-Tabs-tab[data-active="true"] {
-    color: var(--mantine-primary-color-6);
-    background-color: var(--mantine-primary-color-0); 
+    color: var(--ui-primary-accent);
+    background-color: var(--ui-tabs-active-bg);
 }
 
 .mantine-Tabs-tab[data-active="true"] .mantine-Tabs-tabLabel {
@@ -34,17 +34,17 @@ a {
 }
 
 .mantine-Input-input[data-variant="filled"] {
-    --input-bg: #F4F6FA;
+    --input-bg: var(--ui-surface-elevated);
     --input-height: 48px !important;   
 }
 
 [data-navbar-item]:hover {
-    background-color: #EAF0FB;
+    background-color: var(--ui-primary-accent-soft-bg);
 }
 
 [data-footer-back-button]:hover,
 [data-footer-logout]:hover {
-    background-color: #EAF0FB;
+    background-color: var(--ui-primary-accent-soft-bg);
 }
 
 .mantine-Table-thead {
@@ -53,7 +53,7 @@ a {
 }
 
 .mantine-Table-thead:where([data-sticky]) .mantine-Table-th {
-    background-color: #EFF8FD;
+    background-color: var(--ui-table-header-bg);
 }
 
 .mantine-Table-thead::before {
@@ -63,7 +63,7 @@ a {
     left: -24px;
     width: calc(100% + 48px);
     height: 100%;
-    background-color: #EFF8FD;
+    background-color: var(--ui-table-header-bg);
     z-index: -1;
 }
 
@@ -87,7 +87,7 @@ a {
     left: -24px;
     width: calc(100% + 48px);
     height: 100%;
-    background-color: #EFF8FD;
+    background-color: var(--ui-table-hover-bg);
     z-index: -1;
     pointer-events: none;
 }

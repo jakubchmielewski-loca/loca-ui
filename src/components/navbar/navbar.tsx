@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 import useNavbar from "../../hooks/use-navbar";
 import { useHover } from "@mantine/hooks";
+import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   return <Stack h="100%">{children}</Stack>;
@@ -82,11 +83,18 @@ const NavbarListItem = ({
         pos="relative"
         px={24}
         py={12}
-        bg={isActive || hovered ? "#EAF0FB" : ""}
+        bg={isActive || hovered ? uiColors.primaryAccentSoftBg : ""}
         opacity={disabled ? 0.5 : 1}
       >
         {isActive && (
-          <Box pos="absolute" top={0} left={0} w={5} h="100%" bg="#2C4E97" />
+          <Box
+            pos="absolute"
+            top={0}
+            left={0}
+            w={5}
+            h="100%"
+            bg={uiColors.primaryAccent}
+          />
         )}
 
         {Icon && (
@@ -101,7 +109,7 @@ const NavbarListItem = ({
           </Box>
         )}
 
-        <Box c={isActive ? "#2C4E97" : ""} fw={isActive ? 600 : 400}>
+        <Box c={isActive ? uiColors.primaryAccent : ""} fw={isActive ? 600 : 400}>
           {children}
         </Box>
       </Group>

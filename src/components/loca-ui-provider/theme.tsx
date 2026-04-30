@@ -1,15 +1,38 @@
-import { createTheme, rem, type MantineTheme } from "@mantine/core";
+import {
+  createTheme,
+  rem,
+  type CSSVariablesResolver,
+  type MantineTheme,
+} from "@mantine/core";
 import { navy } from "../../utils/navy";
 import { ChevronDown, FileUp } from "lucide-react";
 import "@fontsource-variable/open-sans";
+import { uiColors } from "./theme-tokens";
 
 const primaryColor = navy;
+
+export const cssVariablesResolver: CSSVariablesResolver = (theme) => ({
+  variables: {
+    "--ui-primary-accent": theme.other["uiColors"].primaryAccent,
+    "--ui-primary-accent-soft-bg": theme.other["uiColors"].primaryAccentSoftBg,
+    "--ui-surface-elevated": theme.other["uiColors"].surfaceElevated,
+    "--ui-tabs-active-bg": theme.other["uiColors"].tabsActiveBg,
+    "--ui-table-header-bg": theme.other["uiColors"].tableHeaderBg,
+    "--ui-table-hover-bg": theme.other["uiColors"].tableHover,
+  },
+  light: {},
+  dark: {},
+});
 
 export const theme = createTheme({
   fontFamily: "'Open Sans Variable', sans-serif",
   primaryColor: "navy",
+  primaryShade: { light: 6, dark: 6 },
   colors: {
     navy,
+  },
+  other: {
+    uiColors,
   },
   components: {
     AppShell: {
@@ -23,9 +46,9 @@ export const theme = createTheme({
         },
         padding: 0,
       },
-      vars: () => ({
+      vars: (theme: MantineTheme) => ({
         root: {
-          "--app-shell-border-color": "#DEE8EF",
+          "--app-shell-border-color": theme.other["uiColors"].appShellBorder,
         },
       }),
     },
@@ -38,9 +61,14 @@ export const theme = createTheme({
 
     AppShellMain: {
       defaultProps: {
-        bg: "#ECECEF",
+        bg: uiColors.appMainBg,
         display: "flex",
       },
+      styles: (theme: MantineTheme) => ({
+        root: {
+          backgroundColor: theme.other["uiColors"].appMainBg,
+        },
+      }),
     },
 
     AppShellNavbar: {
@@ -75,9 +103,10 @@ export const theme = createTheme({
           fontWeight: 500,
         },
       }),
-      vars: () => ({
+      vars: (theme: MantineTheme) => ({
         tab: {
           "--tabs-color": "transparent",
+          "--tab-bg": theme.other["uiColors"].tabsActiveBg,
         },
       }),
     },
@@ -101,11 +130,11 @@ export const theme = createTheme({
     },
 
     Input: {
-      vars: () => ({
+      vars: (theme: MantineTheme) => ({
         input: {
           "--input-height": rem(40),
-          "--input-bd": "#DEE8EF",
-          "--input-placeholder-color": "#7A7C7D",
+          "--input-bd": theme.other["uiColors"].inputBorder,
+          "--input-placeholder-color": theme.other["uiColors"].inputPlaceholder,
         },
         section: {
           "--input-section-color": primaryColor[6],
@@ -125,9 +154,9 @@ export const theme = createTheme({
     },
 
     Drawer: {
-      vars: () => ({
+      vars: (theme: MantineTheme) => ({
         root: {
-          "--overlay-bg": "rgba(0, 0, 0, 0.3)",
+          "--overlay-bg": theme.other["uiColors"].overlayBg,
         },
       }),
       styles: () => ({
@@ -160,9 +189,9 @@ export const theme = createTheme({
       defaultProps: {
         size: "lg",
       },
-      vars: () => ({
+      vars: (theme: MantineTheme) => ({
         root: {
-          "--overlay-bg": "rgba(0, 0, 0, 0.3)",
+          "--overlay-bg": theme.other["uiColors"].overlayBg,
           "--modal-size-lg": rem(744),
         },
         content: {
@@ -203,22 +232,23 @@ export const theme = createTheme({
 
     Table: {
       defaultProps: {
-        highlightOnHoverColor: "#EFF8FD",
+        highlightOnHoverColor: uiColors.tableHover,
       },
-      vars: () => ({
+      vars: (theme: MantineTheme) => ({
         thead: {
           "--table-border-color": "transparent",
         },
         tbody: {
-          "--table-border-color": "#DEE8EF",
+          "--table-border-color": theme.other["uiColors"].tableBodyBorder,
         },
       }),
       styles: (theme: MantineTheme) => ({
         thead: {
           borderBottom: "none",
+          backgroundColor: theme.other["uiColors"].tableHeaderBg,
         },
         th: {
-          color: theme.colors.dark[2],
+          color: theme.other["uiColors"].tableCellText,
           fontWeight: 500,
           paddingLeft: rem(24),
           paddingRight: rem(24),
@@ -231,10 +261,12 @@ export const theme = createTheme({
           paddingBottom: rem(12),
           paddingLeft: rem(24),
           paddingRight: rem(24),
-          color: "#454545",
+          color: theme.other["uiColors"].tableCellText,
         },
         tfoot: {
-          borderTop: `${rem(2)} solid #DEE8EF`,
+          borderTop: `${rem(2)} solid ${
+            theme.other["uiColors"].tableBodyBorder
+          }`,
         },
       }),
     },
@@ -251,9 +283,9 @@ export const theme = createTheme({
         radius: "xl",
         gap: rem(4),
       },
-      styles: () => ({
+      styles: (theme: MantineTheme) => ({
         control: {
-          borderColor: "#DEE8EF",
+          borderColor: theme.other["uiColors"].paginationBorder,
           fontSize: rem(14),
           fontWeight: 500,
         },
@@ -275,18 +307,18 @@ export const theme = createTheme({
           "--sc-shadow": "none",
         },
       }),
-      styles: () => ({
+      styles: (theme: MantineTheme) => ({
         root: {
           padding: rem(8),
-          backgroundColor: primaryColor[0],
+          backgroundColor: theme.other["uiColors"].segmentedBg,
         },
       }),
     },
 
     Paper: {
-      vars: () => ({
+      vars: (theme: MantineTheme) => ({
         root: {
-          "--paper-border-color": "#DEE8EF",
+          "--paper-border-color": theme.other["uiColors"].paperBorder,
         },
       }),
     },

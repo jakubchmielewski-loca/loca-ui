@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
 import {
+  ActionIcon,
   AppShell,
   Badge,
-  Burger,
   Button,
   Drawer,
   FileInput,
   Group,
+  Divider,
   Modal,
-  Scroller,
+  Paper,
   SegmentedControl,
   Select,
   Stack,
@@ -18,6 +19,7 @@ import {
   Text,
   TextInput,
   Title,
+  useMantineColorScheme,
 } from "@mantine/core";
 import { BarChart } from "@mantine/charts";
 
@@ -37,6 +39,7 @@ import { DateSwitcher } from "../../src/components/date-switcher";
 import useNavbar from "../../src/hooks/use-navbar";
 import { Header } from "../../src/components/header";
 import { SearchInput } from "../../src/components/search-input";
+import { Moon, Sun } from "lucide-react";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -55,7 +58,7 @@ const data = [
   { month: "June", Smartphones: 750, Laptops: 600, Tablets: 1000 },
 ];
 
-export function App() {
+function PlaygroundContent() {
   const { opened, toggle } = useNavbar();
   const [openedModal, { open: openModal, close: closeModal }] =
     useDisclosure(false);
@@ -81,6 +84,7 @@ export function App() {
 
   const [date, setDate] = useState(new Date());
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
 
   const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
@@ -92,81 +96,215 @@ export function App() {
   ));
 
   return (
-    <LocaUiProvider>
-      <AppShell
-        navbar={{
-          width: 300,
-          breakpoint: "sm",
-          collapsed: { mobile: !opened },
-        }}
-      >
-        <AppShell.Header>
-          <Header systemName="e-Kartoteka" opened={opened} toggle={toggle} />
-        </AppShell.Header>
-        <AppShell.Navbar>
-          <Navbar>
-            <Navbar.Header systemName="e-Kartoteka" />
-            <Navbar.Main>
-              <Navbar.List>
-                <Navbar.ListItem href="/" Icon={HomeIcon} isActive>
-                  Main
-                </Navbar.ListItem>
-                <Navbar.ListItem href="/" Icon={HomeIcon} disabled>
-                  Secondary
-                </Navbar.ListItem>
-              </Navbar.List>
-            </Navbar.Main>
-            <Navbar.Footer>
-              <AppFooter
-                userInfo={{
-                  username: "John Doe",
-                  email: "john.doe@example.com",
-                  isAdmin: false,
-                }}
-                otherServicesUrl="https://logowanie.loca.pl"
-                logoutFn={() => {}}
-              />
-            </Navbar.Footer>
-          </Navbar>
-        </AppShell.Navbar>
+    <AppShell
+      navbar={{
+        width: 300,
+        breakpoint: "sm",
+        collapsed: { mobile: !opened },
+      }}
+    >
+      <AppShell.Header>
+        <Header systemName="e-Kartoteka" opened={opened} toggle={toggle} />
+      </AppShell.Header>
+      <AppShell.Navbar>
+        <Navbar>
+          <Navbar.Header systemName="e-Kartoteka" />
+          <Navbar.Main>
+            <Navbar.List>
+              <Navbar.ListItem href="/" Icon={HomeIcon} isActive>
+                Main
+              </Navbar.ListItem>
+              <Navbar.ListItem href="/" Icon={HomeIcon}>
+                Secondary
+              </Navbar.ListItem>
+              <Navbar.ListItem href="/" Icon={HomeIcon} disabled>
+                Tertiary
+              </Navbar.ListItem>
+            </Navbar.List>
+          </Navbar.Main>
+          <Navbar.Footer>
+            <AppFooter
+              userInfo={{
+                username: "John Doe",
+                email: "john.doe@example.com",
+                isAdmin: false,
+              }}
+              otherServicesUrl="https://logowanie.loca.pl"
+              logoutFn={() => {}}
+              includeThemeSwitcher={true}
+            />
+          </Navbar.Footer>
+        </Navbar>
+      </AppShell.Navbar>
 
-        <AppShell.Main>
-          <PageWrapper>
-            <PagePane>
-              <Stack gap="md" align="center">
-                <SearchInput
-                  placeholder="Search"
-                  value={search}
-                  onChange={(event) => setSearch(event.currentTarget.value)}
-                />
-                <Table highlightOnHover>
-                  <Table.Thead>
-                    <Table.Tr>
-                      <Table.Th>Name</Table.Th>
-                      <Table.Th>Email</Table.Th>
-                      <Table.Th>Role</Table.Th>
-                    </Table.Tr>
-                  </Table.Thead>
-                  <Table.Tbody>
-                    <Table.Tr>
-                      <Table.Td>John Doe</Table.Td>
-                      <Table.Td>john.doe@example.com</Table.Td>
-                      <Table.Td>Admin</Table.Td>
-                    </Table.Tr>
-                  </Table.Tbody>
-                  <Table.Tfoot>
-                    <Table.Tr>
-                      <Table.Td colSpan={3}>
-                        <Button>Add User</Button>
-                      </Table.Td>
-                    </Table.Tr>
-                  </Table.Tfoot>
-                </Table>
-              </Stack>
-            </PagePane>
-          </PageWrapper>
-        </AppShell.Main>
-      </AppShell>
+      <AppShell.Main>
+        <PageWrapper>
+          <PagePane>
+            <Stack gap="lg">
+              <Group justify="space-between">
+                <Title order={2}>Playground custom components</Title>
+              </Group>
+
+              <Group>
+                <Button onClick={openModal}>Open modal</Button>
+                <Button variant="outline" onClick={openDrawer}>
+                  Open drawer
+                </Button>
+                <Button
+                  variant="light"
+                  onClick={() =>
+                    notifications.show({
+                      title: "Test notification",
+                      message: "Komponenty wygladaja poprawnie",
+                    })
+                  }
+                >
+                  Show notification
+                </Button>
+              </Group>
+
+              <Paper withBorder p="md">
+                <Stack gap="sm">
+                  <Title order={4}>Forms & filters</Title>
+                  <SearchInput
+                    placeholder="Search"
+                    value={search}
+                    onChange={(event) => setSearch(event.currentTarget.value)}
+                  />
+                  <Group grow>
+                    <TextInput label="TextInput" placeholder="Wpisz wartosc" />
+                    <Select
+                      label="Select"
+                      placeholder="Wybierz opcje"
+                      data={["Option 1", "Option 2", "Option 3"]}
+                    />
+                    <FileInput label="FileInput" />
+                  </Group>
+                  <Group>
+                    <SegmentedControl
+                      data={["Dzisiaj", "Tydzien", "Miesiac"]}
+                      defaultValue="Dzisiaj"
+                    />
+                    <DateSwitcher value={date} onChange={setDate} mode="week" />
+                  </Group>
+                </Stack>
+              </Paper>
+
+              <Paper withBorder p="md">
+                <Stack gap="sm">
+                  <Title order={4}>Tabs & badges</Title>
+                  <Group>
+                    <Badge color="green">Active</Badge>
+                    <Badge color="orange">Pending</Badge>
+                    <Badge color="red">Error</Badge>
+                  </Group>
+                  <Tabs defaultValue="users">
+                    <Tabs.List>
+                      <Tabs.Tab value="users">Users</Tabs.Tab>
+                      <Tabs.Tab value="roles">Roles</Tabs.Tab>
+                    </Tabs.List>
+                    <Tabs.Panel value="users">
+                      <Text size="sm" mt="md">
+                        Podglad tab panelu users.
+                      </Text>
+                    </Tabs.Panel>
+                    <Tabs.Panel value="roles">
+                      <Text size="sm" mt="md">
+                        Podglad tab panelu roles.
+                      </Text>
+                    </Tabs.Panel>
+                  </Tabs>
+                </Stack>
+              </Paper>
+
+              <Paper withBorder p="md">
+                <Stack gap="sm">
+                  <Title order={4}>Table</Title>
+                  <Table highlightOnHover>
+                    <Table.Thead>
+                      <Table.Tr>
+                        <Table.Th>
+                          <AltTableTh
+                            text="Position"
+                            order={sort}
+                            onSort={handleSort}
+                          />
+                        </Table.Th>
+                        <Table.Th>
+                          <AltTableTh text="Name" />
+                        </Table.Th>
+                        <Table.Th>
+                          <AltTableTh text="Symbol" />
+                        </Table.Th>
+                        <Table.Th>
+                          <AltTableTh text="Mass" />
+                        </Table.Th>
+                      </Table.Tr>
+                    </Table.Thead>
+                    <Table.Tbody>{rows}</Table.Tbody>
+                    <Table.Tfoot>
+                      <Table.Tr>
+                        <TableFooter
+                          total={120}
+                          totalPages={12}
+                          page={page}
+                          setPage={setPage}
+                          paginationProps={{ size: "sm" }}
+                        />
+                      </Table.Tr>
+                    </Table.Tfoot>
+                  </Table>
+                </Stack>
+              </Paper>
+
+              <Paper withBorder p="md">
+                <Stack gap="sm">
+                  <Title order={4}>Stepper & chart</Title>
+                  <AltStepper active={active}>
+                    <AltStepper.Step label="Krok 1" />
+                    <AltStepper.Step label="Krok 2" />
+                    <AltStepper.Step label="Krok 3" />
+                    <AltStepper.Step label="Krok 4" />
+                  </AltStepper>
+                  <Group>
+                    <Button variant="default" onClick={prevStep}>
+                      Previous
+                    </Button>
+                    <Button onClick={nextStep}>Next</Button>
+                  </Group>
+                  <Divider />
+                  <BarChart
+                    h={250}
+                    data={data}
+                    dataKey="month"
+                    series={[
+                      { name: "Smartphones", color: "navy.6" },
+                      { name: "Laptops", color: "navy.4" },
+                      { name: "Tablets", color: "navy.2" },
+                    ]}
+                  />
+                </Stack>
+              </Paper>
+            </Stack>
+          </PagePane>
+        </PageWrapper>
+      </AppShell.Main>
+
+      <Modal opened={openedModal} onClose={closeModal} title="Modal test">
+        <Text size="sm">Podglad customowych styli modala.</Text>
+      </Modal>
+
+      <Drawer opened={openedDrawer} onClose={closeDrawer} title="Drawer test">
+        <Text size="sm">Podglad customowych styli drawera.</Text>
+      </Drawer>
+    </AppShell>
+  );
+}
+
+export function App() {
+  return (
+    <LocaUiProvider>
+      <PlaygroundContent />
     </LocaUiProvider>
   );
 }

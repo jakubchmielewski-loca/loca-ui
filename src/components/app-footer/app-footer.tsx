@@ -1,63 +1,74 @@
 import {
+  ActionIcon,
   Box,
-  Center,
+  Button,
+  Divider,
   Group,
   Stack,
   Text,
-  UnstyledButton,
+  useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
-import { Crown, Grid2x2, LogOut } from "lucide-react";
+import { Crown, Grid2x2, LogOut, Moon, Sun } from "lucide-react";
+import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 const BackToOtherSerivcesButton = ({ url }: { url: string }) => {
   const theme = useMantineTheme();
 
   return (
-    <UnstyledButton
-      data-footer-back-button
-      display="flex"
-      p={16}
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 12,
-        textAlign: "center",
-        cursor: "pointer",
-        transition: "all 0.3s",
-      }}
-      bd="1px solid #DEE8EF"
-      bdrs={8}
-      onClick={() => (window.location.href = url)}
-    >
-      <Center c={theme.primaryColor}>
-        <Grid2x2 />
-      </Center>
-      <Text fz={14} fw={600}>
+    <Box w="full" bd={`1px solid ${uiColors.borderStrong}`} bdrs={8}>
+      <Button
+        variant="subtle"
+        fullWidth
+        h={58}
+        leftSection={<Grid2x2 color={theme.other["uiColors"].primaryAccent} />}
+        onClick={() => (window.location.href = url)}
+      >
         Przejdź do innej usługi
-      </Text>
-    </UnstyledButton>
+      </Button>
+    </Box>
+  );
+};
+
+const ThemeSwitcher = () => {
+  const theme = useMantineTheme();
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
+
+  const toggleTheme = () => {
+    setColorScheme(colorScheme === "dark" ? "light" : "dark");
+  };
+
+  return (
+    <ActionIcon
+      variant="subtle"
+      size={48}
+      radius={`0 0 8px 0`}
+      onClick={toggleTheme}
+      aria-label="Toggle color scheme"
+    >
+      {colorScheme === "dark" ? (
+        <Sun size={18} color={theme.other["uiColors"].primaryAccent} />
+      ) : (
+        <Moon size={18} color={theme.other["uiColors"].primaryAccent} />
+      )}
+    </ActionIcon>
   );
 };
 
 const LogoutButton = ({ logoutFn }: { logoutFn: () => void }) => {
+  const theme = useMantineTheme();
+
   return (
-    <Group
-      data-footer-logout
-      px={16}
-      py={12}
-      gap={8}
-      style={{ cursor: "pointer", transition: "all 0.3s" }}
+    <Button
+      variant="subtle"
+      flex={1}
+      leftSection={
+        <LogOut size={16} color={theme.other["uiColors"].primaryAccent} />
+      }
       onClick={logoutFn}
     >
-      <Box
-        c="#2C4E97"
-        component="span"
-        style={{ display: "inline-flex", lineHeight: 0 }}
-      >
-        <LogOut size={16} />
-      </Box>
-      <Text fz={14}>Wyloguj</Text>
-    </Group>
+      Wyloguj
+    </Button>
   );
 };
 
@@ -66,14 +77,21 @@ const UserInfo = ({
   email,
   isAdmin,
   logoutFn,
+  includeThemeSwitcher,
 }: {
   username: string;
   email: string;
   isAdmin: boolean;
   logoutFn: () => void;
+  includeThemeSwitcher: boolean;
 }) => {
   return (
-    <Stack bd="1px solid #DEE8EF" bdrs={8} justify="space-between" gap={0}>
+    <Stack
+      bd={`1px solid ${uiColors.borderStrong}`}
+      bdrs={8}
+      justify="space-between"
+      gap={0}
+    >
       <Stack px={16} py={12} gap={0}>
         <Group align="center" gap={6}>
           {isAdmin && (
@@ -87,9 +105,14 @@ const UserInfo = ({
           {email}
         </Text>
       </Stack>
-      <Stack style={{ borderTop: "1px solid #DEE8EF" }} gap={0}>
+      <Group
+        gap={0}
+        style={{ borderTop: `1px solid ${uiColors.borderStrong}` }}
+      >
         <LogoutButton logoutFn={logoutFn} />
-      </Stack>
+        {includeThemeSwitcher && <Divider orientation="vertical" />}
+        {includeThemeSwitcher && <ThemeSwitcher />}
+      </Group>
     </Stack>
   );
 };
@@ -98,6 +121,7 @@ export const AppFooter = ({
   userInfo,
   otherServicesUrl,
   logoutFn,
+  includeThemeSwitcher = false,
 }: {
   userInfo: {
     username: string;
@@ -106,15 +130,19 @@ export const AppFooter = ({
   };
   otherServicesUrl: string;
   logoutFn: () => void;
+  includeThemeSwitcher?: boolean;
 }) => {
   return (
     <Stack mt="auto">
-      <BackToOtherSerivcesButton url={otherServicesUrl} />
+      <Box w="full">
+        <BackToOtherSerivcesButton url={otherServicesUrl} />
+      </Box>
       <UserInfo
         username={userInfo.username}
         email={userInfo.email}
         isAdmin={userInfo.isAdmin}
         logoutFn={logoutFn}
+        includeThemeSwitcher={includeThemeSwitcher}
       />
     </Stack>
   );

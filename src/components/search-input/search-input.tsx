@@ -1,5 +1,6 @@
 import { CloseButton, TextInput, type TextInputProps } from "@mantine/core";
 import { Search } from "lucide-react";
+import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 type SearchInputProps = Omit<TextInputProps, "value"> & {
   value: string;
@@ -24,6 +25,11 @@ export const SearchInput = ({
     <TextInput
       variant="filled"
       radius="xl"
+      styles={{
+        input: {
+          backgroundColor: uiColors.searchBg,
+        },
+      }}
       leftSection={<Search size={16} />}
       value={value}
       rightSection={
