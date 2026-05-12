@@ -197,7 +197,6 @@ export const theme = createTheme({
         content: {
           "--paper-radius": rem(24),
           "--mb-shadow": "none",
-          "--modal-content-height": "100%",
         },
       }),
       styles: () => ({
@@ -216,6 +215,7 @@ export const theme = createTheme({
         body: {
           paddingLeft: rem(24),
           paddingRight: rem(24),
+          paddingBottom: rem(40),
         },
         close: {
           width: rem(72),
