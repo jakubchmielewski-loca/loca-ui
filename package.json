@@ -14,7 +14,11 @@
     "url": "https://github.com/author/library/issues"
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
     "./package.json": "./package.json",
     "./dist/index.css": "./dist/index.css"
   },
