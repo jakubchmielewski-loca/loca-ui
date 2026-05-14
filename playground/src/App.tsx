@@ -129,8 +129,13 @@ function PlaygroundContent() {
                 email: "john.doe@example.com",
                 isAdmin: false,
               }}
-              kartotekaServiceUrl="https://kartoteka.example.loca.pl"
               otherServicesUrl="https://logowanie.loca.pl"
+              services={[
+                {
+                  label: "Kartoteka",
+                  url: "https://kartoteka.example.loca.pl",
+                },
+              ]}
               logoutFn={() => {}}
               includeThemeSwitcher={true}
             />

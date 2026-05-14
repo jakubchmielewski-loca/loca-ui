@@ -13,18 +13,50 @@ import {
 import { ChevronDown, Crown, Grid2x2, LogOut, Moon, Sun } from "lucide-react";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
 
+export type AppFooterServiceLink = {
+  label: string;
+  url: string;
+};
+
+const otherServicesShellProps = {
+  w: "full" as const,
+  bd: `1px solid ${uiColors.borderStrong}`,
+  bdrs: 8,
+};
+
+const OtherServicesDirectButton = ({ url }: { url: string }) => {
+  const theme = useMantineTheme();
+  const accent = theme.other["uiColors"].primaryAccent;
+
+  return (
+    <Box {...otherServicesShellProps}>
+      <Button
+        variant="subtle"
+        fullWidth
+        h={58}
+        leftSection={<Grid2x2 color={accent} />}
+        onClick={() => {
+          window.location.href = url;
+        }}
+      >
+        Przejdź do innej usługi
+      </Button>
+    </Box>
+  );
+};
+
 const OtherServicesMenu = ({
-  kartotekaServiceUrl,
+  items,
   otherServicesUrl,
 }: {
-  kartotekaServiceUrl: string;
+  items: AppFooterServiceLink[];
   otherServicesUrl: string;
 }) => {
   const theme = useMantineTheme();
   const accent = theme.other["uiColors"].primaryAccent;
 
   return (
-    <Box w="full" bd={`1px solid ${uiColors.borderStrong}`} bdrs={8}>
+    <Box {...otherServicesShellProps}>
       <Menu position="top" width="target" withinPortal>
         <Menu.Target>
           <Button
@@ -38,11 +70,23 @@ const OtherServicesMenu = ({
           </Button>
         </Menu.Target>
         <Menu.Dropdown>
-          <Menu.Item onClick={() => (window.location.href = kartotekaServiceUrl)}>
-            Kartoteka
-          </Menu.Item>
-          <Menu.Item onClick={() => (window.location.href = otherServicesUrl)}>
-            Inne usługi
+          {items.map((item, index) => (
+            <Menu.Item
+              key={`${item.label}-${item.url}-${String(index)}`}
+              onClick={() => {
+                window.location.href = item.url;
+              }}
+            >
+              {item.label}
+            </Menu.Item>
+          ))}
+          <Menu.Item
+            key="other-services"
+            onClick={() => {
+              window.location.href = otherServicesUrl;
+            }}
+          >
+            Wszystkie usługi
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
@@ -139,8 +183,8 @@ const UserInfo = ({
 
 export const AppFooter = ({
   userInfo,
-  kartotekaServiceUrl,
   otherServicesUrl,
+  services,
   logoutFn,
   includeThemeSwitcher = false,
 }: {
@@ -149,18 +193,24 @@ export const AppFooter = ({
     email: string;
     isAdmin: boolean;
   };
-  kartotekaServiceUrl: string;
   otherServicesUrl: string;
+  services?: AppFooterServiceLink[];
   logoutFn: () => void;
   includeThemeSwitcher?: boolean;
 }) => {
+  const hasServiceMenu = services != null && services.length > 0;
+
   return (
     <Stack mt="auto">
       <Box w="full">
-        <OtherServicesMenu
-          kartotekaServiceUrl={kartotekaServiceUrl}
-          otherServicesUrl={otherServicesUrl}
-        />
+        {hasServiceMenu ? (
+          <OtherServicesMenu
+            items={services}
+            otherServicesUrl={otherServicesUrl}
+          />
+        ) : (
+          <OtherServicesDirectButton url={otherServicesUrl} />
+        )}
       </Box>
       <UserInfo
         username={userInfo.username}
