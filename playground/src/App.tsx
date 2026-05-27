@@ -54,7 +54,6 @@ const mockNotices: NoticeItem[] = [
     message:
       'Otrzymałeś rolę "testt" w systemie "Kartoteka" w placówce "Client 2"',
     source: "KARTOTEKA",
-    category: "success",
     createdAt: "2026-05-26T08:33:13.325Z",
     isUnread: true,
     actionUrl: "/dashboard/organization/2",
@@ -64,7 +63,6 @@ const mockNotices: NoticeItem[] = [
     title: "Zaktualizowano dane organizacji",
     message: "Twoja organizacja została zaktualizowana przez administratora.",
     source: "KARTOTEKA",
-    category: "info",
     createdAt: "2026-05-25T14:12:00.000Z",
     isUnread: false,
   },
@@ -146,9 +144,9 @@ function PlaygroundContent() {
           <Navbar.Footer>
             <AppFooter
               userInfo={{
-                username: "John Doe",
-                email: "john.doe@example.com",
-                isAdmin: false,
+                username: "Stanisław Chmielewski",
+                email: "stanislaw.chmielewski@example.com",
+                isAdmin: true,
               }}
               otherServicesUrl="https://logowanie.loca.pl"
               services={[

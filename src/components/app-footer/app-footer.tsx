@@ -21,7 +21,6 @@ import {
   Sun,
 } from "lucide-react";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
-import { useDisclosure } from "@mantine/hooks";
 import { Notices } from "../notices";
 
 export type AppFooterServiceLink = {
@@ -167,21 +166,25 @@ const UserInfo = ({
       justify="space-between"
       gap={0}
     >
-      <Group justify="space-between">
-        <Stack px={16} py={12} gap={0}>
-          <Group align="center" gap={6}>
+      <Group justify="space-between" gap={0} wrap="nowrap">
+        <Stack ps={16} pe={4} py={12} gap={0} flex={1} miw={0}>
+          <Group align="center" gap={6} wrap="nowrap" miw={0}>
             {isAdmin && (
-              <Box mt={1} component="span">
-                <Crown width={16} height={16} />
+              <Box mt={1} component="span" style={{ flexShrink: 0 }}>
+                <Crown width={14} height={14} />
               </Box>
             )}
-            <Text fw={500}>{username}</Text>
+            <Text fz={14} fw={500} truncate>
+              {username}
+            </Text>
           </Group>
-          <Text fz={12} c="gray.6">
+          <Text fz={10} c="gray.6" truncate>
             {email}
           </Text>
         </Stack>
-        <Notices />
+        <Box style={{ flexShrink: 0 }}>
+          <Notices />
+        </Box>
       </Group>
       <Group
         gap={0}
