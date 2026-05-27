@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import {
-  ActionIcon,
   AppShell,
   Badge,
   Button,
@@ -19,7 +18,6 @@ import {
   Text,
   TextInput,
   Title,
-  useMantineColorScheme,
 } from "@mantine/core";
 import { BarChart } from "@mantine/charts";
 
@@ -39,7 +37,7 @@ import { DateSwitcher } from "../../src/components/date-switcher";
 import useNavbar from "../../src/hooks/use-navbar";
 import { Header } from "../../src/components/header";
 import { SearchInput } from "../../src/components/search-input";
-import { Moon, Sun } from "lucide-react";
+import { NoticesProvider, type NoticeItem } from "../../src/components/notices";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -47,6 +45,29 @@ const elements = [
   { position: 39, mass: 88.906, symbol: "Y", name: "Yttrium" },
   { position: 56, mass: 137.33, symbol: "Ba", name: "Barium" },
   { position: 58, mass: 140.12, symbol: "Ce", name: "Cerium" },
+];
+
+const mockNotices: NoticeItem[] = [
+  {
+    id: 1,
+    title: "Nadano nową rolę",
+    message:
+      'Otrzymałeś rolę "testt" w systemie "Kartoteka" w placówce "Client 2"',
+    source: "KARTOTEKA",
+    category: "success",
+    createdAt: "2026-05-26T08:33:13.325Z",
+    isUnread: true,
+    actionUrl: "/dashboard/organization/2",
+  },
+  {
+    id: 2,
+    title: "Zaktualizowano dane organizacji",
+    message: "Twoja organizacja została zaktualizowana przez administratora.",
+    source: "KARTOTEKA",
+    category: "info",
+    createdAt: "2026-05-25T14:12:00.000Z",
+    isUnread: false,
+  },
 ];
 
 const data = [
@@ -310,7 +331,14 @@ function PlaygroundContent() {
 export function App() {
   return (
     <LocaUiProvider>
-      <PlaygroundContent />
+      <NoticesProvider
+        items={mockNotices}
+        onMarkAsRead={(id) => console.log("mark as read", id)}
+        onMarkAllAsRead={() => console.log("mark all as read")}
+        onNoticeClick={(notice) => console.log("notice clicked", notice)}
+      >
+        <PlaygroundContent />
+      </NoticesProvider>
     </LocaUiProvider>
   );
 }

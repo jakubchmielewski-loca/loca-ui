@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Divider,
+  Drawer,
   Group,
   Menu,
   Stack,
@@ -10,8 +11,18 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
-import { ChevronDown, Crown, Grid2x2, LogOut, Moon, Sun } from "lucide-react";
+import {
+  Bell,
+  ChevronDown,
+  Crown,
+  Grid2x2,
+  LogOut,
+  Moon,
+  Sun,
+} from "lucide-react";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
+import { useDisclosure } from "@mantine/hooks";
+import { Notices } from "../notices";
 
 export type AppFooterServiceLink = {
   label: string;
@@ -156,19 +167,22 @@ const UserInfo = ({
       justify="space-between"
       gap={0}
     >
-      <Stack px={16} py={12} gap={0}>
-        <Group align="center" gap={6}>
-          {isAdmin && (
-            <Box mt={1} component="span">
-              <Crown width={16} height={16} />
-            </Box>
-          )}
-          <Text fw={500}>{username}</Text>
-        </Group>
-        <Text fz={12} c="gray.6">
-          {email}
-        </Text>
-      </Stack>
+      <Group justify="space-between">
+        <Stack px={16} py={12} gap={0}>
+          <Group align="center" gap={6}>
+            {isAdmin && (
+              <Box mt={1} component="span">
+                <Crown width={16} height={16} />
+              </Box>
+            )}
+            <Text fw={500}>{username}</Text>
+          </Group>
+          <Text fz={12} c="gray.6">
+            {email}
+          </Text>
+        </Stack>
+        <Notices />
+      </Group>
       <Group
         gap={0}
         style={{ borderTop: `1px solid ${uiColors.borderStrong}` }}

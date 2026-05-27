@@ -5,6 +5,7 @@ export * from "./components/date-switcher";
 export * from "./components/header";
 export * from "./components/loca-ui-provider";
 export * from "./components/navbar";
+export * from "./components/notices";
 export * from "./components/page-pane";
 export * from "./components/page-wrapper";
 export * from "./components/search-input";

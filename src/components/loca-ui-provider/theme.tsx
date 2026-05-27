@@ -161,16 +161,15 @@ export const theme = createTheme({
       }),
       styles: () => ({
         header: {
-          height: 0,
-          minHeight: 0,
-          alignItems: "flex-start",
-          padding: 0,
+          padding: `0 0 ${rem(16)} ${rem(24)}`,
+        },
+        title: {
+          fontWeight: 600,
+          fontSize: rem(24),
         },
         body: {
-          paddingTop: 36,
-          paddingRight: 24,
-          paddingBottom: 36,
-          paddingLeft: 24,
+          paddingLeft: rem(24),
+          paddingRight: rem(24),
         },
         close: {
           width: rem(72),
