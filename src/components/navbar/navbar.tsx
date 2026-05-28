@@ -49,6 +49,22 @@ const NavbarList = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+type NavbarListGroupProps = {
+  title: string;
+  children: React.ReactNode;
+};
+
+const NavbarListGroup = ({ title, children }: NavbarListGroupProps) => {
+  return (
+    <Box pt={28} pb={12}>
+      <Text px={30} fw={700} fz={10} tt="uppercase" c="gray.7">
+        {title}
+      </Text>
+      <Stack gap={0}>{children}</Stack>
+    </Box>
+  );
+};
+
 type NavbarListItemProps = {
   children: React.ReactNode;
   href?: string;
@@ -109,7 +125,10 @@ const NavbarListItem = ({
           </Box>
         )}
 
-        <Box c={isActive ? uiColors.primaryAccent : ""} fw={isActive ? 600 : 400}>
+        <Box
+          c={isActive ? uiColors.primaryAccent : ""}
+          fw={isActive ? 600 : 400}
+        >
           {children}
         </Box>
       </Group>
@@ -128,6 +147,7 @@ const NavbarFooter = ({ children }: { children: React.ReactNode }) => {
 Navbar.Header = NavbarHeader;
 Navbar.Main = NavbarMain;
 Navbar.List = NavbarList;
+Navbar.ListGroup = NavbarListGroup;
 Navbar.ListItem = NavbarListItem;
 Navbar.Footer = NavbarFooter;
 

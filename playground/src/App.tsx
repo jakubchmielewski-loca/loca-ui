@@ -139,6 +139,17 @@ function PlaygroundContent() {
               <Navbar.ListItem href="/" Icon={HomeIcon} disabled>
                 Tertiary
               </Navbar.ListItem>
+              <Navbar.ListGroup title="Wsparcie dla usług">
+                <Navbar.ListItem href="/" Icon={HomeIcon}>
+                  Item 1
+                </Navbar.ListItem>
+                <Navbar.ListItem href="/" Icon={HomeIcon}>
+                  Item 2
+                </Navbar.ListItem>
+                <Navbar.ListItem href="/" Icon={HomeIcon}>
+                  Item 3
+                </Navbar.ListItem>
+              </Navbar.ListGroup>
             </Navbar.List>
           </Navbar.Main>
           <Navbar.Footer>
