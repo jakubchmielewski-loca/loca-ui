@@ -9,6 +9,7 @@ export * from "./components/notices";
 export * from "./components/page-pane";
 export * from "./components/page-wrapper";
 export * from "./components/search-input";
+export * from "./components/search-select";
 export * from "./components/table-footer";
 
 export { default as useNavbar } from "./hooks/use-navbar";
