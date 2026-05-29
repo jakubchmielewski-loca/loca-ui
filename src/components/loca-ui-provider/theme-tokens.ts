@@ -5,9 +5,11 @@ export type UiColors = {
   surfaceElevated: string;
   surfaceNavySoft: string;
   surfaceInfoSoft: string;
+  /** Default body text — #454545 (light) */
   textPrimary: string;
   textMuted: string;
   textSecondary: string;
+  /** Headings & emphasis — #1C1C1C (light) */
   textStrong: string;
   overlayStrong: string;
   appShellBorder: string;
@@ -44,6 +46,9 @@ const baseUiColors = {
   accentPrimary: ld("#2C4E97", "#8DA5DA"),
   appShellBorderTone: ld("#DEE8EF", "#2B2F33"),
 };
+
+export const fontFamilyBody = "'Open Sans Variable', sans-serif";
+export const fontFamilyHeadings = "'Outfit Variable', sans-serif";
 
 export const uiColors: UiColors = {
   borderSubtle: baseUiColors.borderSubtle,

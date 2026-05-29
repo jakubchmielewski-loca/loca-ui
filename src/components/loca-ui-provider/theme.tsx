@@ -7,7 +7,8 @@ import {
 import { navy } from "../../utils/navy";
 import { ChevronDown, FileUp } from "lucide-react";
 import "@fontsource-variable/open-sans";
-import { uiColors } from "./theme-tokens";
+import "@fontsource-variable/outfit";
+import { fontFamilyBody, fontFamilyHeadings, uiColors } from "./theme-tokens";
 
 const primaryColor = navy;
 
@@ -19,13 +20,20 @@ export const cssVariablesResolver: CSSVariablesResolver = (theme) => ({
     "--ui-tabs-active-bg": theme.other["uiColors"].tabsActiveBg,
     "--ui-table-header-bg": theme.other["uiColors"].tableHeaderBg,
     "--ui-table-hover-bg": theme.other["uiColors"].tableHover,
+    "--ui-text-primary": theme.other["uiColors"].textPrimary,
+    "--ui-text-strong": theme.other["uiColors"].textStrong,
+    "--ui-font-body": fontFamilyBody,
+    "--ui-font-headings": fontFamilyHeadings,
   },
   light: {},
   dark: {},
 });
 
 export const theme = createTheme({
-  fontFamily: "'Open Sans Variable', sans-serif",
+  fontFamily: fontFamilyBody,
+  headings: {
+    fontFamily: fontFamilyHeadings,
+  },
   primaryColor: "navy",
   primaryShade: { light: 6, dark: 6 },
   colors: {
@@ -93,6 +101,11 @@ export const theme = createTheme({
       vars: () => ({
         root: {
           "--title-fw": 600,
+        },
+      }),
+      styles: (theme: MantineTheme) => ({
+        root: {
+          color: theme.other["uiColors"].textStrong,
         },
       }),
     },
@@ -164,8 +177,10 @@ export const theme = createTheme({
           padding: `0 0 ${rem(16)} ${rem(24)}`,
         },
         title: {
+          fontFamily: fontFamilyHeadings,
           fontWeight: 600,
           fontSize: rem(24),
+          color: uiColors.textStrong,
         },
         body: {
           paddingLeft: rem(24),
@@ -204,8 +219,10 @@ export const theme = createTheme({
           paddingBottom: rem(32),
         },
         title: {
+          fontFamily: fontFamilyHeadings,
           fontSize: rem(32),
           fontWeight: 600,
+          color: uiColors.textStrong,
           paddingTop: rem(36),
           paddingLeft: rem(24),
           paddingRight: rem(24),

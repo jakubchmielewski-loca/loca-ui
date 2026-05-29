@@ -159,6 +159,8 @@ const UserInfo = ({
   logoutFn: () => void;
   includeThemeSwitcher: boolean;
 }) => {
+  const theme = useMantineTheme();
+
   return (
     <Stack
       bd={`1px solid ${uiColors.borderStrong}`}
@@ -168,7 +170,13 @@ const UserInfo = ({
     >
       <Group justify="space-between" gap={0} wrap="nowrap">
         <Stack ps={16} pe={4} py={12} gap={0} flex={1} miw={0}>
-          <Group align="center" gap={6} wrap="nowrap" miw={0}>
+          <Group
+            align="center"
+            gap={6}
+            wrap="nowrap"
+            miw={0}
+            c={theme.other["uiColors"].textStrong}
+          >
             {isAdmin && (
               <Box mt={1} component="span" style={{ flexShrink: 0 }}>
                 <Crown width={14} height={14} />

@@ -1,4 +1,4 @@
-import { Burger, Container, Group, Text } from "@mantine/core";
+import { Burger, Container, Group, Title } from "@mantine/core";
 
 type HeaderProps = {
   systemName: string;
@@ -18,9 +18,9 @@ export const Header = ({ systemName, opened, toggle }: HeaderProps) => {
           color="navy"
           lineSize={2}
         />
-        <Text fz={20} fw={600}>
+        <Title fz={20} fw={600}>
           {systemName}
-        </Text>
+        </Title>
       </Group>
     </Container>
   );

@@ -4,6 +4,7 @@ import {
   Group,
   Stack,
   Text,
+  Title,
   useMantineTheme,
 } from "@mantine/core";
 import useNavbar from "../../hooks/use-navbar";
@@ -19,9 +20,9 @@ const NavbarHeader = ({ systemName }: { systemName: string }) => {
 
   return (
     <Group px={{ base: 16, lg: 0 }} pb={{ lg: 24 }}>
-      <Text fw={600} fz={24} ps={{ lg: 24 }} lh="16px">
+      <Title fw={600} fz={24} ps={{ lg: 24 }} lh="16px">
         {systemName}
-      </Text>
+      </Title>
       <Burger
         opened={opened}
         onClick={toggle}
@@ -126,7 +127,7 @@ const NavbarListItem = ({
         )}
 
         <Box
-          c={isActive ? uiColors.primaryAccent : ""}
+          c={isActive ? uiColors.primaryAccent : uiColors.textStrong}
           fw={isActive ? 600 : 400}
         >
           {children}

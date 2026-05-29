@@ -54,10 +54,6 @@ export const DateSwitcher = ({ value, onChange, mode }: DateNavigatorProps) => {
       }}
     >
       <Group justify="space-between" gap={9}>
-        <Text fz={14} fw={500}>
-          {label}
-        </Text>
-
         <Group gap={6}>
           <ActionIcon
             variant="outline"
@@ -77,6 +73,9 @@ export const DateSwitcher = ({ value, onChange, mode }: DateNavigatorProps) => {
             <ChevronRight size={18} />
           </ActionIcon>
         </Group>
+        <Text fz={14} fw={500}>
+          {label}
+        </Text>
       </Group>
     </Paper>
   );
