@@ -4,12 +4,14 @@ import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 type SearchInputProps = Omit<TextInputProps, "value"> & {
   value: string;
+  bg?: string;
 };
 
 export const SearchInput = ({
   onChange,
   value,
   rightSection,
+  bg = uiColors.searchBg,
   ...props
 }: SearchInputProps) => {
   const showClear = !rightSection && value.length > 0;
@@ -27,7 +29,7 @@ export const SearchInput = ({
       radius="xl"
       styles={{
         input: {
-          backgroundColor: uiColors.searchBg,
+          backgroundColor: bg,
         },
       }}
       leftSection={<Search size={16} />}

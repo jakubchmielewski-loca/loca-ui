@@ -203,6 +203,7 @@ function PlaygroundContent() {
                 <Stack gap="sm">
                   <Title order={4}>Forms & filters</Title>
                   <SearchInput
+                    bg="#fff"
                     placeholder="Search"
                     value={search}
                     onChange={(event) => setSearch(event.currentTarget.value)}
