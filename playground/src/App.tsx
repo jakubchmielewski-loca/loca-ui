@@ -38,6 +38,7 @@ import useNavbar from "../../src/hooks/use-navbar";
 import { Header } from "../../src/components/header";
 import { SearchInput } from "../../src/components/search-input";
 import { NoticesProvider, type NoticeItem } from "../../src/components/notices";
+import { SearchSelect } from "../../src/components/search-select";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -202,12 +203,20 @@ function PlaygroundContent() {
               <Paper withBorder p="md">
                 <Stack gap="sm">
                   <Title order={4}>Forms & filters</Title>
-                  <SearchInput
-                    bg="#fff"
-                    placeholder="Search"
-                    value={search}
-                    onChange={(event) => setSearch(event.currentTarget.value)}
-                  />
+                  <Group w="full">
+                    <SearchInput
+                      bg="#fff"
+                      placeholder="Search"
+                      value={search}
+                      onChange={(event) => setSearch(event.currentTarget.value)}
+                      flex={1}
+                    />
+                    <SearchSelect
+                      bg="#fff"
+                      placeholder="Filter by"
+                      data={["Option 1", "Option 2", "Option 3"]}
+                    />
+                  </Group>
                   <Group grow>
                     <TextInput label="TextInput" placeholder="Wpisz wartosc" />
                     <Select
