@@ -165,6 +165,12 @@ function PlaygroundContent() {
                 {
                   label: "Kartoteka",
                   url: "https://kartoteka.example.loca.pl",
+                  isAdministrative: true,
+                },
+                {
+                  label: "Rejestr wizyt",
+                  url: "https://wizyty.example.loca.pl",
+                  isAdministrative: false,
                 },
               ]}
               logoutFn={() => {}}

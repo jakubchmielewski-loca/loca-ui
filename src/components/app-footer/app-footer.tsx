@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Divider,
-  Drawer,
   Group,
   Menu,
   Stack,
@@ -11,21 +10,14 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
-import {
-  Bell,
-  ChevronDown,
-  Crown,
-  Grid2x2,
-  LogOut,
-  Moon,
-  Sun,
-} from "lucide-react";
+import { ChevronDown, Crown, Grid2x2, LogOut, Moon, Sun } from "lucide-react";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
 import { Notices } from "../notices";
 
 export type AppFooterServiceLink = {
   label: string;
   url: string;
+  isAdministrative?: boolean;
 };
 
 const otherServicesShellProps = {
@@ -64,6 +56,10 @@ const OtherServicesMenu = ({
 }) => {
   const theme = useMantineTheme();
   const accent = theme.other["uiColors"].primaryAccent;
+  const administrativeSystems = items.filter((item) => item.isAdministrative);
+  const otherSystems = items.filter((item) => !item.isAdministrative);
+  const hasGroupedItems =
+    administrativeSystems.length > 0 || otherSystems.length > 0;
 
   return (
     <Box {...otherServicesShellProps}>
@@ -80,16 +76,37 @@ const OtherServicesMenu = ({
           </Button>
         </Menu.Target>
         <Menu.Dropdown>
-          {items.map((item, index) => (
-            <Menu.Item
-              key={`${item.label}-${item.url}-${String(index)}`}
-              onClick={() => {
-                window.location.href = item.url;
-              }}
-            >
-              {item.label}
-            </Menu.Item>
-          ))}
+          {administrativeSystems.length > 0 && (
+            <Box component="section">
+              <Menu.Label>Systemy administracyjne</Menu.Label>
+              {administrativeSystems.map((item, itemIndex) => (
+                <Menu.Item
+                  key={`${item.label}-${item.url}-${String(itemIndex)}`}
+                  onClick={() => {
+                    window.location.href = item.url;
+                  }}
+                >
+                  {item.label}
+                </Menu.Item>
+              ))}
+            </Box>
+          )}
+          {otherSystems.length > 0 && (
+            <Box component="section">
+              <Menu.Label>Pozostałe systemy</Menu.Label>
+              {otherSystems.map((item, itemIndex) => (
+                <Menu.Item
+                  key={`${item.label}-${item.url}-${String(itemIndex)}`}
+                  onClick={() => {
+                    window.location.href = item.url;
+                  }}
+                >
+                  {item.label}
+                </Menu.Item>
+              ))}
+            </Box>
+          )}
+          {hasGroupedItems && <Menu.Divider />}
           <Menu.Item
             key="other-services"
             onClick={() => {
