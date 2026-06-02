@@ -20,6 +20,28 @@ export type AppFooterServiceLink = {
   isAdministrative?: boolean;
 };
 
+export type AppFooterUser = {
+  username: string;
+  email: string;
+  isAdmin: boolean;
+};
+
+export type AppFooterServicesConfig = {
+  hubUrl: string;
+  items?: AppFooterServiceLink[];
+};
+
+export type AppFooterOptions = {
+  themeSwitcher?: boolean;
+};
+
+export type AppFooterProps = {
+  user: AppFooterUser;
+  onLogout: () => void;
+  services: AppFooterServicesConfig;
+  options?: AppFooterOptions;
+};
+
 const otherServicesShellProps = {
   w: "full" as const,
   bd: `1px solid ${uiColors.borderStrong}`,
@@ -223,42 +245,27 @@ const UserInfo = ({
   );
 };
 
-export const AppFooter = ({
-  userInfo,
-  otherServicesUrl,
-  services,
-  logoutFn,
-  includeThemeSwitcher = false,
-}: {
-  userInfo: {
-    username: string;
-    email: string;
-    isAdmin: boolean;
-  };
-  otherServicesUrl: string;
-  services?: AppFooterServiceLink[];
-  logoutFn: () => void;
-  includeThemeSwitcher?: boolean;
-}) => {
-  const hasServiceMenu = services != null && services.length > 0;
+export const AppFooter = ({ user, onLogout, services, options }: AppFooterProps) => {
+  const hasServiceMenu = services.items != null && services.items.length > 0;
+  const includeThemeSwitcher = options?.themeSwitcher ?? false;
 
   return (
     <Stack mt="auto">
       <Box w="full">
         {hasServiceMenu ? (
           <OtherServicesMenu
-            items={services}
-            otherServicesUrl={otherServicesUrl}
+            items={services.items ?? []}
+            otherServicesUrl={services.hubUrl}
           />
         ) : (
-          <OtherServicesDirectButton url={otherServicesUrl} />
+          <OtherServicesDirectButton url={services.hubUrl} />
         )}
       </Box>
       <UserInfo
-        username={userInfo.username}
-        email={userInfo.email}
-        isAdmin={userInfo.isAdmin}
-        logoutFn={logoutFn}
+        username={user.username}
+        email={user.email}
+        isAdmin={user.isAdmin}
+        logoutFn={onLogout}
         includeThemeSwitcher={includeThemeSwitcher}
       />
     </Stack>

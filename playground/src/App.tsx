@@ -155,26 +155,28 @@ function PlaygroundContent() {
           </Navbar.Main>
           <Navbar.Footer>
             <AppFooter
-              userInfo={{
+              user={{
                 username: "Stanisław Chmielewski",
                 email: "stanislaw.chmielewski@example.com",
                 isAdmin: true,
               }}
-              otherServicesUrl="https://logowanie.loca.pl"
-              services={[
-                {
-                  label: "Kartoteka",
-                  url: "https://kartoteka.example.loca.pl",
-                  isAdministrative: true,
-                },
-                {
-                  label: "Rejestr wizyt",
-                  url: "https://wizyty.example.loca.pl",
-                  isAdministrative: false,
-                },
-              ]}
-              logoutFn={() => {}}
-              includeThemeSwitcher={true}
+              onLogout={() => {}}
+              services={{
+                hubUrl: "https://logowanie.loca.pl",
+                items: [
+                  {
+                    label: "Kartoteka",
+                    url: "https://kartoteka.example.loca.pl",
+                    isAdministrative: true,
+                  },
+                  {
+                    label: "Rejestr wizyt",
+                    url: "https://wizyty.example.loca.pl",
+                    isAdministrative: false,
+                  },
+                ],
+              }}
+              options={{ themeSwitcher: true }}
             />
           </Navbar.Footer>
         </Navbar>
