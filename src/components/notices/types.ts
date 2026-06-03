@@ -2,7 +2,12 @@ export type NoticeItem = {
   id: string | number;
   title: string;
   message: string;
-  source?: "KARTOTEKA" | "KD_ADMIN" | "RCP_ADMIN" | "RCP_PRACOWNIK";
+  source?:
+    | "KARTOTEKA"
+    | "KD_ADMIN"
+    | "RCP_ADMIN"
+    | "RCP_PRACOWNIK"
+    | "ESW_ADMIN";
   createdAt: string | Date;
   isUnread: boolean;
   actionUrl?: string;
