@@ -3,11 +3,13 @@ export type NoticeItem = {
   title: string;
   message: string;
   source?:
-    | "KARTOTEKA"
+    | "KAR_ADMIN"
     | "KD_ADMIN"
     | "RCP_ADMIN"
     | "RCP_PRACOWNIK"
-    | "ESW_ADMIN";
+    | "ESW_ADMIN"
+    | "KRT"
+    | "KRT_OPS";
   createdAt: string | Date;
   isUnread: boolean;
   actionUrl?: string;

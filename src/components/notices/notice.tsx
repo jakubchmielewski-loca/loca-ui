@@ -21,7 +21,7 @@ export type NoticeProps = {
 
 const getBadgeColor = (source?: NoticeItem["source"] | null) => {
   switch (source) {
-    case "KARTOTEKA":
+    case "KAR_ADMIN":
       return "green";
     case "KD_ADMIN":
       return "blue";
@@ -29,6 +29,12 @@ const getBadgeColor = (source?: NoticeItem["source"] | null) => {
       return "purple";
     case "RCP_PRACOWNIK":
       return "orange";
+    case "ESW_ADMIN":
+      return "red";
+    case "KRT":
+      return "yellow";
+    case "KRT_OPS":
+      return "pink";
     default:
       return "gray";
   }
