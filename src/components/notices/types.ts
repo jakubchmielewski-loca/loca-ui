@@ -9,7 +9,9 @@ export type NoticeItem = {
     | "RCP_PRACOWNIK"
     | "ESW_ADMIN"
     | "KRT"
-    | "KRT_OPS";
+    | "KRT_OPS"
+    | "SRV"
+    | "SRV_OPS";
   createdAt: string | Date;
   isUnread: boolean;
   actionUrl?: string;

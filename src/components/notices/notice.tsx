@@ -35,6 +35,10 @@ const getBadgeColor = (source?: NoticeItem["source"] | null) => {
       return "yellow";
     case "KRT_OPS":
       return "pink";
+    case "SRV":
+      return "green";
+    case "SRV_OPS":
+      return "blue";
     default:
       return "gray";
   }
