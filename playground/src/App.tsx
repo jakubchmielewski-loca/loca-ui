@@ -39,6 +39,7 @@ import { Header } from "../../src/components/header";
 import { SearchInput } from "../../src/components/search-input";
 import { NoticesProvider, type NoticeItem } from "../../src/components/notices";
 import { SearchSelect } from "../../src/components/search-select";
+import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -54,7 +55,7 @@ const mockNotices: NoticeItem[] = [
     title: "Nadano nową rolę",
     message:
       'Otrzymałeś rolę "testt" w systemie "Kartoteka" w placówce "Client 2"',
-    source: "KARTOTEKA",
+    source: "KRT",
     createdAt: "2026-05-26T08:33:13.325Z",
     isUnread: true,
     actionUrl: "/dashboard/organization/2",
@@ -63,7 +64,7 @@ const mockNotices: NoticeItem[] = [
     id: 2,
     title: "Zaktualizowano dane organizacji",
     message: "Twoja organizacja została zaktualizowana przez administratora.",
-    source: "KARTOTEKA",
+    source: "KRT",
     createdAt: "2026-05-25T14:12:00.000Z",
     isUnread: false,
   },
@@ -184,6 +185,13 @@ function PlaygroundContent() {
 
       <AppShell.Main>
         <PageWrapper>
+          <PageBreadcrumbs
+            items={[
+              { label: "Strona główna", href: "/" },
+              { label: "Instalacje", href: "/test" },
+              { label: "[#14] Wejście na kartę do sali 217" },
+            ]}
+          />
           <PagePane>
             <Stack gap="lg">
               <Group justify="space-between">
