@@ -31,7 +31,6 @@ export const PageBreadcrumbs = ({ items }: PageBreadcrumbsProps) => {
     <Breadcrumbs
       separatorMargin={4}
       separator={<ChevronRight color="#AAAAAA" size={18} strokeWidth={2} />}
-      mb={24}
     >
       {items.map((item) => (
         <Item key={item.label} label={item.label} href={item.href} />
