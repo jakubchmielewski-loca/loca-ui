@@ -1,4 +1,4 @@
-import { Anchor, Breadcrumbs, Text, useMantineTheme } from "@mantine/core";
+import { Anchor, Box, Breadcrumbs, Text, useMantineTheme } from "@mantine/core";
 import { ChevronRight } from "lucide-react";
 
 export type PageBreadcrumbsProps = {
@@ -22,13 +22,9 @@ const Item = ({
 
   if (href) {
     return (
-      <LinkComponent
-        href={href}
-        fw={600}
-        c={theme.other["uiColors"].textPrimary}
-      >
-        {label}
-      </LinkComponent>
+      <Box fw={600} c={theme.other["uiColors"].textPrimary}>
+        <LinkComponent href={href}>{label}</LinkComponent>
+      </Box>
     );
   }
 
