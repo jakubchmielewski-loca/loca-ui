@@ -8,6 +8,7 @@ export * from "./components/navbar";
 export * from "./components/notices";
 export * from "./components/page-breadcrumbs";
 export * from "./components/page-pane";
+export * from "./components/photo-tiles";
 export * from "./components/page-wrapper";
 export * from "./components/search-input";
 export * from "./components/search-select";

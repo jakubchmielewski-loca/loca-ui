@@ -40,6 +40,30 @@ import { SearchInput } from "../../src/components/search-input";
 import { NoticesProvider, type NoticeItem } from "../../src/components/notices";
 import { SearchSelect } from "../../src/components/search-select";
 import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
+import { PhotoTiles } from "../../src/components/photo-tiles";
+
+const photoTilesItems = [
+  {
+    src: "https://placehold.co/600x400",
+    title: "Dziura w panelu",
+    fileName: "1773233568061(...).jpg",
+  },
+  {
+    src: "https://placehold.co/600x400/png",
+    title: "Dziura w panelu",
+    fileName: "1773233568062(...).jpg",
+  },
+  {
+    src: "https://placehold.co/600x400/jpg",
+    title: "Uszkodzenie okna",
+    fileName: "1773233568063(...).jpg",
+  },
+  {
+    src: "https://placehold.co/600x400/webp",
+    title: "Pęknięcie ściany",
+    fileName: "1773233568064(...).jpg",
+  },
+];
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -316,6 +340,28 @@ function PlaygroundContent() {
                       </Table.Tr>
                     </Table.Tfoot>
                   </Table>
+                </Stack>
+              </Paper>
+
+              <Paper withBorder p="md">
+                <Stack gap="sm">
+                  <Title order={4}>Photo tiles lightbox</Title>
+                  <Text size="sm" c="dimmed">
+                    Kliknij kafelek, aby otworzyć podgląd zdjęcia w lightboxie.
+                  </Text>
+                  <PhotoTiles>
+                    <PhotoTiles.Grid>
+                      {photoTilesItems.map((item, index) => (
+                        <PhotoTiles.Tile
+                          key={index}
+                          index={index}
+                          src={item.src}
+                          title={item.title}
+                          fileName={item.fileName}
+                        />
+                      ))}
+                    </PhotoTiles.Grid>
+                  </PhotoTiles>
                 </Stack>
               </Paper>
 
