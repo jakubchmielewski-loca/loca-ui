@@ -39,6 +39,7 @@ import { Header } from "../../src/components/header";
 import { SearchInput } from "../../src/components/search-input";
 import { NoticesProvider, type NoticeItem } from "../../src/components/notices";
 import { SearchSelect } from "../../src/components/search-select";
+import { DetailedSelect } from "../../src/components/detailed-select";
 import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 import { PhotoTiles } from "../../src/components/photo-tiles";
 
@@ -103,6 +104,24 @@ const data = [
   { month: "June", Smartphones: 750, Laptops: 600, Tablets: 1000 },
 ];
 
+const schoolOptions = [
+  {
+    value: "1",
+    label: "Szkoła Podstawowa nr 1",
+    description: "ul. Kwiatowa 12, Warszawa",
+  },
+  {
+    value: "2",
+    label: "Szkoła Podstawowa nr 1",
+    description: "ul. Słoneczna 4, Kraków",
+  },
+  {
+    value: "3",
+    label: "Szkoła Podstawowa nr 2",
+    description: "ul. Leśna 8, Gdańsk",
+  },
+];
+
 function PlaygroundContent() {
   const { opened, toggle } = useNavbar();
   const [openedModal, { open: openModal, close: closeModal }] =
@@ -129,6 +148,7 @@ function PlaygroundContent() {
 
   const [date, setDate] = useState(new Date());
   const [search, setSearch] = useState("");
+  const [schoolId, setSchoolId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
   const rows = elements.map((element) => (
@@ -266,6 +286,14 @@ function PlaygroundContent() {
                     />
                     <FileInput label="FileInput" />
                   </Group>
+                  <DetailedSelect
+                    label="Placówka"
+                    placeholder="Wybierz placówkę"
+                    data={schoolOptions}
+                    value={schoolId}
+                    onChange={setSchoolId}
+                    clearable
+                  />
                   <Group>
                     <SegmentedControl
                       data={["Dzisiaj", "Tydzien", "Miesiac"]}
