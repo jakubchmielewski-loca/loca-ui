@@ -20,6 +20,7 @@ import {
 } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 type PhotoTilesSlide = {
   src: string;
@@ -125,7 +126,7 @@ const PhotoTilesTile = ({
           src={src}
           alt={alt ?? title}
           fit="contain"
-          bg="dark.9"
+          bg={uiColors.lightGray}
           radius={4}
         />
         <Box
@@ -140,7 +141,7 @@ const PhotoTilesTile = ({
             pointerEvents: "none",
           }}
         />
-        <Flex pos="absolute" right={0} bottom={0} w="auto" h="auto">
+        <Flex pos="absolute" right={8} bottom={8} w="auto" h="auto">
           <ActionIcon variant="transparent">
             <Maximize color="white" size={24} />
           </ActionIcon>

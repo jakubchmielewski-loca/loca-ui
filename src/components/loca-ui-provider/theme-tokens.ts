@@ -29,6 +29,7 @@ export type UiColors = {
   dateSwitcherBg: string;
   paginationBorder: string;
   paperBorder: string;
+  lightGray: string;
 };
 
 const ld = (light: string, dark: string) => `light-dark(${light}, ${dark})`;
@@ -45,6 +46,7 @@ const baseUiColors = {
   overlayStrong: ld("rgba(0, 0, 0, 0.3)", "rgba(0, 0, 0, 0.6)"),
   accentPrimary: ld("#2C4E97", "#8DA5DA"),
   appShellBorderTone: ld("#DEE8EF", "#2B2F33"),
+  lightGray: ld("#FAFAFA", "#22252A"),
 };
 
 export const fontFamilyBody = "'Open Sans Variable', sans-serif";
@@ -79,4 +81,5 @@ export const uiColors: UiColors = {
   dateSwitcherBg: baseUiColors.surfaceElevated,
   paginationBorder: baseUiColors.borderSubtle,
   paperBorder: baseUiColors.borderStrong,
+  lightGray: baseUiColors.lightGray,
 };
