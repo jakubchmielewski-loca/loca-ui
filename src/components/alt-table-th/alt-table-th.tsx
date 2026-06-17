@@ -26,7 +26,7 @@ export const AltTableTh = ({
     <Comp onClick={onSort} w="100%">
       <Group justify={center ? "center" : "flex-start"} gap={6}>
         <Text
-          fz={16}
+          fz={14}
           lh={1}
           fw={600}
           c={order ? uiColors.primaryAccent : uiColors.textMuted}
@@ -35,12 +35,10 @@ export const AltTableTh = ({
         </Text>
         {onSort && (
           <Box c={order ? uiColors.primaryAccent : uiColors.textSecondary}>
-            {!order && <ArrowDownUp size={18} strokeWidth={2.4} />}
-            {order === "asc" && (
-              <ArrowUpNarrowWide size={18} strokeWidth={2.4} />
-            )}
+            {!order && <ArrowDownUp size={16} strokeWidth={2} />}
+            {order === "asc" && <ArrowUpNarrowWide size={16} strokeWidth={2} />}
             {order === "desc" && (
-              <ArrowDownNarrowWide size={18} strokeWidth={2.4} />
+              <ArrowDownNarrowWide size={16} strokeWidth={2} />
             )}
           </Box>
         )}

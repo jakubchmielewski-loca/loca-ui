@@ -289,7 +289,7 @@ export const theme = createTheme({
 
     TableTd: {
       defaultProps: {
-        fz: 16,
+        fz: 14,
         lh: 2,
       },
     },
