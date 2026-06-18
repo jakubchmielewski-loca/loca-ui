@@ -4,7 +4,6 @@ import {
   ArrowDownUp,
   ArrowUpNarrowWide,
 } from "lucide-react";
-import React from "react";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 export type AltTableThProps = {
@@ -20,29 +19,33 @@ export const AltTableTh = ({
   onSort,
   center,
 }: AltTableThProps) => {
-  const Comp = onSort ? UnstyledButton : React.Fragment;
-
-  return (
-    <Comp onClick={onSort} w="100%">
-      <Group justify={center ? "center" : "flex-start"} gap={6}>
-        <Text
-          fz={14}
-          lh={1}
-          fw={600}
-          c={order ? uiColors.primaryAccent : uiColors.textMuted}
-        >
-          {text}
-        </Text>
-        {onSort && (
-          <Box c={order ? uiColors.primaryAccent : uiColors.textSecondary}>
-            {!order && <ArrowDownUp size={16} strokeWidth={2} />}
-            {order === "asc" && <ArrowUpNarrowWide size={16} strokeWidth={2} />}
-            {order === "desc" && (
-              <ArrowDownNarrowWide size={16} strokeWidth={2} />
-            )}
-          </Box>
-        )}
-      </Group>
-    </Comp>
+  const content = (
+    <Group justify={center ? "center" : "flex-start"} gap={6}>
+      <Text
+        fz={14}
+        lh={1}
+        fw={600}
+        c={order ? uiColors.primaryAccent : uiColors.textMuted}
+      >
+        {text}
+      </Text>
+      {onSort && (
+        <Box c={order ? uiColors.primaryAccent : uiColors.textSecondary}>
+          {!order && <ArrowDownUp size={16} strokeWidth={2} />}
+          {order === "asc" && <ArrowUpNarrowWide size={16} strokeWidth={2} />}
+          {order === "desc" && <ArrowDownNarrowWide size={16} strokeWidth={2} />}
+        </Box>
+      )}
+    </Group>
   );
+
+  if (onSort) {
+    return (
+      <UnstyledButton onClick={onSort} w="100%">
+        {content}
+      </UnstyledButton>
+    );
+  }
+
+  return content;
 };

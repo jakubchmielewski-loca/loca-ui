@@ -12,8 +12,10 @@ import {
 import { Maximize } from "lucide-react";
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
   type FC,
   type ReactNode,
@@ -66,21 +68,26 @@ const PhotoTilesRoot = ({ children }: PhotoTilesProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [slides, setSlides] = useState<PhotoTilesSlide[]>([]);
 
-  const setSlide = (index: number, slide: PhotoTilesSlide) => {
+  const setSlide = useCallback((index: number, slide: PhotoTilesSlide) => {
     setSlides((prev) => {
       const next = [...prev];
       next[index] = slide;
       return next;
     });
-  };
+  }, []);
 
-  const openAt = (index: number) => {
+  const openAt = useCallback((index: number) => {
     setActiveIndex(index);
     setOpen(true);
-  };
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({ openAt, setSlide }),
+    [openAt, setSlide]
+  );
 
   return (
-    <PhotoTilesContext.Provider value={{ openAt, setSlide }}>
+    <PhotoTilesContext.Provider value={contextValue}>
       {children}
       <Lightbox
         open={open}

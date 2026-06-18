@@ -357,15 +357,13 @@ function PlaygroundContent() {
                     </Table.Thead>
                     <Table.Tbody>{rows}</Table.Tbody>
                     <Table.Tfoot>
-                      <Table.Tr>
-                        <TableFooter
-                          total={120}
-                          totalPages={12}
-                          page={page}
-                          setPage={setPage}
-                          paginationProps={{ size: "sm" }}
-                        />
-                      </Table.Tr>
+                      <TableFooter
+                        total={120}
+                        totalPages={12}
+                        page={page}
+                        setPage={setPage}
+                        paginationProps={{ size: "sm" }}
+                      />
                     </Table.Tfoot>
                   </Table>
                 </Stack>

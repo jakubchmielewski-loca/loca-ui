@@ -24,29 +24,31 @@ export const TableFooter = ({
   paginationProps?: Partial<PaginationProps>;
 }) => {
   return (
-    <td colSpan={100}>
-      <Group px={24} pt={24} justify="space-between" gap={32}>
-        {itemsPerPage && setItemsPerPage && (
-          <Group align="center" gap={16}>
-            <Text fz={14} c="dark.3">
-              Pokaż
-            </Text>
-            <Select
-              w={70}
-              data={["10", "20", "50", "100"]}
-              value={itemsPerPage.toString()}
-              onChange={(value) => setItemsPerPage(Number(value))}
-            />
-            <Text fz={14} c="dark.3">{`z ${total} wyników`}</Text>
-          </Group>
-        )}
-        <Pagination
-          total={totalPages}
-          value={page}
-          onChange={setPage}
-          {...paginationProps}
-        />
-      </Group>
-    </td>
+    <tr>
+      <td colSpan={100}>
+        <Group px={24} pt={24} justify="space-between" gap={32}>
+          {itemsPerPage && setItemsPerPage && (
+            <Group align="center" gap={16}>
+              <Text fz={14} c="dark.3">
+                Pokaż
+              </Text>
+              <Select
+                w={70}
+                data={["10", "20", "50", "100"]}
+                value={itemsPerPage.toString()}
+                onChange={(value) => setItemsPerPage(Number(value))}
+              />
+              <Text fz={14} c="dark.3">{`z ${total} wyników`}</Text>
+            </Group>
+          )}
+          <Pagination
+            total={totalPages}
+            value={page}
+            onChange={setPage}
+            {...paginationProps}
+          />
+        </Group>
+      </td>
+    </tr>
   );
 };
