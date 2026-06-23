@@ -19,6 +19,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { DateInput, DatePicker } from "@mantine/dates";
 import { BarChart } from "@mantine/charts";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
@@ -277,6 +278,12 @@ function PlaygroundContent() {
                       data={["Option 1", "Option 2", "Option 3"]}
                     />
                   </Group>
+                  <Group>
+                    <DateInput
+                      value={date}
+                      onChange={(date) => setDate(new Date(date ?? new Date()))}
+                    />
+                  </Group>
                   <Group grow>
                     <TextInput label="TextInput" placeholder="Wpisz wartosc" />
                     <Select
@@ -362,7 +369,8 @@ function PlaygroundContent() {
                         totalPages={12}
                         page={page}
                         setPage={setPage}
-                        paginationProps={{ size: "sm" }}
+                        itemsPerPage={10}
+                        setItemsPerPage={() => {}}
                       />
                     </Table.Tfoot>
                   </Table>
