@@ -155,6 +155,30 @@ export const theme = createTheme({
       }),
     },
 
+    TextInput: {
+      vars: (theme: MantineTheme, props: { readOnly?: boolean }) => ({
+        input: props.readOnly
+          ? {
+              "--input-bg": theme.other["uiColors"].surfaceBase,
+              "--input-color": theme.other["uiColors"].textMuted,
+              "--input-placeholder-color": theme.other["uiColors"].textMuted,
+            }
+          : {},
+      }),
+    },
+
+    Textarea: {
+      vars: (theme: MantineTheme, props: { readOnly?: boolean }) => ({
+        input: props.readOnly
+          ? {
+              "--input-bg": theme.other["uiColors"].surfaceBase,
+              "--input-color": theme.other["uiColors"].textMuted,
+              "--input-placeholder-color": theme.other["uiColors"].textMuted,
+            }
+          : {},
+      }),
+    },
+
     Select: {
       defaultProps: {
         rightSection: <ChevronDown size={16} />,

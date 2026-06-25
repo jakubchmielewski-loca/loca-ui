@@ -18,6 +18,7 @@ import {
   Text,
   TextInput,
   Title,
+  Textarea,
 } from "@mantine/core";
 import { DateInput, DatePicker } from "@mantine/dates";
 import { BarChart } from "@mantine/charts";
@@ -285,7 +286,11 @@ function PlaygroundContent() {
                     />
                   </Group>
                   <Group grow>
-                    <TextInput label="TextInput" placeholder="Wpisz wartosc" />
+                    <TextInput
+                      label="TextInput"
+                      placeholder="Wpisz wartosc"
+                      readOnly
+                    />
                     <Select
                       label="Select"
                       placeholder="Wybierz opcje"
@@ -293,14 +298,17 @@ function PlaygroundContent() {
                     />
                     <FileInput label="FileInput" />
                   </Group>
-                  <DetailedSelect
-                    label="Placówka"
-                    placeholder="Wybierz placówkę"
-                    data={schoolOptions}
-                    value={schoolId}
-                    onChange={setSchoolId}
-                    clearable
-                  />
+                  <Group grow>
+                    <DetailedSelect
+                      label="Placówka"
+                      placeholder="Wybierz placówkę"
+                      data={schoolOptions}
+                      value={schoolId}
+                      onChange={setSchoolId}
+                      clearable
+                    />
+                    <Textarea label="Textarea" placeholder="Wpisz wartosc" />
+                  </Group>
                   <Group>
                     <SegmentedControl
                       data={["Dzisiaj", "Tydzien", "Miesiac"]}
