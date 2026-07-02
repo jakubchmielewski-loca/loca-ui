@@ -46,7 +46,7 @@ export const theme = createTheme({
     AppShell: {
       defaultProps: {
         layout: "alt",
-        header: { height: { base: 72, md: 0 } },
+        header: { height: { base: 56, md: 0 } },
         footer: { height: 60 },
         navbar: {
           width: 300,

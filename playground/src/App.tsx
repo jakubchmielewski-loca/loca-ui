@@ -349,39 +349,41 @@ function PlaygroundContent() {
               <Paper withBorder p="md">
                 <Stack gap="sm">
                   <Title order={4}>Table</Title>
-                  <Table highlightOnHover>
-                    <Table.Thead>
-                      <Table.Tr>
-                        <Table.Th>
-                          <AltTableTh
-                            text="Position"
-                            order={sort}
-                            onSort={handleSort}
-                          />
-                        </Table.Th>
-                        <Table.Th>
-                          <AltTableTh text="Name" />
-                        </Table.Th>
-                        <Table.Th>
-                          <AltTableTh text="Symbol" />
-                        </Table.Th>
-                        <Table.Th>
-                          <AltTableTh text="Mass" />
-                        </Table.Th>
-                      </Table.Tr>
-                    </Table.Thead>
-                    <Table.Tbody>{rows}</Table.Tbody>
-                    <Table.Tfoot>
-                      <TableFooter
-                        total={120}
-                        totalPages={12}
-                        page={page}
-                        setPage={setPage}
-                        itemsPerPage={10}
-                        setItemsPerPage={() => {}}
-                      />
-                    </Table.Tfoot>
-                  </Table>
+                  <Stack gap={0}>
+                    <Table.ScrollContainer minWidth={600} type="native">
+                      <Table highlightOnHover>
+                        <Table.Thead>
+                          <Table.Tr>
+                            <Table.Th>
+                              <AltTableTh
+                                text="Position"
+                                order={sort}
+                                onSort={handleSort}
+                              />
+                            </Table.Th>
+                            <Table.Th>
+                              <AltTableTh text="Name" />
+                            </Table.Th>
+                            <Table.Th>
+                              <AltTableTh text="Symbol" />
+                            </Table.Th>
+                            <Table.Th>
+                              <AltTableTh text="Mass" />
+                            </Table.Th>
+                          </Table.Tr>
+                        </Table.Thead>
+                        <Table.Tbody>{rows}</Table.Tbody>
+                      </Table>
+                    </Table.ScrollContainer>
+                    <TableFooter
+                      total={120}
+                      totalPages={12}
+                      page={page}
+                      setPage={setPage}
+                      itemsPerPage={10}
+                      setItemsPerPage={() => {}}
+                    />
+                  </Stack>
                 </Stack>
               </Paper>
 

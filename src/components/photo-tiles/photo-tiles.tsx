@@ -23,6 +23,7 @@ import {
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
+import { useMediaQuery } from "@mantine/hooks";
 
 type PhotoTilesSlide = {
   src: string;
@@ -100,8 +101,10 @@ const PhotoTilesRoot = ({ children }: PhotoTilesProps) => {
 };
 
 const PhotoTilesGrid = ({ children, columns = 6 }: PhotoTilesGridProps) => {
+  const isCompact = useMediaQuery("(max-width: 48em)");
+
   return (
-    <SimpleGrid cols={columns} spacing="md">
+    <SimpleGrid cols={isCompact ? 2 : columns} spacing="md">
       {children}
     </SimpleGrid>
   );

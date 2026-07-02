@@ -58,17 +58,6 @@ a {
     background-color: var(--ui-table-header-bg);
 }
 
-.mantine-Table-thead::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -24px;
-    width: calc(100% + 48px);
-    height: 100%;
-    background-color: var(--ui-table-header-bg);
-    z-index: -1;
-}
-
 .mantine-Table-thead:where([data-sticky])::before {
     content: none;
 }
@@ -82,14 +71,6 @@ a {
     background-color: transparent;
 }
 
-.mantine-Table-tbody .mantine-Table-tr[data-hover]:hover .mantine-Table-td:first-child:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -24px;
-    width: calc(100% + 48px);
-    height: 100%;
+.mantine-Table-tbody .mantine-Table-tr[data-hover]:hover .mantine-Table-td {
     background-color: var(--ui-table-hover-bg);
-    z-index: -1;
-    pointer-events: none;
 }
