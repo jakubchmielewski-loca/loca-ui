@@ -25,10 +25,17 @@ import { BarChart } from "@mantine/charts";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { Navbar } from "../../src/components/navbar";
-import { HomeIcon } from "lucide-react";
+import {
+  Calendar,
+  HomeIcon,
+  ListChecks,
+  Map,
+  MessageCircleWarning,
+} from "lucide-react";
 import { AppFooter } from "../../src/components/app-footer";
+import { BottomNavigation } from "../../src/components/bottom-navigation";
 import { PagePane } from "../../src/components/page-pane";
 import { PageWrapper } from "../../src/components/page-wrapper";
 import { AltTableTh } from "../../src/components/alt-table-th";
@@ -152,6 +159,8 @@ function PlaygroundContent() {
   const [search, setSearch] = useState("");
   const [schoolId, setSchoolId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
+  const [bottomNavValue, setBottomNavValue] = useState(0);
+  const isMobile = useMediaQuery("(max-width: 48em)");
 
   const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
@@ -239,208 +248,282 @@ function PlaygroundContent() {
             ]}
           />
           <PagePane>
-            <Stack gap="lg">
-              <Group justify="space-between">
-                <Title order={2}>Playground custom components</Title>
-              </Group>
+            {bottomNavValue === 1 && isMobile && (
+              <Stack gap="lg">
+                <Title order={2}>Mapa</Title>
+                <Text size="sm" c="dimmed">
+                  Widok mapy — nawigacja dolna na mobile przełącza sekcje
+                  aplikacji.
+                </Text>
+                <Paper withBorder p="md" h={320}>
+                  <Text ta="center" c="dimmed" mt={120}>
+                    Podgląd mapy
+                  </Text>
+                </Paper>
+              </Stack>
+            )}
 
-              <Group>
-                <Button onClick={openModal}>Open modal</Button>
-                <Button variant="outline" onClick={openDrawer}>
-                  Open drawer
-                </Button>
-                <Button
-                  variant="light"
-                  onClick={() =>
-                    notifications.show({
-                      title: "Test notification",
-                      message: "Komponenty wygladaja poprawnie",
-                    })
-                  }
-                >
-                  Show notification
-                </Button>
-              </Group>
+            {bottomNavValue === 2 && isMobile && (
+              <Stack gap="lg">
+                <Title order={2}>Kalendarz</Title>
+                <Text size="sm" c="dimmed">
+                  Widok kalendarza.
+                </Text>
+                <Paper withBorder p="md">
+                  <DatePicker />
+                </Paper>
+              </Stack>
+            )}
 
-              <Paper withBorder p="md">
-                <Stack gap="sm">
-                  <Title order={4}>Forms & filters</Title>
-                  <Group w="full">
-                    <SearchInput
-                      bg="#fff"
-                      placeholder="Search"
-                      value={search}
-                      onChange={(event) => setSearch(event.currentTarget.value)}
-                      flex={1}
-                    />
-                    <SearchSelect
-                      bg="#fff"
-                      placeholder="Filter by"
-                      data={["Option 1", "Option 2", "Option 3"]}
-                    />
-                  </Group>
-                  <Group>
-                    <DateInput
-                      value={date}
-                      onChange={(date) => setDate(new Date(date ?? new Date()))}
-                    />
-                  </Group>
-                  <Group grow>
-                    <TextInput
-                      label="TextInput"
-                      placeholder="Wpisz wartosc"
-                      readOnly
-                    />
-                    <Select
-                      label="Select"
-                      placeholder="Wybierz opcje"
-                      data={["Option 1", "Option 2", "Option 3"]}
-                    />
-                    <FileInput label="FileInput" />
-                  </Group>
-                  <Group grow>
-                    <DetailedSelect
-                      label="Placówka"
-                      placeholder="Wybierz placówkę"
-                      data={schoolOptions}
-                      value={schoolId}
-                      onChange={setSchoolId}
-                      clearable
-                    />
-                    <Textarea label="Textarea" placeholder="Wpisz wartosc" />
-                  </Group>
-                  <Group>
-                    <SegmentedControl
-                      data={["Dzisiaj", "Tydzien", "Miesiac"]}
-                      defaultValue="Dzisiaj"
-                    />
-                    <DateSwitcher value={date} onChange={setDate} mode="week" />
-                  </Group>
-                </Stack>
-              </Paper>
+            {bottomNavValue === 3 && isMobile && (
+              <Stack gap="lg">
+                <Title order={2}>Problemy</Title>
+                <Text size="sm" c="dimmed">
+                  Lista zgłoszonych problemów.
+                </Text>
+                <Paper withBorder p="md">
+                  <Stack gap="sm">
+                    <Text fw={500}>Dziura w panelu</Text>
+                    <Text size="sm" c="dimmed">
+                      Sala 217 — zgłoszono 2 dni temu
+                    </Text>
+                    <Divider />
+                    <Text fw={500}>Uszkodzenie okna</Text>
+                    <Text size="sm" c="dimmed">
+                      Korytarz — zgłoszono 5 dni temu
+                    </Text>
+                  </Stack>
+                </Paper>
+              </Stack>
+            )}
 
-              <Paper withBorder p="md">
-                <Stack gap="sm">
-                  <Title order={4}>Tabs & badges</Title>
-                  <Group>
-                    <Badge color="green">Active</Badge>
-                    <Badge color="orange">Pending</Badge>
-                    <Badge color="red">Error</Badge>
-                  </Group>
-                  <Tabs defaultValue="users">
-                    <Tabs.List>
-                      <Tabs.Tab value="users">Users</Tabs.Tab>
-                      <Tabs.Tab value="roles">Roles</Tabs.Tab>
-                    </Tabs.List>
-                    <Tabs.Panel value="users">
-                      <Text size="sm" mt="md">
-                        Podglad tab panelu users.
-                      </Text>
-                    </Tabs.Panel>
-                    <Tabs.Panel value="roles">
-                      <Text size="sm" mt="md">
-                        Podglad tab panelu roles.
-                      </Text>
-                    </Tabs.Panel>
-                  </Tabs>
-                </Stack>
-              </Paper>
+            {(bottomNavValue === 0 || !isMobile) && (
+              <Stack gap="lg">
+                <Group justify="space-between">
+                  <Title order={2}>Playground custom components</Title>
+                </Group>
 
-              <Paper withBorder p="md">
-                <Stack gap="sm">
-                  <Title order={4}>Table</Title>
-                  <Stack gap={0}>
-                    <Table.ScrollContainer minWidth={600} type="native">
-                      <Table highlightOnHover>
-                        <Table.Thead>
-                          <Table.Tr>
-                            <Table.Th>
-                              <AltTableTh
-                                text="Position"
-                                order={sort}
-                                onSort={handleSort}
-                              />
-                            </Table.Th>
-                            <Table.Th>
-                              <AltTableTh text="Name" />
-                            </Table.Th>
-                            <Table.Th>
-                              <AltTableTh text="Symbol" />
-                            </Table.Th>
-                            <Table.Th>
-                              <AltTableTh text="Mass" />
-                            </Table.Th>
-                          </Table.Tr>
-                        </Table.Thead>
-                        <Table.Tbody>{rows}</Table.Tbody>
-                      </Table>
-                    </Table.ScrollContainer>
-                    <TableFooter
-                      total={120}
-                      totalPages={12}
-                      page={page}
-                      setPage={setPage}
-                      itemsPerPage={10}
-                      setItemsPerPage={() => {}}
+                <Group>
+                  <Button onClick={openModal}>Open modal</Button>
+                  <Button variant="outline" onClick={openDrawer}>
+                    Open drawer
+                  </Button>
+                  <Button
+                    variant="light"
+                    onClick={() =>
+                      notifications.show({
+                        title: "Test notification",
+                        message: "Komponenty wygladaja poprawnie",
+                      })
+                    }
+                  >
+                    Show notification
+                  </Button>
+                </Group>
+
+                <Paper withBorder p="md">
+                  <Stack gap="sm">
+                    <Title order={4}>Forms & filters</Title>
+                    <Group w="full">
+                      <SearchInput
+                        bg="#fff"
+                        placeholder="Search"
+                        value={search}
+                        onChange={(event) =>
+                          setSearch(event.currentTarget.value)
+                        }
+                        flex={1}
+                      />
+                      <SearchSelect
+                        bg="#fff"
+                        placeholder="Filter by"
+                        data={["Option 1", "Option 2", "Option 3"]}
+                      />
+                    </Group>
+                    <Group>
+                      <DateInput
+                        value={date}
+                        onChange={(date) =>
+                          setDate(new Date(date ?? new Date()))
+                        }
+                      />
+                    </Group>
+                    <Group grow>
+                      <TextInput
+                        label="TextInput"
+                        placeholder="Wpisz wartosc"
+                        readOnly
+                      />
+                      <Select
+                        label="Select"
+                        placeholder="Wybierz opcje"
+                        data={["Option 1", "Option 2", "Option 3"]}
+                      />
+                      <FileInput label="FileInput" />
+                    </Group>
+                    <Group grow>
+                      <DetailedSelect
+                        label="Placówka"
+                        placeholder="Wybierz placówkę"
+                        data={schoolOptions}
+                        value={schoolId}
+                        onChange={setSchoolId}
+                        clearable
+                      />
+                      <Textarea label="Textarea" placeholder="Wpisz wartosc" />
+                    </Group>
+                    <Group>
+                      <SegmentedControl
+                        data={["Dzisiaj", "Tydzien", "Miesiac"]}
+                        defaultValue="Dzisiaj"
+                      />
+                      <DateSwitcher
+                        value={date}
+                        onChange={setDate}
+                        mode="week"
+                      />
+                    </Group>
+                  </Stack>
+                </Paper>
+
+                <Paper withBorder p="md">
+                  <Stack gap="sm">
+                    <Title order={4}>Tabs & badges</Title>
+                    <Group>
+                      <Badge color="green">Active</Badge>
+                      <Badge color="orange">Pending</Badge>
+                      <Badge color="red">Error</Badge>
+                    </Group>
+                    <Tabs defaultValue="users">
+                      <Tabs.List>
+                        <Tabs.Tab value="users">Users</Tabs.Tab>
+                        <Tabs.Tab value="roles">Roles</Tabs.Tab>
+                      </Tabs.List>
+                      <Tabs.Panel value="users">
+                        <Text size="sm" mt="md">
+                          Podglad tab panelu users.
+                        </Text>
+                      </Tabs.Panel>
+                      <Tabs.Panel value="roles">
+                        <Text size="sm" mt="md">
+                          Podglad tab panelu roles.
+                        </Text>
+                      </Tabs.Panel>
+                    </Tabs>
+                  </Stack>
+                </Paper>
+
+                <Paper withBorder p="md">
+                  <Stack gap="sm">
+                    <Title order={4}>Table</Title>
+                    <Stack gap={0}>
+                      <Table.ScrollContainer minWidth={600} type="native">
+                        <Table highlightOnHover>
+                          <Table.Thead>
+                            <Table.Tr>
+                              <Table.Th>
+                                <AltTableTh
+                                  text="Position"
+                                  order={sort}
+                                  onSort={handleSort}
+                                />
+                              </Table.Th>
+                              <Table.Th>
+                                <AltTableTh text="Name" />
+                              </Table.Th>
+                              <Table.Th>
+                                <AltTableTh text="Symbol" />
+                              </Table.Th>
+                              <Table.Th>
+                                <AltTableTh text="Mass" />
+                              </Table.Th>
+                            </Table.Tr>
+                          </Table.Thead>
+                          <Table.Tbody>{rows}</Table.Tbody>
+                        </Table>
+                      </Table.ScrollContainer>
+                      <TableFooter
+                        total={120}
+                        totalPages={12}
+                        page={page}
+                        setPage={setPage}
+                        itemsPerPage={10}
+                        setItemsPerPage={() => {}}
+                      />
+                    </Stack>
+                  </Stack>
+                </Paper>
+
+                <Paper withBorder p="md">
+                  <Stack gap="sm">
+                    <Title order={4}>Photo tiles lightbox</Title>
+                    <Text size="sm" c="dimmed">
+                      Kliknij kafelek, aby otworzyć podgląd zdjęcia w
+                      lightboxie.
+                    </Text>
+                    <PhotoTiles>
+                      <PhotoTiles.Grid>
+                        {photoTilesItems.map((item, index) => (
+                          <PhotoTiles.Tile
+                            key={index}
+                            index={index}
+                            src={item.src}
+                            title={item.title}
+                            fileName={item.fileName}
+                          />
+                        ))}
+                      </PhotoTiles.Grid>
+                    </PhotoTiles>
+                  </Stack>
+                </Paper>
+
+                <Paper withBorder p="md">
+                  <Stack gap="sm">
+                    <Title order={4}>Stepper & chart</Title>
+                    <AltStepper active={active}>
+                      <AltStepper.Step label="Krok 1" />
+                      <AltStepper.Step label="Krok 2" />
+                      <AltStepper.Step label="Krok 3" />
+                      <AltStepper.Step label="Krok 4" />
+                    </AltStepper>
+                    <Group>
+                      <Button variant="default" onClick={prevStep}>
+                        Previous
+                      </Button>
+                      <Button onClick={nextStep}>Next</Button>
+                    </Group>
+                    <Divider />
+                    <BarChart
+                      h={250}
+                      data={data}
+                      dataKey="month"
+                      series={[
+                        { name: "Smartphones", color: "navy.6" },
+                        { name: "Laptops", color: "navy.4" },
+                        { name: "Tablets", color: "navy.2" },
+                      ]}
                     />
                   </Stack>
-                </Stack>
-              </Paper>
-
-              <Paper withBorder p="md">
-                <Stack gap="sm">
-                  <Title order={4}>Photo tiles lightbox</Title>
-                  <Text size="sm" c="dimmed">
-                    Kliknij kafelek, aby otworzyć podgląd zdjęcia w lightboxie.
-                  </Text>
-                  <PhotoTiles>
-                    <PhotoTiles.Grid>
-                      {photoTilesItems.map((item, index) => (
-                        <PhotoTiles.Tile
-                          key={index}
-                          index={index}
-                          src={item.src}
-                          title={item.title}
-                          fileName={item.fileName}
-                        />
-                      ))}
-                    </PhotoTiles.Grid>
-                  </PhotoTiles>
-                </Stack>
-              </Paper>
-
-              <Paper withBorder p="md">
-                <Stack gap="sm">
-                  <Title order={4}>Stepper & chart</Title>
-                  <AltStepper active={active}>
-                    <AltStepper.Step label="Krok 1" />
-                    <AltStepper.Step label="Krok 2" />
-                    <AltStepper.Step label="Krok 3" />
-                    <AltStepper.Step label="Krok 4" />
-                  </AltStepper>
-                  <Group>
-                    <Button variant="default" onClick={prevStep}>
-                      Previous
-                    </Button>
-                    <Button onClick={nextStep}>Next</Button>
-                  </Group>
-                  <Divider />
-                  <BarChart
-                    h={250}
-                    data={data}
-                    dataKey="month"
-                    series={[
-                      { name: "Smartphones", color: "navy.6" },
-                      { name: "Laptops", color: "navy.4" },
-                      { name: "Tablets", color: "navy.2" },
-                    ]}
-                  />
-                </Stack>
-              </Paper>
-            </Stack>
+                </Paper>
+              </Stack>
+            )}
           </PagePane>
         </PageWrapper>
       </AppShell.Main>
+
+      <AppShell.Footer hiddenFrom="sm">
+        <BottomNavigation
+          value={bottomNavValue}
+          onChange={(_event, newValue) => {
+            setBottomNavValue(newValue);
+          }}
+        >
+          <BottomNavigation.Item label="Zadania" icon={ListChecks} />
+          <BottomNavigation.Item label="Mapa" icon={Map} />
+          <BottomNavigation.Item label="Kalendarz" icon={Calendar} />
+          <BottomNavigation.Item label="Problemy" icon={MessageCircleWarning} />
+        </BottomNavigation>
+      </AppShell.Footer>
 
       <Modal opened={openedModal} onClose={closeModal} title="Modal test">
         <Text size="sm">Podglad customowych styli modala.</Text>

@@ -1,6 +1,7 @@
 export * from "./components/alt-stepper";
 export * from "./components/alt-table-th";
 export * from "./components/app-footer";
+export * from "./components/bottom-navigation";
 export * from "./components/date-switcher";
 export * from "./components/detailed-select";
 export * from "./components/header";

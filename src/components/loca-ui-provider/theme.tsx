@@ -47,7 +47,7 @@ export const theme = createTheme({
       defaultProps: {
         layout: "alt",
         header: { height: { base: 56, md: 0 } },
-        footer: { height: 60 },
+        footer: { height: 48 },
         navbar: {
           width: 300,
           breakpoint: "sm",
