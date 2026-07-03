@@ -305,7 +305,9 @@ function PlaygroundContent() {
                 </Group>
 
                 <Group>
-                  <Button onClick={openModal}>Open modal</Button>
+                  <Button size="xs" onClick={openModal}>
+                    Open modal
+                  </Button>
                   <Button variant="outline" onClick={openDrawer}>
                     Open drawer
                   </Button>

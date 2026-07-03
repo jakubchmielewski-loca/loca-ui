@@ -1,5 +1,6 @@
 import {
   createTheme,
+  em,
   rem,
   type CSSVariablesResolver,
   type MantineTheme,
@@ -87,14 +88,32 @@ export const theme = createTheme({
     },
 
     Button: {
-      vars: () => ({
-        root: {
-          "--button-height": rem(48),
-          "--button-padding-x": rem(24),
-          "--button-fz": rem(14),
-          "--button-radius": rem(4),
-        },
-      }),
+      defaultProps: {
+        size: "md",
+      },
+      vars: (
+        _: MantineTheme,
+        props: { size?: "xs" | "sm" | "md" | "lg" | "xl" }
+      ) => {
+        const fontSizes = {
+          xs: "10px",
+          sm: "12px",
+          md: "14px",
+          lg: "16px",
+          xl: "18px",
+        };
+
+        const fontSize = fontSizes[props.size || "md"];
+
+        return {
+          root: {
+            "--button-height": em(55),
+            "--button-padding-x": em(28),
+            "--button-fz": fontSize,
+            "--button-radius": rem(4),
+          },
+        };
+      },
     },
 
     Title: {
