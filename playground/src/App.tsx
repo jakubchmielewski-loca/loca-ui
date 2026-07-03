@@ -22,6 +22,7 @@ import {
 } from "@mantine/core";
 import { DateInput, DatePicker } from "@mantine/dates";
 import { BarChart } from "@mantine/charts";
+import { Carousel } from "@mantine/carousel";
 
 import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 
@@ -504,6 +505,15 @@ function PlaygroundContent() {
                       ]}
                     />
                   </Stack>
+                </Paper>
+
+                <Paper withBorder p="md">
+                  <Carousel withIndicators height={200}>
+                    <Carousel.Slide>1</Carousel.Slide>
+                    <Carousel.Slide>2</Carousel.Slide>
+                    <Carousel.Slide>3</Carousel.Slide>
+                    {/* ...other slides */}
+                  </Carousel>
                 </Paper>
               </Stack>
             )}
