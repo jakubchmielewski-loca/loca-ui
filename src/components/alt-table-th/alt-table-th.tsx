@@ -20,7 +20,7 @@ export const AltTableTh = ({
   center,
 }: AltTableThProps) => {
   const content = (
-    <Group justify={center ? "center" : "flex-start"} gap={6}>
+    <Group justify={center ? "center" : "flex-start"} gap={6} wrap="nowrap">
       <Text
         fz={14}
         lh={1}
@@ -33,7 +33,9 @@ export const AltTableTh = ({
         <Box c={order ? uiColors.primaryAccent : uiColors.textSecondary}>
           {!order && <ArrowDownUp size={16} strokeWidth={2} />}
           {order === "asc" && <ArrowUpNarrowWide size={16} strokeWidth={2} />}
-          {order === "desc" && <ArrowDownNarrowWide size={16} strokeWidth={2} />}
+          {order === "desc" && (
+            <ArrowDownNarrowWide size={16} strokeWidth={2} />
+          )}
         </Box>
       )}
     </Group>
