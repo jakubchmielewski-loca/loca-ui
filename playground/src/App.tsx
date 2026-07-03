@@ -14,7 +14,6 @@ import {
   Select,
   Stack,
   Table,
-  Tabs,
   Text,
   TextInput,
   Title,
@@ -52,6 +51,7 @@ import { SearchSelect } from "../../src/components/search-select";
 import { DetailedSelect } from "../../src/components/detailed-select";
 import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 import { PhotoTiles } from "../../src/components/photo-tiles";
+import { Tabs } from "../../src";
 
 const photoTilesItems = [
   {
@@ -399,6 +399,10 @@ function PlaygroundContent() {
                       <Tabs.List>
                         <Tabs.Tab value="users">Users</Tabs.Tab>
                         <Tabs.Tab value="roles">Roles</Tabs.Tab>
+                        <Tabs.Tab value="settings">Settings</Tabs.Tab>
+                        <Tabs.Tab value="permissions">Permissions</Tabs.Tab>
+                        <Tabs.Tab value="logs">Logs</Tabs.Tab>
+                        <Tabs.Tab value="notifications">Notifications</Tabs.Tab>
                       </Tabs.List>
                       <Tabs.Panel value="users">
                         <Text size="sm" mt="md">
@@ -408,6 +412,26 @@ function PlaygroundContent() {
                       <Tabs.Panel value="roles">
                         <Text size="sm" mt="md">
                           Podglad tab panelu roles.
+                        </Text>
+                      </Tabs.Panel>
+                      <Tabs.Panel value="settings">
+                        <Text size="sm" mt="md">
+                          Podglad tab panelu settings.
+                        </Text>
+                      </Tabs.Panel>
+                      <Tabs.Panel value="permissions">
+                        <Text size="sm" mt="md">
+                          Podglad tab panelu permissions.
+                        </Text>
+                      </Tabs.Panel>
+                      <Tabs.Panel value="logs">
+                        <Text size="sm" mt="md">
+                          Podglad tab panelu logs.
+                        </Text>
+                      </Tabs.Panel>
+                      <Tabs.Panel value="notifications">
+                        <Text size="sm" mt="md">
+                          Podglad tab panelu notifications.
                         </Text>
                       </Tabs.Panel>
                     </Tabs>

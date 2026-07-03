@@ -115,6 +115,9 @@ export const theme = createTheme({
         tabLabel: {
           fontWeight: 500,
         },
+        list: {
+          flexWrap: "nowrap",
+        },
       }),
       vars: (theme: MantineTheme) => ({
         tab: {

@@ -9,6 +9,10 @@ a {
     color: inherit;
 }
 
+.mantine-Tabs-list::before {
+    content: none !important;
+}
+
 .mantine-Tabs-tab[data-active="true"] {
     color: var(--ui-primary-accent);
     background-color: var(--ui-tabs-active-bg);

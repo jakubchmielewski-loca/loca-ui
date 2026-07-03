@@ -19,6 +19,7 @@ export * from "./components/table-footer";
 export { default as useNavbar } from "./hooks/use-navbar";
 
 export * from "@mantine/core";
+export { Tabs } from "./components/tabs";
 export * from "@mantine/hooks";
 export * from "@mantine/notifications";
 export * from "@mantine/modals";
