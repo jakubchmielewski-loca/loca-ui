@@ -26,6 +26,7 @@ export const AltTableTh = ({
         lh={1}
         fw={600}
         c={order ? uiColors.primaryAccent : uiColors.textMuted}
+        textWrap="nowrap"
       >
         {text}
       </Text>
