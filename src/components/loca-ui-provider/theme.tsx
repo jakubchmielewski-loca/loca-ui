@@ -245,6 +245,35 @@ export const theme = createTheme({
       }),
     },
 
+    ModalTitle: {
+      defaultProps: {
+        fz: { base: 24, md: 32 },
+        pt: { base: 16, md: 36 },
+        px: 24,
+        pb: 0,
+      },
+    },
+
+    ModalHeader: {
+      defaultProps: {
+        pb: 16,
+      },
+    },
+
+    ModalBody: {
+      defaultProps: {
+        p: { base: 16, md: 24 },
+        pb: { base: 24, md: 40 },
+      },
+    },
+
+    ModalClose: {
+      defaultProps: {
+        w: rem(72),
+        h: rem(72),
+      },
+    },
+
     Modal: {
       defaultProps: {
         size: "lg",
@@ -266,18 +295,8 @@ export const theme = createTheme({
         },
         title: {
           fontFamily: fontFamilyHeadings,
-          fontSize: rem(32),
           fontWeight: 600,
           color: uiColors.textStrong,
-          paddingTop: rem(36),
-          paddingLeft: rem(24),
-          paddingRight: rem(24),
-          paddingBottom: 0,
-        },
-        body: {
-          paddingLeft: rem(24),
-          paddingRight: rem(24),
-          paddingBottom: rem(40),
         },
         close: {
           width: rem(72),
