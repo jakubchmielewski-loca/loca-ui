@@ -31,14 +31,13 @@ const Item = ({
 
   if (href) {
     return (
-      <Box fw={600} c={theme.other["uiColors"].textPrimary}>
-        <LinkComponent
-          href={href}
-          fz={{ base: 12, md: 14, xl: 16 }}
-          style={{ whiteSpace: "nowrap" }}
-        >
-          {label}
-        </LinkComponent>
+      <Box
+        fw={600}
+        c={theme.other["uiColors"].textPrimary}
+        fz={{ base: 12, md: 14, xl: 16 }}
+        style={{ whiteSpace: "nowrap" }}
+      >
+        <LinkComponent href={href}>{label}</LinkComponent>
       </Box>
     );
   }
