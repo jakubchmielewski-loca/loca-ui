@@ -1,4 +1,13 @@
-import { Anchor, Box, Breadcrumbs, Text, useMantineTheme } from "@mantine/core";
+import {
+  Anchor,
+  Box,
+  Breadcrumbs,
+  ScrollArea,
+  Scroller,
+  Text,
+  useMantineTheme,
+  useMatches,
+} from "@mantine/core";
 import { ChevronRight } from "lucide-react";
 
 export type PageBreadcrumbsProps = {
@@ -23,13 +32,24 @@ const Item = ({
   if (href) {
     return (
       <Box fw={600} c={theme.other["uiColors"].textPrimary}>
-        <LinkComponent href={href}>{label}</LinkComponent>
+        <LinkComponent
+          href={href}
+          fz={{ base: 12, md: 14, xl: 16 }}
+          style={{ whiteSpace: "nowrap" }}
+        >
+          {label}
+        </LinkComponent>
       </Box>
     );
   }
 
   return (
-    <Text c="#AAAAAA" fw={600}>
+    <Text
+      c="#AAAAAA"
+      fz={{ base: 12, md: 14, xl: 16 }}
+      fw={600}
+      style={{ whiteSpace: "nowrap" }}
+    >
       {label}
     </Text>
   );
@@ -39,19 +59,30 @@ export const PageBreadcrumbs = ({
   LinkComponent = Anchor,
   items,
 }: PageBreadcrumbsProps) => {
+  const chevronSize = useMatches({
+    base: 12,
+    md: 14,
+    xl: 18,
+  });
+
   return (
-    <Breadcrumbs
-      separatorMargin={4}
-      separator={<ChevronRight color="#AAAAAA" size={18} strokeWidth={2} />}
-    >
-      {items.map((item) => (
-        <Item
-          key={item.label}
-          label={item.label}
-          href={item.href}
-          LinkComponent={LinkComponent}
-        />
-      ))}
-    </Breadcrumbs>
+    <ScrollArea type="never">
+      <Breadcrumbs
+        separatorMargin={4}
+        separator={
+          <ChevronRight color="#AAAAAA" size={chevronSize} strokeWidth={2} />
+        }
+        style={{ flexWrap: "nowrap" }}
+      >
+        {items.map((item) => (
+          <Item
+            key={item.label}
+            label={item.label}
+            href={item.href}
+            LinkComponent={LinkComponent}
+          />
+        ))}
+      </Breadcrumbs>
+    </ScrollArea>
   );
 };
