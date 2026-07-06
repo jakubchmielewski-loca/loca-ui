@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type NoticeItem = {
   id: string | number;
   title: string;
@@ -17,7 +19,7 @@ export type NoticeItem = {
   actionUrl?: string;
 };
 
-export type NoticesContextValue = {
+export type NoticesData = {
   items: NoticeItem[];
   unreadCount?: number;
   isLoading?: boolean;
@@ -26,4 +28,15 @@ export type NoticesContextValue = {
   onMarkAllAsRead?: () => void;
   onNoticeClick?: (notice: NoticeItem) => void;
   emptyLabel?: string;
+};
+
+export type NoticesContextValue = NoticesData & {
+  unreadCount: number;
+  isDrawerOpen: boolean;
+  openDrawer: () => void;
+  closeDrawer: () => void;
+};
+
+export type NoticesProviderProps = NoticesData & {
+  children: ReactNode;
 };

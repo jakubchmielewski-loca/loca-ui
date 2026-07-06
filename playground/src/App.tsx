@@ -34,7 +34,7 @@ import {
   Map,
   MessageCircleWarning,
 } from "lucide-react";
-import { AppFooter } from "../../src/components/app-footer";
+import { AppFooter, AppFooterProvider } from "../../src/components/app-footer";
 import { BottomNavigation } from "../../src/components/bottom-navigation";
 import { PagePane } from "../../src/components/page-pane";
 import { PageWrapper } from "../../src/components/page-wrapper";
@@ -49,6 +49,7 @@ import { SearchInput } from "../../src/components/search-input";
 import { NoticesProvider, type NoticeItem } from "../../src/components/notices";
 import { SearchSelect } from "../../src/components/search-select";
 import { DetailedSelect } from "../../src/components/detailed-select";
+import { ContextSelect } from "../../src/components/context-select";
 import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 import { PhotoTiles } from "../../src/components/photo-tiles";
 import { Tabs } from "../../src";
@@ -132,6 +133,17 @@ const schoolOptions = [
   },
 ];
 
+const contextOptions = [
+  { key: "school-mm", title: "Szkoła MM", subtitle: "Administrator" },
+  {
+    key: "school-sp1",
+    title: "Szkoła Podstawowa nr 1",
+    subtitle: "Nauczyciel",
+  },
+  { key: "school-sp2", title: "Szkoła Podstawowa nr 2", subtitle: "Dyrektor" },
+  { key: "kindergarten", title: "Przedszkole Słoneczko", subtitle: "Opiekun" },
+];
+
 function PlaygroundContent() {
   const { opened, toggle } = useNavbar();
   const [openedModal, { open: openModal, close: closeModal }] =
@@ -159,6 +171,7 @@ function PlaygroundContent() {
   const [date, setDate] = useState(new Date());
   const [search, setSearch] = useState("");
   const [schoolId, setSchoolId] = useState<string | null>(null);
+  const [contextKey, setContextKey] = useState("school-mm");
   const [page, setPage] = useState(1);
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const isMobile = useMediaQuery("(max-width: 48em)");
@@ -185,7 +198,13 @@ function PlaygroundContent() {
       </AppShell.Header>
       <AppShell.Navbar>
         <Navbar>
-          <Navbar.Header systemName="e-Kartoteka" />
+          <Navbar.Header systemName="e-Kartoteka">
+            <ContextSelect
+              options={contextOptions}
+              value={contextKey}
+              onChange={(key) => setContextKey(key)}
+            />
+          </Navbar.Header>
           <Navbar.Main>
             <Navbar.List>
               <Navbar.ListItem href="/" Icon={HomeIcon} isActive>
@@ -211,30 +230,38 @@ function PlaygroundContent() {
             </Navbar.List>
           </Navbar.Main>
           <Navbar.Footer>
-            <AppFooter
+            <AppFooterProvider
               user={{
-                username: "Stanisław Chmielewski",
-                email: "stanislaw.chmielewski@example.com",
-                isAdmin: true,
+                username: "Damian Kiliszek",
+                email: "dkiliszek@live.com",
+                isAdmin: false,
               }}
-              onLogout={() => {}}
-              services={{
-                hubUrl: "https://logowanie.loca.pl",
-                items: [
-                  {
-                    label: "Kartoteka",
-                    url: "https://kartoteka.example.loca.pl",
-                    isAdministrative: true,
-                  },
-                  {
-                    label: "Rejestr wizyt",
-                    url: "https://wizyty.example.loca.pl",
-                    isAdministrative: false,
-                  },
-                ],
-              }}
-              options={{ themeSwitcher: true }}
-            />
+            >
+              <AppFooter
+                user={{
+                  username: "Damian Kiliszek",
+                  email: "dkiliszek@live.com",
+                  isAdmin: false,
+                }}
+                onLogout={() => {}}
+                services={{
+                  hubUrl: "https://logowanie.loca.pl",
+                  items: [
+                    {
+                      label: "Kartoteka",
+                      url: "https://kartoteka.example.loca.pl",
+                      isAdministrative: true,
+                    },
+                    {
+                      label: "Rejestr wizyt",
+                      url: "https://wizyty.example.loca.pl",
+                      isAdministrative: false,
+                    },
+                  ],
+                }}
+                options={{ themeSwitcher: true }}
+              />
+            </AppFooterProvider>
           </Navbar.Footer>
         </Navbar>
       </AppShell.Navbar>

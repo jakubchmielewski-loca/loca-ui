@@ -15,22 +15,31 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
   return <Stack h="100%">{children}</Stack>;
 };
 
-const NavbarHeader = ({ systemName }: { systemName: string }) => {
+const NavbarHeader = ({
+  systemName,
+  children,
+}: {
+  systemName: string;
+  children: React.ReactNode;
+}) => {
   const { opened, toggle } = useNavbar();
 
   return (
-    <Group px={{ base: 16, lg: 0 }} pb={{ lg: 24 }}>
-      <Title fw={600} fz={24} ps={{ lg: 24 }} lh="16px">
-        {systemName}
-      </Title>
-      <Burger
-        opened={opened}
-        onClick={toggle}
-        hiddenFrom="sm"
-        size="sm"
-        ms="auto"
-      />
-    </Group>
+    <Stack px={{ base: 16, lg: 24 }} gap={24} pb={{ lg: 24 }}>
+      <Group>
+        <Title fw={600} fz={24} lh="16px">
+          {systemName}
+        </Title>
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          hiddenFrom="sm"
+          size="sm"
+          ms="auto"
+        />
+      </Group>
+      {children}
+    </Stack>
   );
 };
 

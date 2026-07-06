@@ -5,11 +5,9 @@ export type UiColors = {
   surfaceElevated: string;
   surfaceNavySoft: string;
   surfaceInfoSoft: string;
-  /** Default body text — #454545 (light) */
   textPrimary: string;
   textMuted: string;
   textSecondary: string;
-  /** Headings & emphasis — #1C1C1C (light) */
   textStrong: string;
   overlayStrong: string;
   appShellBorder: string;

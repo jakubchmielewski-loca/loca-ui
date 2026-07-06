@@ -1,273 +1,33 @@
-import {
-  ActionIcon,
-  Box,
-  Button,
-  Divider,
-  Group,
-  Menu,
-  Stack,
-  Text,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
-import { ChevronDown, Crown, Grid2x2, LogOut, Moon, Sun } from "lucide-react";
+import { Box, Divider, Group, Stack } from "@mantine/core";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
-import { Notices } from "../notices";
+import { UserButton } from "./user-button";
+import { AppFooterLogout } from "./logout-button";
+import { AppFooterServicesButton } from "./services-button";
+import { AppFooterNoticesButton } from "./notices-button";
 
-export type AppFooterServiceLink = {
-  label: string;
-  url: string;
-  isAdministrative?: boolean;
-};
-
-export type AppFooterUser = {
-  username: string;
-  email: string;
-  isAdmin: boolean;
-};
-
-export type AppFooterServicesConfig = {
-  hubUrl: string;
-  items?: AppFooterServiceLink[];
-};
-
-export type AppFooterOptions = {
-  themeSwitcher?: boolean;
-};
-
-export type AppFooterProps = {
-  user: AppFooterUser;
-  onLogout: () => void;
-  services: AppFooterServicesConfig;
-  options?: AppFooterOptions;
-};
-
-const otherServicesShellProps = {
-  w: "full" as const,
-  bd: `1px solid ${uiColors.borderStrong}`,
-  bdrs: 8,
-};
-
-const OtherServicesDirectButton = ({ url }: { url: string }) => {
-  const theme = useMantineTheme();
-  const accent = theme.other["uiColors"].primaryAccent;
-
-  return (
-    <Box {...otherServicesShellProps}>
-      <Button
-        variant="subtle"
-        fullWidth
-        h={58}
-        leftSection={<Grid2x2 color={accent} />}
-        onClick={() => {
-          window.location.href = url;
-        }}
-      >
-        Przejdź do innej usługi
-      </Button>
-    </Box>
-  );
-};
-
-const OtherServicesMenu = ({
-  items,
-  otherServicesUrl,
-}: {
-  items: AppFooterServiceLink[];
-  otherServicesUrl: string;
-}) => {
-  const theme = useMantineTheme();
-  const accent = theme.other["uiColors"].primaryAccent;
-  const administrativeSystems = items.filter((item) => item.isAdministrative);
-  const otherSystems = items.filter((item) => !item.isAdministrative);
-  const hasGroupedItems =
-    administrativeSystems.length > 0 || otherSystems.length > 0;
-
-  return (
-    <Box {...otherServicesShellProps}>
-      <Menu position="top" width="target" withinPortal>
-        <Menu.Target>
-          <Button
-            variant="subtle"
-            fullWidth
-            h={58}
-            leftSection={<Grid2x2 color={accent} />}
-            rightSection={<ChevronDown size={16} color={accent} />}
-          >
-            Przejdź do innej usługi
-          </Button>
-        </Menu.Target>
-        <Menu.Dropdown>
-          {administrativeSystems.length > 0 && (
-            <Box component="section">
-              <Menu.Label>Systemy administracyjne</Menu.Label>
-              {administrativeSystems.map((item, itemIndex) => (
-                <Menu.Item
-                  key={`${item.label}-${item.url}-${String(itemIndex)}`}
-                  onClick={() => {
-                    window.location.href = item.url;
-                  }}
-                >
-                  {item.label}
-                </Menu.Item>
-              ))}
-            </Box>
-          )}
-          {otherSystems.length > 0 && (
-            <Box component="section">
-              <Menu.Label>Pozostałe systemy</Menu.Label>
-              {otherSystems.map((item, itemIndex) => (
-                <Menu.Item
-                  key={`${item.label}-${item.url}-${String(itemIndex)}`}
-                  onClick={() => {
-                    window.location.href = item.url;
-                  }}
-                >
-                  {item.label}
-                </Menu.Item>
-              ))}
-            </Box>
-          )}
-          {hasGroupedItems && <Menu.Divider />}
-          <Menu.Item
-            key="other-services"
-            onClick={() => {
-              window.location.href = otherServicesUrl;
-            }}
-          >
-            Wszystkie usługi
-          </Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
-    </Box>
-  );
-};
-
-const ThemeSwitcher = () => {
-  const theme = useMantineTheme();
-  const { colorScheme, setColorScheme } = useMantineColorScheme();
-
-  const toggleTheme = () => {
-    setColorScheme(colorScheme === "dark" ? "light" : "dark");
-  };
-
-  return (
-    <ActionIcon
-      variant="subtle"
-      size={48}
-      radius={`0 0 8px 0`}
-      onClick={toggleTheme}
-      aria-label="Toggle color scheme"
-    >
-      {colorScheme === "dark" ? (
-        <Sun size={18} color={theme.other["uiColors"].primaryAccent} />
-      ) : (
-        <Moon size={18} color={theme.other["uiColors"].primaryAccent} />
-      )}
-    </ActionIcon>
-  );
-};
-
-const LogoutButton = ({ logoutFn }: { logoutFn: () => void }) => {
-  const theme = useMantineTheme();
-
-  return (
-    <Button
-      variant="subtle"
-      flex={1}
-      leftSection={
-        <LogOut size={16} color={theme.other["uiColors"].primaryAccent} />
-      }
-      onClick={logoutFn}
-    >
-      Wyloguj
-    </Button>
-  );
-};
-
-const UserInfo = ({
-  username,
-  email,
-  isAdmin,
-  logoutFn,
-  includeThemeSwitcher,
-}: {
-  username: string;
-  email: string;
-  isAdmin: boolean;
-  logoutFn: () => void;
-  includeThemeSwitcher: boolean;
-}) => {
-  const theme = useMantineTheme();
-
-  return (
-    <Stack
-      bd={`1px solid ${uiColors.borderStrong}`}
-      bdrs={8}
-      justify="space-between"
-      gap={0}
-    >
-      <Group justify="space-between" gap={0} wrap="nowrap">
-        <Stack ps={16} pe={4} py={12} gap={0} flex={1} miw={0}>
-          <Group
-            align="center"
-            gap={6}
-            wrap="nowrap"
-            miw={0}
-            c={theme.other["uiColors"].textStrong}
-          >
-            {isAdmin && (
-              <Box mt={1} component="span" style={{ flexShrink: 0 }}>
-                <Crown width={14} height={14} />
-              </Box>
-            )}
-            <Text fz={14} fw={500} truncate>
-              {username}
-            </Text>
-          </Group>
-          <Text fz={10} c="gray.6" truncate>
-            {email}
-          </Text>
-        </Stack>
-        <Box style={{ flexShrink: 0 }}>
-          <Notices />
-        </Box>
-      </Group>
-      <Group
-        gap={0}
-        style={{ borderTop: `1px solid ${uiColors.borderStrong}` }}
-      >
-        <LogoutButton logoutFn={logoutFn} />
-        {includeThemeSwitcher && <Divider orientation="vertical" />}
-        {includeThemeSwitcher && <ThemeSwitcher />}
-      </Group>
-    </Stack>
-  );
-};
-
-export const AppFooter = ({ user, onLogout, services, options }: AppFooterProps) => {
-  const hasServiceMenu = services.items != null && services.items.length > 0;
-  const includeThemeSwitcher = options?.themeSwitcher ?? false;
-
+export const AppFooter = () => {
   return (
     <Stack mt="auto">
-      <Box w="full">
-        {hasServiceMenu ? (
-          <OtherServicesMenu
-            items={services.items ?? []}
-            otherServicesUrl={services.hubUrl}
-          />
-        ) : (
-          <OtherServicesDirectButton url={services.hubUrl} />
-        )}
-      </Box>
-      <UserInfo
-        username={user.username}
-        email={user.email}
-        isAdmin={user.isAdmin}
-        logoutFn={onLogout}
-        includeThemeSwitcher={includeThemeSwitcher}
-      />
+      <Stack
+        bd={`1px solid ${uiColors.borderStrong}`}
+        bdrs={8}
+        justify="space-between"
+        gap={0}
+      >
+        <UserButton />
+        <Divider />
+        <AppFooterNoticesButton />
+        <Divider />
+        <Group gap={0} wrap="nowrap">
+          <Box flex={1}>
+            <AppFooterServicesButton />
+          </Box>
+          <Divider orientation="vertical" />
+          <Box flex={1}>
+            <AppFooterLogout />
+          </Box>
+        </Group>
+      </Stack>
     </Stack>
   );
 };
