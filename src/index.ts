@@ -9,6 +9,7 @@ export * from "./components/header";
 export * from "./components/loca-ui-provider";
 export * from "./components/navbar";
 export * from "./components/notices";
+export * from "./components/services";
 export * from "./components/page-breadcrumbs";
 export * from "./components/page-pane";
 export * from "./components/photo-tiles";

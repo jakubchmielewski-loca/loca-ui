@@ -155,7 +155,8 @@ const allMockNotices: MockNotice[] = [
   {
     id: 201,
     categoryId: "krt",
-    message: 'Nadano nową rolę "testt" w systemie "Kartoteka" w placówce "Client 2"',
+    message:
+      'Nadano nową rolę "testt" w systemie "Kartoteka" w placówce "Client 2"',
     createdAt: "2026-05-26T08:33:13.325Z",
     isUnread: true,
   },
@@ -184,8 +185,7 @@ function PlaygroundNoticesProvider({
       mockCategoryDefs.map((category) => ({
         ...category,
         unreadCount: notices.filter(
-          (notice) =>
-            notice.categoryId === category.id && notice.isUnread
+          (notice) => notice.categoryId === category.id && notice.isUnread
         ).length,
       })),
     [notices]
@@ -197,7 +197,9 @@ function PlaygroundNoticesProvider({
   );
 
   const totalCount = categoryNotices.length;
-  const unreadCount = categoryNotices.filter((notice) => notice.isUnread).length;
+  const unreadCount = categoryNotices.filter(
+    (notice) => notice.isUnread
+  ).length;
 
   const items = useMemo<NoticeItem[]>(() => {
     const filtered =
@@ -383,31 +385,13 @@ function PlaygroundContent() {
                 email: "dkiliszek@live.com",
                 isAdmin: false,
               }}
+              serviceCodes={["KD", "KRT", "RCP", "SRV_OPS", "ESW"]}
+              onServiceClick={(code) => console.log("service clicked", code)}
+              onViewAllServices={() => console.log("view all services")}
+              onLogout={() => {}}
+              onSettings={() => {}}
             >
-              <AppFooter
-                user={{
-                  username: "Damian Kiliszek",
-                  email: "dkiliszek@live.com",
-                  isAdmin: false,
-                }}
-                onLogout={() => {}}
-                services={{
-                  hubUrl: "https://logowanie.loca.pl",
-                  items: [
-                    {
-                      label: "Kartoteka",
-                      url: "https://kartoteka.example.loca.pl",
-                      isAdministrative: true,
-                    },
-                    {
-                      label: "Rejestr wizyt",
-                      url: "https://wizyty.example.loca.pl",
-                      isAdministrative: false,
-                    },
-                  ],
-                }}
-                options={{ themeSwitcher: true }}
-              />
+              <AppFooter />
             </AppFooterProvider>
           </Navbar.Footer>
         </Navbar>
