@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, SVGProps } from "react";
 
 export type KnownServiceCode =
   | "KD"
@@ -17,7 +17,7 @@ export type ServiceCode = KnownServiceCode | (string & {});
 export type ServiceItem = {
   code: ServiceCode;
   label: string;
-  iconSrc: string;
+  Icon: (props: SVGProps<SVGSVGElement>) => ReactNode;
 };
 
 export type ServicesData = {

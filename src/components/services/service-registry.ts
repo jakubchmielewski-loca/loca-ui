@@ -1,40 +1,42 @@
-import eswIcon from "../app-footer/assets/esw.svg";
-import eswOpsIcon from "../app-footer/assets/esw_ops.svg";
-import karIcon from "../app-footer/assets/kar.svg";
-import kdIcon from "../app-footer/assets/kd.svg";
-import krtIcon from "../app-footer/assets/krt.svg";
-import krtOpsIcon from "../app-footer/assets/krt_ops.svg";
-import rcpIcon from "../app-footer/assets/rcp.svg";
-import rcpOpsIcon from "../app-footer/assets/rcp_ops.svg";
-import srvIcon from "../app-footer/assets/srv.svg";
-import srvOpsIcon from "../app-footer/assets/srv_ops.svg";
 import type { ServiceCode, ServiceItem } from "./types";
+import {
+  EswIcon,
+  EswOpsIcon,
+  KarIcon,
+  KdIcon,
+  KrtIcon,
+  KrtOpsIcon,
+  RcpIcon,
+  RcpOpsIcon,
+  SrvIcon,
+  SrvOpsIcon,
+} from "./icons";
 
 type ServiceDefinition = Omit<ServiceItem, "code"> & {
   aliases: string[];
 };
 
 const SERVICE_DEFINITIONS: ServiceDefinition[] = [
-  { label: "Kontrola Dostępu", iconSrc: kdIcon, aliases: ["KD"] },
-  { label: "Karty Loca", iconSrc: krtIcon, aliases: ["KRT_OPS"] },
+  { label: "Kontrola Dostępu", Icon: KdIcon, aliases: ["KD"] },
+  { label: "Karty Loca", Icon: KrtIcon, aliases: ["KRT"] },
   {
     label: "Administracja Kart Loca",
-    iconSrc: krtOpsIcon,
+    Icon: KrtOpsIcon,
     aliases: ["KRT_OPS"],
   },
-  { label: "Katoteka", iconSrc: karIcon, aliases: ["KAR"] },
-  { label: "Rejestr Czasu Pracy", iconSrc: rcpIcon, aliases: ["RCP"] },
+  { label: "Katoteka", Icon: KarIcon, aliases: ["KAR"] },
+  { label: "Rejestr Czasu Pracy", Icon: RcpIcon, aliases: ["RCP"] },
   {
     label: "Administracja Rejestru Czasu Pracy",
-    iconSrc: rcpOpsIcon,
+    Icon: RcpOpsIcon,
     aliases: ["RCP_OPS"],
   },
-  { label: "Serwis", iconSrc: srvIcon, aliases: ["SRV"] },
-  { label: "Administracja Serwisu", iconSrc: srvOpsIcon, aliases: ["SRV_OPS"] },
-  { label: "e-Świetlica", iconSrc: eswIcon, aliases: ["ESW"] },
+  { label: "Serwis", Icon: SrvIcon, aliases: ["SRV"] },
+  { label: "Administracja Serwisu", Icon: SrvOpsIcon, aliases: ["SRV_OPS"] },
+  { label: "e-Świetlica", Icon: EswIcon, aliases: ["ESW"] },
   {
     label: "Administracja e-Świetlicy",
-    iconSrc: eswOpsIcon,
+    Icon: EswOpsIcon,
     aliases: ["ESW_OPS"],
   },
 ];
@@ -70,7 +72,7 @@ export const getServicesFromCodes = (
       {
         code: original,
         label: service.label,
-        iconSrc: service.iconSrc,
+        Icon: service.Icon,
       },
     ];
   });

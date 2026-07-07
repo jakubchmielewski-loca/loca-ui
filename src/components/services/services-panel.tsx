@@ -1,4 +1,4 @@
-import { Button, Image, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Button, Box, SimpleGrid, Stack, Text } from "@mantine/core";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
 import { useServices } from "./use-services";
 import { ExternalLink } from "lucide-react";
@@ -26,15 +26,17 @@ export const ServicesPanel = () => {
               onServiceClick?.(service.code);
               close();
             }}
+            px={16}
             style={{ borderColor: uiColors.borderSubtle }}
           >
             <Stack align="center">
-              <Image
-                src={service.iconSrc}
-                alt={service.label}
-                h={42}
-                w="auto"
-              />
+              <Box c="inherit">
+                <service.Icon
+                  width={42}
+                  height={42}
+                  aria-label={service.label}
+                />
+              </Box>
               <Text
                 fz={12}
                 fw={500}
@@ -50,6 +52,7 @@ export const ServicesPanel = () => {
         ))}
       </SimpleGrid>
       <Button
+        c="navy"
         variant="subtle"
         fullWidth
         style={{
