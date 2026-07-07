@@ -386,10 +386,7 @@ function PlaygroundContent() {
                 isAdmin: false,
               }}
               serviceCodes={["KD", "KRT", "RCP", "SRV_OPS", "ESW"]}
-              onServiceClick={(code) => console.log("service clicked", code)}
-              onViewAllServices={() => console.log("view all services")}
               onLogout={() => {}}
-              onSettings={() => {}}
             >
               <AppFooter />
             </AppFooterProvider>
