@@ -48,9 +48,11 @@ import { Header } from "../../src/components/header";
 import { SearchInput } from "../../src/components/search-input";
 import {
   NoticesProvider,
+  buildNoticeCategories,
   type NoticeCategory,
   type NoticeItem,
   type NoticesTab,
+  useNoticesPanelState,
 } from "../../src/components/notices";
 import { SearchSelect } from "../../src/components/search-select";
 import { DetailedSelect } from "../../src/components/detailed-select";
@@ -177,71 +179,47 @@ function PlaygroundNoticesProvider({
   children: React.ReactNode;
 }) {
   const [notices, setNotices] = useState(allMockNotices);
-  const [selectedCategoryId, setSelectedCategoryId] = useState("kd");
-  const [activeTab, setActiveTab] = useState<NoticesTab>("all");
 
-  const categories = useMemo<NoticeCategory[]>(
+  const categories = useMemo(
     () =>
-      mockCategoryDefs.map((category) => ({
-        ...category,
-        unreadCount: notices.filter(
-          (notice) => notice.categoryId === category.id && notice.isUnread
-        ).length,
-      })),
-    [notices]
+      buildNoticeCategories(notices, mockCategoryDefs, {
+        fallbackDefinition: mockCategoryDefs[0],
+      }),
+    [notices],
   );
 
-  const categoryNotices = useMemo(
-    () => notices.filter((notice) => notice.categoryId === selectedCategoryId),
-    [notices, selectedCategoryId]
-  );
-
-  const totalCount = categoryNotices.length;
-  const unreadCount = categoryNotices.filter(
-    (notice) => notice.isUnread
-  ).length;
-
-  const items = useMemo<NoticeItem[]>(() => {
-    const filtered =
-      activeTab === "unread"
-        ? categoryNotices.filter((notice) => notice.isUnread)
-        : categoryNotices;
-
-    return filtered
-      .slice(0, NOTICES_PREVIEW_LIMIT)
-      .map(({ categoryId: _categoryId, ...notice }) => notice);
-  }, [activeTab, categoryNotices]);
-
-  const globalUnreadCount = useMemo(
-    () => notices.filter((notice) => notice.isUnread).length,
-    [notices]
-  );
+  const panelState = useNoticesPanelState({
+    notices,
+    categories,
+    defaultCategoryId: "kd",
+    previewLimit: NOTICES_PREVIEW_LIMIT,
+  });
 
   return (
     <NoticesProvider
-      items={items}
-      categories={categories}
-      selectedCategoryId={selectedCategoryId}
-      onCategoryChange={setSelectedCategoryId}
-      activeTab={activeTab}
-      onTabChange={setActiveTab}
-      totalCount={totalCount}
-      unreadCount={unreadCount}
-      globalUnreadCount={globalUnreadCount}
+      items={panelState.items}
+      categories={panelState.categories}
+      selectedCategoryId={panelState.selectedCategoryId}
+      onCategoryChange={panelState.onCategoryChange}
+      activeTab={panelState.activeTab}
+      onTabChange={panelState.onTabChange}
+      totalCount={panelState.totalCount}
+      unreadCount={panelState.unreadCount}
+      globalUnreadCount={panelState.globalUnreadCount}
       onMarkAsRead={(id) =>
         setNotices((prev) =>
           prev.map((notice) =>
-            notice.id === id ? { ...notice, isUnread: false } : notice
-          )
+            notice.id === id ? { ...notice, isUnread: false } : notice,
+          ),
         )
       }
       onMarkAllAsRead={() =>
         setNotices((prev) =>
           prev.map((notice) =>
-            notice.categoryId === selectedCategoryId
+            notice.categoryId === panelState.selectedCategoryId
               ? { ...notice, isUnread: false }
-              : notice
-          )
+              : notice,
+          ),
         )
       }
       onDelete={(id) =>

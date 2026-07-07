@@ -12,4 +12,7 @@ export * from "./notices-list";
 export * from "./notices-list-footer";
 export * from "./unread-count-badge";
 export * from "./use-notices";
+export * from "./use-notices-panel-state";
+export * from "./build-notice-categories";
+export * from "./notices-panel-state";
 export * from "./types";

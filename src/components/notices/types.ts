@@ -10,6 +10,15 @@ export type NoticeItem = {
   actionUrl?: string;
 };
 
+export type NoticeWithCategory = NoticeItem & {
+  categoryId: string;
+};
+
+export type NoticeCategoryDefinition = {
+  id: string;
+  label: string;
+};
+
 export type NoticeCategory = {
   id: string;
   label: string;
