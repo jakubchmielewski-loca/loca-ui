@@ -1,6 +1,5 @@
 import type { ServiceCode, ServiceItem } from "./types";
 import {
-  EswIcon,
   EswOpsIcon,
   KarIcon,
   KdIcon,
@@ -14,30 +13,63 @@ import {
 
 type ServiceDefinition = Omit<ServiceItem, "code"> & {
   aliases: string[];
+  url: string;
 };
 
 const SERVICE_DEFINITIONS: ServiceDefinition[] = [
-  { label: "Kontrola Dostępu", Icon: KdIcon, aliases: ["KD"] },
-  { label: "Karty Loca", Icon: KrtIcon, aliases: ["KRT"] },
+  {
+    label: "Kontrola Dostępu",
+    Icon: KdIcon,
+    aliases: ["KD"],
+    url: "https://kontrola-dostepu.loca.pl/dashboard",
+  },
+  {
+    label: "Karty Loca",
+    Icon: KrtIcon,
+    aliases: ["KRT"],
+    url: "https://karty.loca.pl/dashboard",
+  },
   {
     label: "Administracja Kart Loca",
     Icon: KrtOpsIcon,
     aliases: ["KRT_OPS"],
+    url: "https://admin-karty.loca.pl/dashboard",
   },
-  { label: "Katoteka", Icon: KarIcon, aliases: ["KAR"] },
-  { label: "Rejestr Czasu Pracy", Icon: RcpIcon, aliases: ["RCP"] },
+  {
+    label: "Katoteka",
+    Icon: KarIcon,
+    aliases: ["KAR"],
+    url: "https://katoteka.loca.pl/dashboard",
+  },
+  {
+    label: "Rejestr Czasu Pracy",
+    Icon: RcpIcon,
+    aliases: ["RCP"],
+    url: "https://rcp.loca.pl/dashboard",
+  },
   {
     label: "Administracja Rejestru Czasu Pracy",
     Icon: RcpOpsIcon,
     aliases: ["RCP_OPS"],
+    url: "https://rcp-admin.loca.pl/dashboard",
   },
-  { label: "Serwis", Icon: SrvIcon, aliases: ["SRV"] },
-  { label: "Administracja Serwisu", Icon: SrvOpsIcon, aliases: ["SRV_OPS"] },
-  { label: "e-Świetlica", Icon: EswIcon, aliases: ["ESW"] },
+  {
+    label: "Serwis",
+    Icon: SrvIcon,
+    aliases: ["SRV"],
+    url: "https://serwis-nowy.loca.pl/dashboard",
+  },
+  {
+    label: "Administracja Serwisu",
+    Icon: SrvOpsIcon,
+    aliases: ["SRV_OPS"],
+    url: "https://serwis-nowy-admin.loca.pl/dashboard",
+  },
   {
     label: "Administracja e-Świetlicy",
     Icon: EswOpsIcon,
     aliases: ["ESW_OPS"],
+    url: "https://e-swietlica.loca.pl/dashboard",
   },
 ];
 
@@ -73,6 +105,7 @@ export const getServicesFromCodes = (
         code: original,
         label: service.label,
         Icon: service.Icon,
+        url: service.url,
       },
     ];
   });

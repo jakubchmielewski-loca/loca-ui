@@ -18,11 +18,11 @@ export type ServiceItem = {
   code: ServiceCode;
   label: string;
   Icon: (props: SVGProps<SVGSVGElement>) => ReactNode;
+  url: string;
 };
 
 export type ServicesData = {
   serviceCodes: ServiceCode[];
-  onServiceClick?: (code: ServiceCode) => void;
   onViewAll?: () => void;
 };
 

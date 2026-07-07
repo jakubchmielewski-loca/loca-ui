@@ -4,7 +4,7 @@ import { useServices } from "./use-services";
 import { ExternalLink } from "lucide-react";
 
 export const ServicesPanel = () => {
-  const { items, close, onServiceClick, onViewAll } = useServices();
+  const { items, close, onViewAll } = useServices();
 
   if (items.length === 0) {
     return (
@@ -23,7 +23,7 @@ export const ServicesPanel = () => {
             variant="outline"
             h={100}
             onClick={() => {
-              onServiceClick?.(service.code);
+              window.location.href = service.url;
               close();
             }}
             px={16}
