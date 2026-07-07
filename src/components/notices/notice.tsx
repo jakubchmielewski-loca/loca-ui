@@ -1,52 +1,34 @@
 import {
   ActionIcon,
-  Badge,
   Box,
+  Divider,
   Group,
-  Paper,
   Stack,
   Text,
   Tooltip,
 } from "@mantine/core";
-import { Check } from "lucide-react";
+import { Check, Trash2 } from "lucide-react";
 import dayjs from "dayjs";
 import type { MouseEvent } from "react";
+import { uiColors } from "../loca-ui-provider/theme-tokens";
 import type { NoticeItem } from "./types";
 
 export type NoticeProps = {
   notice: NoticeItem;
-  onMarkAsRead?: ((id: NoticeItem["id"]) => void) | undefined;
-  onClick?: ((notice: NoticeItem) => void) | undefined;
+  onMarkAsRead: (id: NoticeItem["id"]) => void;
+  onDelete: (id: NoticeItem["id"]) => void;
+  onClick?: (notice: NoticeItem) => void;
+  showDivider?: boolean;
 };
 
-const getBadgeColor = (source?: NoticeItem["source"] | null) => {
-  switch (source) {
-    case "KAR_ADMIN":
-      return "green";
-    case "KD_ADMIN":
-      return "blue";
-    case "RCP_ADMIN":
-      return "purple";
-    case "RCP_PRACOWNIK":
-      return "orange";
-    case "ESW_ADMIN":
-      return "red";
-    case "KRT":
-      return "yellow";
-    case "KRT_OPS":
-      return "pink";
-    case "SRV":
-      return "green";
-    case "SRV_OPS":
-      return "blue";
-    default:
-      return "gray";
-  }
-};
-
-export const Notice = ({ notice, onMarkAsRead, onClick }: NoticeProps) => {
-  const { isUnread, source, title, message, createdAt } = notice;
-  const badgeColor = getBadgeColor(source);
+export const Notice = ({
+  notice,
+  onMarkAsRead,
+  onDelete,
+  onClick,
+  showDivider = true,
+}: NoticeProps) => {
+  const { isUnread, message, createdAt } = notice;
 
   const handleClick = () => {
     onClick?.(notice);
@@ -54,54 +36,58 @@ export const Notice = ({ notice, onMarkAsRead, onClick }: NoticeProps) => {
 
   const handleMarkAsRead = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    onMarkAsRead?.(notice.id);
+    onMarkAsRead(notice.id);
+  };
+
+  const handleDelete = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    onDelete(notice.id);
   };
 
   return (
-    <Paper
-      withBorder
-      p="sm"
-      onClick={onClick ? handleClick : undefined}
-      opacity={isUnread ? 1 : 0.55}
-      style={{ cursor: onClick ? "pointer" : "default" }}
-    >
-      <Stack gap={6}>
-        <Group justify="space-between" wrap="nowrap" align="flex-start">
-          <Group gap={8} wrap="nowrap">
-            <Badge color={badgeColor} variant="light" size="sm">
-              {source}
-            </Badge>
-            <Text
-              fw={isUnread ? 600 : 400}
-              size="sm"
-              {...(isUnread ? {} : { c: "dimmed" })}
-            >
-              {title}
+    <>
+      <Box
+        ps={12}
+        py={16}
+        {...(isUnread ? { bg: uiColors.surfaceNavySoft } : {})}
+        {...(onClick ? { onClick: handleClick } : {})}
+        style={{
+          cursor: onClick ? "pointer" : "default",
+          ...(isUnread
+            ? { borderRight: `4px solid ${uiColors.primaryAccent}` }
+            : {}),
+        }}
+      >
+        <Group align="center" wrap="nowrap" gap={16}>
+          <Stack gap={12} flex={1} miw={0}>
+            <Text fz={12} fw={400} lh={1} opacity={0.5}>
+              {dayjs(createdAt).format("HH:mm:ss")}
             </Text>
-          </Group>
-          {isUnread && onMarkAsRead ? (
-            <Tooltip label="Oznacz jako przeczytane">
-              <ActionIcon
-                variant="subtle"
-                size="sm"
-                color="gray"
-                onClick={handleMarkAsRead}
-                aria-label="Oznacz jako przeczytane"
-              >
-                <Check size={14} />
-              </ActionIcon>
-            </Tooltip>
-          ) : null}
+            <Text fz={12} fw={isUnread ? 600 : 400} lh={1.4}>
+              {message}
+            </Text>
+          </Stack>
+          <Stack gap={16} px={16}>
+            <ActionIcon
+              variant="subtle"
+              size="sm"
+              onClick={handleMarkAsRead}
+              c={uiColors.textSecondary}
+            >
+              <Check size={16} />
+            </ActionIcon>
+            <ActionIcon
+              variant="subtle"
+              size="sm"
+              onClick={handleDelete}
+              c={uiColors.textSecondary}
+            >
+              <Trash2 size={16} />
+            </ActionIcon>
+          </Stack>
         </Group>
-        <Box>
-          <Text size="sm" c="dimmed">
-            {message}
-          </Text>
-        </Box>
-        <Text size="xs" c="dimmed">
-          {dayjs(createdAt).format("DD MMM YYYY, HH:mm")}
-        </Text>
-      </Stack>
-    </Paper>
+      </Box>
+      {showDivider ? <Divider /> : null}
+    </>
   );
 };

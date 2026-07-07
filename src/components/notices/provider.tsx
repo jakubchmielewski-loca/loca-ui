@@ -3,59 +3,80 @@
 import { useDisclosure } from "@mantine/hooks";
 import { useMemo } from "react";
 import { NoticesContext } from "./context";
-import { NoticesDrawer } from "./notices-drawer";
 import type { NoticesContextValue, NoticesProviderProps } from "./types";
 
 export const NoticesProvider = ({
   children,
   items,
-  unreadCount: unreadCountOverride,
+  categories,
+  selectedCategoryId,
+  onCategoryChange,
+  activeTab,
+  onTabChange,
+  totalCount,
+  unreadCount,
+  globalUnreadCount,
   isLoading,
   error,
   onMarkAsRead,
   onMarkAllAsRead,
+  onDelete,
   onNoticeClick,
+  onViewAll,
   emptyLabel,
 }: NoticesProviderProps) => {
-  const [isDrawerOpen, { open: openDrawer, close: closeDrawer }] =
-    useDisclosure(false);
-
-  const unreadCount =
-    unreadCountOverride ?? items.filter((item) => item.isUnread).length;
+  const [isOpen, { open, close, toggle }] = useDisclosure(false);
 
   const value = useMemo<NoticesContextValue>(
     () => ({
       items,
+      categories,
+      selectedCategoryId,
+      onCategoryChange,
+      activeTab,
+      onTabChange,
+      totalCount,
       unreadCount,
-      isDrawerOpen,
-      openDrawer,
-      closeDrawer,
+      globalUnreadCount,
+      isOpen,
+      open,
+      close,
+      toggle,
+      onMarkAsRead,
+      onDelete,
+      onViewAll,
       ...(isLoading !== undefined ? { isLoading } : {}),
       ...(error !== undefined ? { error } : {}),
-      ...(onMarkAsRead !== undefined ? { onMarkAsRead } : {}),
       ...(onMarkAllAsRead !== undefined ? { onMarkAllAsRead } : {}),
       ...(onNoticeClick !== undefined ? { onNoticeClick } : {}),
       ...(emptyLabel !== undefined ? { emptyLabel } : {}),
     }),
     [
       items,
+      categories,
+      selectedCategoryId,
+      onCategoryChange,
+      activeTab,
+      onTabChange,
+      totalCount,
       unreadCount,
+      globalUnreadCount,
       isLoading,
       error,
       onMarkAsRead,
       onMarkAllAsRead,
+      onDelete,
       onNoticeClick,
+      onViewAll,
       emptyLabel,
-      isDrawerOpen,
-      openDrawer,
-      closeDrawer,
+      isOpen,
+      open,
+      close,
+      toggle,
     ]
   );
 
   return (
-    <NoticesContext.Provider value={value}>
-      {children}
-      <NoticesDrawer />
-    </NoticesContext.Provider>
+    <NoticesContext.Provider value={value}>{children}</NoticesContext.Provider>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import {
   AppShell,
@@ -46,7 +46,12 @@ import { DateSwitcher } from "../../src/components/date-switcher";
 import useNavbar from "../../src/hooks/use-navbar";
 import { Header } from "../../src/components/header";
 import { SearchInput } from "../../src/components/search-input";
-import { NoticesProvider, type NoticeItem } from "../../src/components/notices";
+import {
+  NoticesProvider,
+  type NoticeCategory,
+  type NoticeItem,
+  type NoticesTab,
+} from "../../src/components/notices";
 import { SearchSelect } from "../../src/components/search-select";
 import { DetailedSelect } from "../../src/components/detailed-select";
 import { ContextSelect } from "../../src/components/context-select";
@@ -85,26 +90,168 @@ const elements = [
   { position: 58, mass: 140.12, symbol: "Ce", name: "Cerium" },
 ];
 
-const mockNotices: NoticeItem[] = [
+type MockNotice = NoticeItem & { categoryId: string };
+
+const mockCategoryDefs: Omit<NoticeCategory, "unreadCount">[] = [
+  { id: "kd", label: "Kontrola Dostępu" },
+  { id: "krt", label: "Kartoteka" },
+];
+
+const allMockNotices: MockNotice[] = [
   {
     id: 1,
-    title: "Nadano nową rolę",
+    categoryId: "kd",
     message:
-      'Otrzymałeś rolę "testt" w systemie "Kartoteka" w placówce "Client 2"',
-    source: "KRT",
-    createdAt: "2026-05-26T08:33:13.325Z",
+      "Wielokrotna próba nieudanego wyjścia przez użytkownika Janek Uczniowski, drzwi: HG1 - Główne wejście do szkoły",
+    createdAt: "2026-05-26T08:11:49.000Z",
     isUnread: true,
-    actionUrl: "/dashboard/organization/2",
   },
   {
     id: 2,
-    title: "Zaktualizowano dane organizacji",
-    message: "Twoja organizacja została zaktualizowana przez administratora.",
-    source: "KRT",
-    createdAt: "2026-05-25T14:12:00.000Z",
+    categoryId: "kd",
+    message:
+      "Wielokrotna próba nieudanego wyjścia przez użytkownika Janek Uczniowski, drzwi: HG1 - Główne wejście do szkoły",
+    createdAt: "2026-05-26T08:11:49.000Z",
     isUnread: false,
   },
+  {
+    id: 3,
+    categoryId: "kd",
+    message:
+      "Wielokrotna próba nieudanego wyjścia przez użytkownika Janek Uczniowski, drzwi: HG1 - Główne wejście do szkoły",
+    createdAt: "2026-05-26T08:11:49.000Z",
+    isUnread: false,
+  },
+  {
+    id: 4,
+    categoryId: "kd",
+    message:
+      "Wielokrotna próba nieudanego wyjścia przez użytkownika Janek Uczniowski, drzwi: HG1 - Główne wejście do szkoły",
+    createdAt: "2026-05-26T08:11:49.000Z",
+    isUnread: false,
+  },
+  {
+    id: 5,
+    categoryId: "kd",
+    message:
+      "Wielokrotna próba nieudanego wyjścia przez użytkownika Janek Uczniowski, drzwi: HG1 - Główne wejście do szkoły",
+    createdAt: "2026-05-26T08:11:49.000Z",
+    isUnread: false,
+  },
+  {
+    id: 6,
+    categoryId: "kd",
+    message: "Nieautoryzowane otwarcie drzwi: Magazyn - budynek B",
+    createdAt: "2026-05-25T16:42:10.000Z",
+    isUnread: false,
+  },
+  ...Array.from({ length: 18 }, (_, index) => ({
+    id: 100 + index,
+    categoryId: "kd" as const,
+    message: `Historyczne zdarzenie KD #${index + 1}`,
+    createdAt: "2026-05-20T10:00:00.000Z",
+    isUnread: false,
+  })),
+  {
+    id: 201,
+    categoryId: "krt",
+    message: 'Nadano nową rolę "testt" w systemie "Kartoteka" w placówce "Client 2"',
+    createdAt: "2026-05-26T08:33:13.325Z",
+    isUnread: true,
+  },
+  {
+    id: 202,
+    categoryId: "krt",
+    message: "Twoja organizacja została zaktualizowana przez administratora.",
+    createdAt: "2026-05-25T14:12:00.000Z",
+    isUnread: true,
+  },
 ];
+
+const NOTICES_PREVIEW_LIMIT = 5;
+
+function PlaygroundNoticesProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [notices, setNotices] = useState(allMockNotices);
+  const [selectedCategoryId, setSelectedCategoryId] = useState("kd");
+  const [activeTab, setActiveTab] = useState<NoticesTab>("all");
+
+  const categories = useMemo<NoticeCategory[]>(
+    () =>
+      mockCategoryDefs.map((category) => ({
+        ...category,
+        unreadCount: notices.filter(
+          (notice) =>
+            notice.categoryId === category.id && notice.isUnread
+        ).length,
+      })),
+    [notices]
+  );
+
+  const categoryNotices = useMemo(
+    () => notices.filter((notice) => notice.categoryId === selectedCategoryId),
+    [notices, selectedCategoryId]
+  );
+
+  const totalCount = categoryNotices.length;
+  const unreadCount = categoryNotices.filter((notice) => notice.isUnread).length;
+
+  const items = useMemo<NoticeItem[]>(() => {
+    const filtered =
+      activeTab === "unread"
+        ? categoryNotices.filter((notice) => notice.isUnread)
+        : categoryNotices;
+
+    return filtered
+      .slice(0, NOTICES_PREVIEW_LIMIT)
+      .map(({ categoryId: _categoryId, ...notice }) => notice);
+  }, [activeTab, categoryNotices]);
+
+  const globalUnreadCount = useMemo(
+    () => notices.filter((notice) => notice.isUnread).length,
+    [notices]
+  );
+
+  return (
+    <NoticesProvider
+      items={items}
+      categories={categories}
+      selectedCategoryId={selectedCategoryId}
+      onCategoryChange={setSelectedCategoryId}
+      activeTab={activeTab}
+      onTabChange={setActiveTab}
+      totalCount={totalCount}
+      unreadCount={unreadCount}
+      globalUnreadCount={globalUnreadCount}
+      onMarkAsRead={(id) =>
+        setNotices((prev) =>
+          prev.map((notice) =>
+            notice.id === id ? { ...notice, isUnread: false } : notice
+          )
+        )
+      }
+      onMarkAllAsRead={() =>
+        setNotices((prev) =>
+          prev.map((notice) =>
+            notice.categoryId === selectedCategoryId
+              ? { ...notice, isUnread: false }
+              : notice
+          )
+        )
+      }
+      onDelete={(id) =>
+        setNotices((prev) => prev.filter((notice) => notice.id !== id))
+      }
+      onNoticeClick={(notice) => console.log("notice clicked", notice)}
+      onViewAll={() => console.log("view all notices")}
+    >
+      {children}
+    </NoticesProvider>
+  );
+}
 
 const data = [
   { month: "January", Smartphones: 1200, Laptops: 900, Tablets: 200 },
@@ -602,14 +749,9 @@ function PlaygroundContent() {
 export function App() {
   return (
     <LocaUiProvider>
-      <NoticesProvider
-        items={mockNotices}
-        onMarkAsRead={(id) => console.log("mark as read", id)}
-        onMarkAllAsRead={() => console.log("mark all as read")}
-        onNoticeClick={(notice) => console.log("notice clicked", notice)}
-      >
+      <PlaygroundNoticesProvider>
         <PlaygroundContent />
-      </NoticesProvider>
+      </PlaygroundNoticesProvider>
     </LocaUiProvider>
   );
 }

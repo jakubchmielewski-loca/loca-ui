@@ -1,40 +1,46 @@
 import type { ReactNode } from "react";
 
+export type NoticesTab = "all" | "unread";
+
 export type NoticeItem = {
   id: string | number;
-  title: string;
   message: string;
-  source?:
-    | "KAR_ADMIN"
-    | "KD_ADMIN"
-    | "RCP_ADMIN"
-    | "RCP_PRACOWNIK"
-    | "ESW_ADMIN"
-    | "KRT"
-    | "KRT_OPS"
-    | "SRV"
-    | "SRV_OPS";
   createdAt: string | Date;
   isUnread: boolean;
   actionUrl?: string;
 };
 
+export type NoticeCategory = {
+  id: string;
+  label: string;
+  unreadCount: number;
+};
+
 export type NoticesData = {
   items: NoticeItem[];
-  unreadCount?: number;
+  categories: NoticeCategory[];
+  selectedCategoryId: string;
+  onCategoryChange: (categoryId: string) => void;
+  activeTab: NoticesTab;
+  onTabChange: (tab: NoticesTab) => void;
+  totalCount: number;
+  unreadCount: number;
+  globalUnreadCount: number;
   isLoading?: boolean;
   error?: string | null;
-  onMarkAsRead?: (id: NoticeItem["id"]) => void;
+  onMarkAsRead: (id: NoticeItem["id"]) => void;
   onMarkAllAsRead?: () => void;
+  onDelete: (id: NoticeItem["id"]) => void;
   onNoticeClick?: (notice: NoticeItem) => void;
+  onViewAll: () => void;
   emptyLabel?: string;
 };
 
 export type NoticesContextValue = NoticesData & {
-  unreadCount: number;
-  isDrawerOpen: boolean;
-  openDrawer: () => void;
-  closeDrawer: () => void;
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
 };
 
 export type NoticesProviderProps = NoticesData & {
