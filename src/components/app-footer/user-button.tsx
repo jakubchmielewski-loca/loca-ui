@@ -6,7 +6,6 @@ import { useContext } from "react";
 export const UserButton = () => {
   const {
     user: { isAdmin, username, email },
-    onSettings,
   } = useContext(AppFooterContext);
 
   return (
@@ -26,7 +25,13 @@ export const UserButton = () => {
           {email}
         </Text>
       </Stack>
-      <ActionIcon variant="subtle" c="navy" onClick={onSettings}>
+      <ActionIcon
+        variant="subtle"
+        c="navy"
+        onClick={() => {
+          window.location.href = "https://login.loca.pl/settings";
+        }}
+      >
         <Settings size={16} />
       </ActionIcon>
     </Group>

@@ -11,7 +11,6 @@ export type AppFooterContextType = {
   onServiceClick?: (code: ServiceCode) => void;
   onViewAllServices?: () => void;
   onLogout: () => void;
-  onSettings: () => void;
 };
 
 export const AppFooterContext = createContext<AppFooterContextType>({
@@ -22,5 +21,4 @@ export const AppFooterContext = createContext<AppFooterContextType>({
   },
   serviceCodes: [],
   onLogout: () => {},
-  onSettings: () => {},
 });

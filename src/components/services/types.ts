@@ -23,7 +23,6 @@ export type ServiceItem = {
 
 export type ServicesData = {
   serviceCodes: ServiceCode[];
-  onViewAll?: () => void;
 };
 
 export type ServicesContextValue = ServicesData & {

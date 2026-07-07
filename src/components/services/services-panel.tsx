@@ -4,7 +4,7 @@ import { useServices } from "./use-services";
 import { ExternalLink } from "lucide-react";
 
 export const ServicesPanel = () => {
-  const { items, close, onViewAll } = useServices();
+  const { items, close } = useServices();
 
   if (items.length === 0) {
     return (
@@ -60,7 +60,9 @@ export const ServicesPanel = () => {
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
         }}
-        onClick={onViewAll}
+        onClick={() => {
+          window.location.href = "https://login.loca.pl";
+        }}
         rightSection={<ExternalLink size={14} />}
       >
         <Text fz={12} fw={500} lh={1.1} ff="heading" ta="center">
