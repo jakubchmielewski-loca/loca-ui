@@ -1,4 +1,4 @@
-import { Button, Flex, Group, Text } from "@mantine/core";
+import { Button, Flex, Group, Text, useMatches } from "@mantine/core";
 import { BellRing } from "lucide-react";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
 import { NoticesPopover } from "../notices/notices-popover";
@@ -6,7 +6,19 @@ import { UnreadCountBadge } from "../notices/unread-count-badge";
 import { useNotices } from "../notices/use-notices";
 
 export const AppFooterNoticesButton = () => {
-  const { globalUnreadCount, isOpen, toggle } = useNotices();
+  const isDesktop = useMatches({
+    base: false,
+    sm: true,
+  });
+  const { globalUnreadCount, isOpen, toggle, onViewAll } = useNotices();
+
+  const onClick = () => {
+    if (isDesktop) {
+      toggle();
+    } else {
+      onViewAll();
+    }
+  };
 
   return (
     <NoticesPopover>
@@ -17,7 +29,7 @@ export const AppFooterNoticesButton = () => {
         py={12}
         radius="xl"
         fullWidth
-        onClick={toggle}
+        onClick={onClick}
         {...(isOpen ? { bg: uiColors.surfaceNavySoft } : {})}
       >
         <Group gap={8} align="center">
