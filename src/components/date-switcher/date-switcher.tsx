@@ -6,7 +6,7 @@ import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 dayjs.extend(weekOfYear);
 
-type Mode = "week" | "month" | "year";
+type Mode = "day" | "week" | "month" | "year";
 
 interface DateNavigatorProps {
   value: Date;
@@ -25,12 +25,19 @@ export const DateSwitcher = ({ value, onChange, mode }: DateNavigatorProps) => {
     onChange(date.add(1, mode).toDate());
   };
 
+  const isToday = (date: Dayjs) => date.isSame(dayjs(), "day");
+
   const isCurrentWeek = (date: Dayjs) => {
     return date.week() === dayjs().week();
   };
 
   const label = (() => {
     switch (mode) {
+      case "day":
+        if (isToday(date)) {
+          return "Dzisiaj";
+        }
+        return date.format("D MMMM YYYY");
       case "week":
         if (isCurrentWeek(date)) {
           return "Obecny tydzień";

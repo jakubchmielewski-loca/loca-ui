@@ -185,7 +185,7 @@ function PlaygroundNoticesProvider({
       buildNoticeCategories(notices, mockCategoryDefs, {
         fallbackDefinition: mockCategoryDefs[0],
       }),
-    [notices],
+    [notices]
   );
 
   const panelState = useNoticesPanelState({
@@ -209,8 +209,8 @@ function PlaygroundNoticesProvider({
       onMarkAsRead={(id) =>
         setNotices((prev) =>
           prev.map((notice) =>
-            notice.id === id ? { ...notice, isUnread: false } : notice,
-          ),
+            notice.id === id ? { ...notice, isUnread: false } : notice
+          )
         )
       }
       onMarkAllAsRead={() =>
@@ -218,8 +218,8 @@ function PlaygroundNoticesProvider({
           prev.map((notice) =>
             notice.categoryId === panelState.selectedCategoryId
               ? { ...notice, isUnread: false }
-              : notice,
-          ),
+              : notice
+          )
         )
       }
       onDelete={(id) =>
@@ -516,7 +516,7 @@ function PlaygroundContent() {
                       <DateSwitcher
                         value={date}
                         onChange={setDate}
-                        mode="week"
+                        mode="day"
                       />
                     </Group>
                   </Stack>
