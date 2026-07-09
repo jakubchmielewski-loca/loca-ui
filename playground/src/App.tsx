@@ -60,6 +60,7 @@ import { DetailedSelect } from "../../src/components/detailed-select";
 import { ContextSelect } from "../../src/components/context-select";
 import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 import { PhotoTiles } from "../../src/components/photo-tiles";
+import { RadioOptions } from "../../src/components/radio-options";
 import { Tabs } from "../../src";
 
 const photoTilesItems = [
@@ -302,6 +303,7 @@ function PlaygroundContent() {
   const [passages, setPassages] = useState<string[]>([]);
   const [person, setPerson] = useState<string | null>(null);
   const [schoolId, setSchoolId] = useState<string | null>(null);
+  const [accessMode, setAccessMode] = useState("limited");
   const [contextKey, setContextKey] = useState("school-mm");
   const [page, setPage] = useState(1);
   const [bottomNavValue, setBottomNavValue] = useState(0);
@@ -314,8 +316,8 @@ function PlaygroundContent() {
       filters.push({
         id: `zone-${zone}`,
         label: zone,
-        onRemove: () => setZones((prev) => prev.filter((item) => item !== zone)),
-        removeLabel: `Usuń filtr strefy ${zone}`,
+        onRemove: () =>
+          setZones((prev) => prev.filter((item) => item !== zone)),
       });
     });
 
@@ -325,7 +327,6 @@ function PlaygroundContent() {
         label: passage,
         onRemove: () =>
           setPassages((prev) => prev.filter((item) => item !== passage)),
-        removeLabel: `Usuń filtr przejścia ${passage}`,
       });
     });
 
@@ -334,7 +335,6 @@ function PlaygroundContent() {
         id: `person-${person}`,
         label: person,
         onRemove: () => setPerson(null),
-        removeLabel: `Usuń filtr osoby ${person}`,
       });
     }
 
@@ -529,7 +529,11 @@ function PlaygroundContent() {
                       <SearchSelect
                         label="Osoba"
                         searchPlaceholder="Szukaj osoby"
-                        data={["Jan Kowalski", "Anna Nowak", "Piotr Wiśniewski"]}
+                        data={[
+                          "Jan Kowalski",
+                          "Anna Nowak",
+                          "Piotr Wiśniewski",
+                        ]}
                         value={person}
                         onChange={setPerson}
                       />
@@ -566,6 +570,16 @@ function PlaygroundContent() {
                         clearable
                       />
                       <Textarea label="Textarea" placeholder="Wpisz wartosc" />
+                    </Group>
+                    <Group>
+                      <RadioOptions
+                        value={accessMode}
+                        onChange={setAccessMode}
+                        options={[
+                          { value: "full", label: "Pełen dostęp" },
+                          { value: "limited", label: "Ogranicz czasowo" },
+                        ]}
+                      />
                     </Group>
                     <Group>
                       <SegmentedControl
