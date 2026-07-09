@@ -54,7 +54,8 @@ export const DateSwitcher = ({ value, onChange, mode }: DateNavigatorProps) => {
     <Paper
       radius="xl"
       px={20}
-      py={16}
+      py={11}
+      h={48}
       withBorder
       style={{
         backgroundColor: uiColors.dateSwitcherBg,
