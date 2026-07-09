@@ -1,26 +1,73 @@
-import { Select, type SelectProps } from "@mantine/core";
-import { uiColors } from "../loca-ui-provider/theme-tokens";
+import { SearchSelectProvider } from "./search-select-provider";
+import { SearchSelectRoot } from "./search-select-root";
+import type { SearchSelectBaseProps, SearchSelectProps } from "./types";
+import {
+  useSearchSelectMultipleValue,
+  useSearchSelectSingleValue,
+} from "./use-search-select-value";
 
-type SearchSelectProps = SelectProps & {
-  bg?: string;
+export type { SearchSelectOption, SearchSelectProps } from "./types";
+
+const SearchSelectSingle = ({
+  value,
+  defaultValue,
+  onChange,
+  ...props
+}: SearchSelectBaseProps & {
+  value?: string | null;
+  defaultValue?: string | null;
+  onChange?: (value: string | null) => void;
+}) => {
+  const { selectedValues, onToggleValue } = useSearchSelectSingleValue({
+    ...(value !== undefined ? { value } : {}),
+    ...(defaultValue !== undefined ? { defaultValue } : {}),
+    ...(onChange !== undefined ? { onChange } : {}),
+  });
+
+  return (
+    <SearchSelectProvider
+      {...props}
+      multiple={false}
+      selectedValues={selectedValues}
+      onToggleValue={onToggleValue}
+    >
+      <SearchSelectRoot />
+    </SearchSelectProvider>
+  );
 };
 
-export const SearchSelect = ({
-  bg = uiColors.searchBg,
+const SearchSelectMultiple = ({
+  value,
+  defaultValue,
+  onChange,
   ...props
-}: SearchSelectProps) => {
+}: SearchSelectBaseProps & {
+  value?: string[];
+  defaultValue?: string[];
+  onChange?: (value: string[]) => void;
+}) => {
+  const { selectedValues, onToggleValue } = useSearchSelectMultipleValue({
+    ...(value !== undefined ? { value } : {}),
+    ...(defaultValue !== undefined ? { defaultValue } : {}),
+    ...(onChange !== undefined ? { onChange } : {}),
+  });
+
   return (
-    <Select
-      variant="filled"
-      radius="xl"
-      styles={{
-        input: {
-          backgroundColor: bg,
-          paddingLeft: "24px",
-          fontWeight: 600,
-        },
-      }}
+    <SearchSelectProvider
       {...props}
-    />
+      multiple
+      selectedValues={selectedValues}
+      onToggleValue={onToggleValue}
+    >
+      <SearchSelectRoot />
+    </SearchSelectProvider>
   );
+};
+
+export const SearchSelect = (props: SearchSelectProps) => {
+  if (props.multiple) {
+    return <SearchSelectMultiple {...props} />;
+  }
+
+  return <SearchSelectSingle {...props} />;
 };

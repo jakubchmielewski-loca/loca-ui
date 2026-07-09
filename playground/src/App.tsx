@@ -297,6 +297,9 @@ function PlaygroundContent() {
 
   const [date, setDate] = useState(new Date());
   const [search, setSearch] = useState("");
+  const [zones, setZones] = useState<string[]>(["A", "B"]);
+  const [passages, setPassages] = useState<string[]>([]);
+  const [person, setPerson] = useState<string | null>(null);
   const [schoolId, setSchoolId] = useState<string | null>(null);
   const [contextKey, setContextKey] = useState("school-mm");
   const [page, setPage] = useState(1);
@@ -470,10 +473,30 @@ function PlaygroundContent() {
                         }
                         flex={1}
                       />
+                    </Group>
+                    <Group>
                       <SearchSelect
-                        bg="#fff"
-                        placeholder="Filter by"
-                        data={["Option 1", "Option 2", "Option 3"]}
+                        label="Strefa"
+                        searchPlaceholder="Szukaj strefy"
+                        data={["A", "B", "C", "D"]}
+                        multiple
+                        value={zones}
+                        onChange={setZones}
+                      />
+                      <SearchSelect
+                        label="Przejście"
+                        searchPlaceholder="Szukaj przejścia"
+                        data={["Wejście A", "Wejście B", "Korytarz"]}
+                        multiple
+                        value={passages}
+                        onChange={setPassages}
+                      />
+                      <SearchSelect
+                        label="Osoba"
+                        searchPlaceholder="Szukaj osoby"
+                        data={["Jan Kowalski", "Anna Nowak", "Piotr Wiśniewski"]}
+                        value={person}
+                        onChange={setPerson}
                       />
                     </Group>
                     <Group>
