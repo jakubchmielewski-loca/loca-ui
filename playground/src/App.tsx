@@ -54,6 +54,7 @@ import {
   type NoticesTab,
   useNoticesPanelState,
 } from "../../src/components/notices";
+import { ActiveFilters } from "../../src/components/filter-chip";
 import { SearchSelect } from "../../src/components/search-select";
 import { DetailedSelect } from "../../src/components/detailed-select";
 import { ContextSelect } from "../../src/components/context-select";
@@ -306,6 +307,40 @@ function PlaygroundContent() {
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const isMobile = useMediaQuery("(max-width: 48em)");
 
+  const activeFilters = useMemo(() => {
+    const filters: { id: string; label: string; onRemove: () => void }[] = [];
+
+    zones.forEach((zone) => {
+      filters.push({
+        id: `zone-${zone}`,
+        label: zone,
+        onRemove: () => setZones((prev) => prev.filter((item) => item !== zone)),
+        removeLabel: `Usuń filtr strefy ${zone}`,
+      });
+    });
+
+    passages.forEach((passage) => {
+      filters.push({
+        id: `passage-${passage}`,
+        label: passage,
+        onRemove: () =>
+          setPassages((prev) => prev.filter((item) => item !== passage)),
+        removeLabel: `Usuń filtr przejścia ${passage}`,
+      });
+    });
+
+    if (person) {
+      filters.push({
+        id: `person-${person}`,
+        label: person,
+        onRemove: () => setPerson(null),
+        removeLabel: `Usuń filtr osoby ${person}`,
+      });
+    }
+
+    return filters;
+  }, [zones, passages, person]);
+
   const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
       <Table.Td>{element.position}</Table.Td>
@@ -499,6 +534,7 @@ function PlaygroundContent() {
                         onChange={setPerson}
                       />
                     </Group>
+                    <ActiveFilters filters={activeFilters} />
                     <Group>
                       <DateInput
                         value={date}

@@ -14,6 +14,7 @@ export * from "./components/page-breadcrumbs";
 export * from "./components/page-pane";
 export * from "./components/photo-tiles";
 export * from "./components/page-wrapper";
+export * from "./components/filter-chip";
 export * from "./components/search-input";
 export * from "./components/search-select";
 export * from "./components/table-footer";
