@@ -20,7 +20,7 @@ export const Header = ({
       <Container h="100%">
         <Group h="100%" justify="space-between" align="center">
           <Group align="center" gap={10}>
-            {SystemIcon && <SystemIcon width={32} />}
+            {SystemIcon && <SystemIcon width={32} height={32} />}
             <Title fz={18} fw={700}>
               {systemName}
             </Title>
