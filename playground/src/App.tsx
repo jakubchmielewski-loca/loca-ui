@@ -62,6 +62,7 @@ import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 import { PhotoTiles } from "../../src/components/photo-tiles";
 import { RadioOptions } from "../../src/components/radio-options";
 import { Tabs } from "../../src";
+import logo from "./assets/logo.svg";
 
 const photoTilesItems = [
   {
@@ -359,11 +360,16 @@ function PlaygroundContent() {
       }}
     >
       <AppShell.Header>
-        <Header systemName="e-Kartoteka" opened={opened} toggle={toggle} />
+        <Header
+          systemName="e-Kartoteka"
+          systemIcon={logo}
+          opened={opened}
+          toggle={toggle}
+        />
       </AppShell.Header>
       <AppShell.Navbar>
         <Navbar>
-          <Navbar.Header systemName="e-Kartoteka">
+          <Navbar.Header systemName="e-Kartoteka" systemIcon={logo}>
             <ContextSelect
               options={contextOptions}
               value={contextKey}

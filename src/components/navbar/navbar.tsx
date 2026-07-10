@@ -2,6 +2,7 @@ import {
   Box,
   Burger,
   Group,
+  Image,
   Stack,
   Text,
   Title,
@@ -17,19 +18,28 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 
 const NavbarHeader = ({
   systemName,
+  systemIcon,
   children,
 }: {
   systemName: string;
+  systemIcon?: string;
   children: React.ReactNode;
 }) => {
   const { opened, toggle } = useNavbar();
 
   return (
-    <Stack px={{ base: 16, lg: 24 }} gap={24} pb={{ lg: 24 }}>
-      <Group>
-        <Title fw={600} fz={24} lh="16px">
-          {systemName}
-        </Title>
+    <Stack px={{ base: 16, lg: 24 }} gap={24} pb={{ lg: 12 }}>
+      <Group align="center">
+        <Group align="center" gap={10}>
+          {systemIcon && (
+            <Box w={32} h={32}>
+              <Image src={systemIcon} alt={systemName} />
+            </Box>
+          )}
+          <Title fw={600} fz={24} lh="16px">
+            {systemName}
+          </Title>
+        </Group>
         <Burger
           opened={opened}
           onClick={toggle}

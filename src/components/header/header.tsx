@@ -1,19 +1,40 @@
-import { Box, Burger, Container, Flex, Group, Title } from "@mantine/core";
+import {
+  Box,
+  Burger,
+  Container,
+  Flex,
+  Group,
+  Image,
+  Title,
+} from "@mantine/core";
 
 type HeaderProps = {
   systemName: string;
+  systemIcon?: string;
   opened: boolean;
   toggle: () => void;
 };
 
-export const Header = ({ systemName, opened, toggle }: HeaderProps) => {
+export const Header = ({
+  systemName,
+  systemIcon,
+  opened,
+  toggle,
+}: HeaderProps) => {
   return (
     <Box h="100%" style={{ boxShadow: "0px 4px 40px 0px #3C519826" }}>
       <Container h="100%">
         <Group h="100%" justify="space-between" align="center">
-          <Title fz={18} fw={700}>
-            {systemName}
-          </Title>
+          <Group align="center" gap={10}>
+            {systemIcon && (
+              <Box w={32} h={32}>
+                <Image src={systemIcon} alt={systemName} />
+              </Box>
+            )}
+            <Title fz={18} fw={700}>
+              {systemName}
+            </Title>
+          </Group>
           <Flex
             w={32}
             h={32}
