@@ -28,6 +28,7 @@ import { LocaUiProvider } from "../../src/components/loca-ui-provider";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { Navbar } from "../../src/components/navbar";
 import {
+  ArrowLeftIcon,
   Calendar,
   HomeIcon,
   ListChecks,
@@ -62,7 +63,6 @@ import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 import { PhotoTiles } from "../../src/components/photo-tiles";
 import { RadioOptions } from "../../src/components/radio-options";
 import { Tabs } from "../../src";
-import logo from "./assets/logo.svg";
 
 const photoTilesItems = [
   {
@@ -362,14 +362,14 @@ function PlaygroundContent() {
       <AppShell.Header>
         <Header
           systemName="e-Kartoteka"
-          systemIcon={logo}
+          systemIcon={ArrowLeftIcon}
           opened={opened}
           toggle={toggle}
         />
       </AppShell.Header>
       <AppShell.Navbar>
         <Navbar>
-          <Navbar.Header systemName="e-Kartoteka" systemIcon={logo}>
+          <Navbar.Header systemName="e-Kartoteka" systemIcon={ArrowLeftIcon}>
             <ContextSelect
               options={contextOptions}
               value={contextKey}

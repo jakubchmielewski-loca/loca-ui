@@ -2,7 +2,6 @@ import {
   Box,
   Burger,
   Group,
-  Image,
   Stack,
   Text,
   Title,
@@ -22,20 +21,18 @@ const NavbarHeader = ({
   children,
 }: {
   systemName: string;
-  systemIcon?: string;
+  systemIcon?: React.ComponentType<{ width?: number; height?: number }>;
   children: React.ReactNode;
 }) => {
   const { opened, toggle } = useNavbar();
+
+  const SystemIcon = systemIcon;
 
   return (
     <Stack px={{ base: 16, lg: 24 }} gap={24} pb={{ lg: 12 }}>
       <Group align="center">
         <Group align="center" gap={10}>
-          {systemIcon && (
-            <Box w={32} h={32}>
-              <Image src={systemIcon} alt={systemName} />
-            </Box>
-          )}
+          {SystemIcon && <SystemIcon width={32} />}
           <Title fw={600} fz={24} lh="16px">
             {systemName}
           </Title>
