@@ -22,7 +22,7 @@ const NavbarHeader = ({
 }: {
   systemName: string;
   systemIcon?: React.ComponentType<{ width?: number; height?: number }>;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   const { opened, toggle } = useNavbar();
 
