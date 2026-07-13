@@ -17,22 +17,20 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 
 const NavbarHeader = ({
   systemName,
-  systemIcon,
+  systemIconUrl,
   children,
 }: {
   systemName: string;
-  systemIcon?: React.ComponentType<{ width?: number; height?: number }>;
+  systemIconUrl?: string;
   children?: React.ReactNode;
 }) => {
   const { opened, toggle } = useNavbar();
-
-  const SystemIcon = systemIcon;
 
   return (
     <Stack px={{ base: 16, lg: 24 }} gap={24} pb={{ lg: 12 }}>
       <Group align="center">
         <Group align="center" gap={10}>
-          {SystemIcon && <SystemIcon width={32} height={32} />}
+          {systemIconUrl && <img src={systemIconUrl} width={32} height={32} />}
           <Title fw={600} fz={24} lh="16px">
             {systemName}
           </Title>

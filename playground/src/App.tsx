@@ -360,16 +360,11 @@ function PlaygroundContent() {
       }}
     >
       <AppShell.Header>
-        <Header
-          systemName="e-Kartoteka"
-          systemIcon={ArrowLeftIcon}
-          opened={opened}
-          toggle={toggle}
-        />
+        <Header systemName="e-Kartoteka" opened={opened} toggle={toggle} />
       </AppShell.Header>
       <AppShell.Navbar>
         <Navbar>
-          <Navbar.Header systemName="e-Kartoteka" systemIcon={ArrowLeftIcon}>
+          <Navbar.Header systemName="e-Kartoteka">
             <ContextSelect
               options={contextOptions}
               value={contextKey}
