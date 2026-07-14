@@ -36,10 +36,10 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
     url: "https://admin-karty.loca.pl/dashboard",
   },
   {
-    label: "Katoteka",
+    label: "Kartoteka",
     Icon: KarIcon,
     aliases: ["KAR"],
-    url: "https://katoteka.loca.pl/dashboard",
+    url: "https://kartoteka.loca.pl/dashboard",
   },
   {
     label: "Rejestr Czasu Pracy",
