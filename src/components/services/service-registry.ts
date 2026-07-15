@@ -44,13 +44,13 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
   {
     label: "Rejestr Czasu Pracy",
     Icon: RcpIcon,
-    aliases: ["RCP"],
+    aliases: ["RCP_PRACOWNIK"],
     url: "https://rcp.loca.pl/dashboard",
   },
   {
     label: "Administracja Rejestru Czasu Pracy",
     Icon: RcpOpsIcon,
-    aliases: ["RCP_OPS"],
+    aliases: ["RCP_ADMIN"],
     url: "https://rcp-admin.loca.pl/dashboard",
   },
   {
@@ -68,7 +68,7 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
   {
     label: "Administracja e-Świetlicy",
     Icon: EswOpsIcon,
-    aliases: ["ESW_OPS"],
+    aliases: ["ESW"],
     url: "https://e-swietlica.loca.pl/dashboard",
   },
 ];
