@@ -1,6 +1,6 @@
 "use client";
 
-import { Popover, type PopoverProps } from "@mantine/core";
+import { Popover, useMatches, type PopoverProps } from "@mantine/core";
 import type { ReactElement } from "react";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
 import { ServicesPanel } from "./services-panel";
@@ -11,11 +11,13 @@ export type ServicesPopoverProps = {
   position?: PopoverProps["position"];
 };
 
-export const ServicesPopover = ({
-  children,
-  position = "right-end",
-}: ServicesPopoverProps) => {
+export const ServicesPopover = ({ children }: ServicesPopoverProps) => {
   const { isOpen, open, close } = useServices();
+
+  const position: PopoverProps["position"] = useMatches({
+    base: "bottom-start",
+    sm: "right-end",
+  });
 
   return (
     <Popover

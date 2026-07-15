@@ -402,7 +402,17 @@ function PlaygroundContent() {
                 email: "dkiliszek@live.com",
                 isAdmin: false,
               }}
-              serviceCodes={["KD", "KRT", "RCP", "SRV_OPS", "ESW"]}
+              serviceCodes={[
+                "KAR",
+                "KD",
+                "KRT",
+                "KRT_OPS",
+                "RCP_PRACOWNIK",
+                "RCP_ADMIN",
+                "SRV",
+                "SRV_OPS",
+                "ESW",
+              ]}
               onLogout={() => {}}
             >
               <AppFooter />

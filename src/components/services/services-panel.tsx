@@ -1,4 +1,11 @@
-import { Button, Box, SimpleGrid, Stack, Text } from "@mantine/core";
+import {
+  Button,
+  Box,
+  SimpleGrid,
+  Stack,
+  Text,
+  ScrollArea,
+} from "@mantine/core";
 import { uiColors } from "../loca-ui-provider/theme-tokens";
 import { useServices } from "./use-services";
 import { ExternalLink } from "lucide-react";
@@ -15,42 +22,46 @@ export const ServicesPanel = () => {
   }
 
   return (
-    <Stack gap={0}>
-      <SimpleGrid cols={2} spacing={8} p={8}>
-        {items.map((service, index) => (
-          <Button
-            key={`${service.code}-${index}`}
-            variant="outline"
-            h={100}
-            onClick={() => {
-              window.location.href = service.url;
-              close();
-            }}
-            px={16}
-            style={{ borderColor: uiColors.borderSubtle }}
-          >
-            <Stack align="center">
-              <Box c="inherit">
-                <service.Icon
-                  width={42}
-                  height={42}
-                  aria-label={service.label}
-                />
-              </Box>
-              <Text
-                fz={12}
-                fw={500}
-                lh={1.1}
-                ff="heading"
-                c={uiColors.textStrong}
-                ta="center"
-              >
-                {service.label}
-              </Text>
-            </Stack>
-          </Button>
-        ))}
-      </SimpleGrid>
+    <Stack gap={0} mah="90vh">
+      <ScrollArea h={400}>
+        <SimpleGrid cols={2} spacing={8} p={8}>
+          {items.map((service, index) => (
+            <Button
+              key={`${service.code}-${index}`}
+              variant="outline"
+              h={110}
+              onClick={() => {
+                window.location.href = service.url;
+                close();
+              }}
+              px={16}
+              style={{ borderColor: uiColors.borderSubtle }}
+            >
+              <Stack align="center" w="100%">
+                <Box c="inherit">
+                  <service.Icon
+                    width={42}
+                    height={42}
+                    aria-label={service.label}
+                  />
+                </Box>
+                <Text
+                  fz={12}
+                  fw={500}
+                  lh={1.1}
+                  ff="heading"
+                  c={uiColors.textStrong}
+                  ta="center"
+                  w="100%"
+                  style={{ whiteSpace: "initial" }}
+                >
+                  {service.label}
+                </Text>
+              </Stack>
+            </Button>
+          ))}
+        </SimpleGrid>
+      </ScrollArea>
       <Button
         c="navy"
         variant="subtle"

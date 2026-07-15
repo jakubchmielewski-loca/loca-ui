@@ -10,7 +10,7 @@ export const AppFooterServicesButton = () => {
     base: false,
     sm: true,
   });
-  const { isOpen, toggle, onViewAll } = useServices();
+  const { isOpen, toggle } = useServices();
   const { onViewAllServices } = useContext(AppFooterContext);
 
   const onClick = () => {
@@ -21,11 +21,6 @@ export const AppFooterServicesButton = () => {
 
     if (onViewAllServices) {
       onViewAllServices();
-      return;
-    }
-
-    if (onViewAll) {
-      onViewAll();
       return;
     }
 
