@@ -3,7 +3,6 @@ import {
   Group,
   Input,
   InputBase,
-  ScrollArea,
   Stack,
   Text,
   useCombobox,
@@ -12,6 +11,12 @@ import {
 import { useUncontrolled } from "@mantine/hooks";
 import { Check } from "lucide-react";
 import { useMemo, useState } from "react";
+
+import {
+  ComboboxDropdown,
+  ComboboxDropdownOptions,
+  ComboboxDropdownSearch,
+} from "../combobox-dropdown";
 
 export type DetailedSelectMetadata = {
   /** Optional label prefix, e.g. "Adres" */
@@ -217,27 +222,20 @@ export const DetailedSelect = ({
           </InputBase>
         </Combobox.Target>
 
-        <Combobox.Dropdown>
-          <Combobox.Search
-            placeholder="Szukaj..."
+        <ComboboxDropdown>
+          <ComboboxDropdownSearch
+            combobox={combobox}
             value={search}
-            onChange={(event) => {
-              setSearch(event.currentTarget.value);
-              combobox.updateSelectedOptionIndex("active", {
-                scrollIntoView: true,
-              });
-            }}
+            onChange={setSearch}
           />
-          <Combobox.Options>
-            <ScrollArea.Autosize mah={maxDropdownHeight} type="scroll">
-              {options.length > 0 ? (
-                options
-              ) : (
-                <Combobox.Empty>{nothingFoundMessage}</Combobox.Empty>
-              )}
-            </ScrollArea.Autosize>
-          </Combobox.Options>
-        </Combobox.Dropdown>
+          <ComboboxDropdownOptions
+            maxHeight={maxDropdownHeight}
+            emptyMessage={nothingFoundMessage}
+            isEmpty={options.length === 0}
+          >
+            {options}
+          </ComboboxDropdownOptions>
+        </ComboboxDropdown>
       </Combobox>
 
       <Combobox.HiddenInput

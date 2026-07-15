@@ -1,15 +1,12 @@
-import {
-  Combobox,
-  Group,
-  ScrollArea,
-  Stack,
-  Text,
-  UnstyledButton,
-  useCombobox,
-} from "@mantine/core";
+import { Combobox, Group, Stack, Text, UnstyledButton, useCombobox } from "@mantine/core";
 import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import {
+  ComboboxDropdown,
+  ComboboxDropdownOptions,
+  ComboboxDropdownSearch,
+} from "../combobox-dropdown";
 import { fontFamilyHeadings, uiColors } from "../loca-ui-provider/theme-tokens";
 
 export type ContextSelectOption = {
@@ -191,27 +188,21 @@ export const ContextSelect = ({
         </UnstyledButton>
       </Combobox.Target>
 
-      <Combobox.Dropdown>
-        <Combobox.Search
-          placeholder={searchPlaceholder}
+      <ComboboxDropdown>
+        <ComboboxDropdownSearch
+          combobox={combobox}
           value={search}
-          onChange={(event) => {
-            setSearch(event.currentTarget.value);
-            combobox.updateSelectedOptionIndex("active", {
-              scrollIntoView: true,
-            });
-          }}
+          onChange={setSearch}
+          placeholder={searchPlaceholder}
         />
-        <Combobox.Options>
-          <ScrollArea.Autosize mah={maxDropdownHeight} type="scroll">
-            {dropdownOptions.length > 0 ? (
-              dropdownOptions
-            ) : (
-              <Combobox.Empty>{nothingFoundMessage}</Combobox.Empty>
-            )}
-          </ScrollArea.Autosize>
-        </Combobox.Options>
-      </Combobox.Dropdown>
+        <ComboboxDropdownOptions
+          maxHeight={maxDropdownHeight}
+          emptyMessage={nothingFoundMessage}
+          isEmpty={dropdownOptions.length === 0}
+        >
+          {dropdownOptions}
+        </ComboboxDropdownOptions>
+      </ComboboxDropdown>
     </Combobox>
   );
 };
