@@ -2,7 +2,7 @@ import {
   SystemCode,
   type SystemCode as SystemCodeType,
   type UnitCode,
-} from "../../shared/kartoteka/loca-catalog";
+} from "@grupa-loca/loca-catalog";
 
 /** Historyczne kody z API — mapowane na kanoniczny {@link SystemCode}. */
 export const LEGACY_SERVICE_CODE_ALIASES = {

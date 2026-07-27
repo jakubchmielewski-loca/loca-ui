@@ -6,7 +6,7 @@ import {
   isUnitCode,
   type SystemCode as SystemCodeType,
   type UnitCode,
-} from "../../shared/kartoteka/loca-catalog";
+} from "@grupa-loca/loca-catalog";
 import {
   EswOpsIcon,
   KarIcon,

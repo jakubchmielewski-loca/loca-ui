@@ -36,7 +36,7 @@ import {
   MessageCircleWarning,
 } from "lucide-react";
 import { AppFooter, AppFooterProvider } from "../../src/components/app-footer";
-import { UnitCode, SystemCode } from "../../src/shared/kartoteka/loca-catalog";
+import { UnitCode, SystemCode } from "@grupa-loca/loca-catalog";
 import { BottomNavigation } from "../../src/components/bottom-navigation";
 import { PagePane } from "../../src/components/page-pane";
 import { PageWrapper } from "../../src/components/page-wrapper";
