@@ -36,6 +36,7 @@ import {
   MessageCircleWarning,
 } from "lucide-react";
 import { AppFooter, AppFooterProvider } from "../../src/components/app-footer";
+import { UnitCode, SystemCode } from "../../src/shared/kartoteka/loca-catalog";
 import { BottomNavigation } from "../../src/components/bottom-navigation";
 import { PagePane } from "../../src/components/page-pane";
 import { PageWrapper } from "../../src/components/page-wrapper";
@@ -403,15 +404,15 @@ function PlaygroundContent() {
                 isAdmin: false,
               }}
               serviceCodes={[
-                "KAR",
-                "KD",
-                "KRT",
-                "KRT_OPS",
-                "RCP_PRACOWNIK",
-                "RCP_ADMIN",
-                "SRV",
-                "SRV_OPS",
-                "ESW",
+                SystemCode.KAR_ADMIN,
+                SystemCode.KD_ADMIN,
+                SystemCode.RCP_ADMIN,
+                SystemCode.RCP,
+                SystemCode.ESW_ADMIN,
+                SystemCode.KRT_ADMIN,
+                SystemCode.KRT_OPS,
+                SystemCode.SRV_ADMIN,
+                SystemCode.SRV_OPS,
               ]}
               onLogout={() => {}}
             >

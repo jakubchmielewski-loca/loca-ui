@@ -1,4 +1,12 @@
-import type { ServiceCode, ServiceItem } from "./types";
+import {
+  SYSTEMS,
+  SystemCode,
+  getSystemsForUnit,
+  isSystemCode,
+  isUnitCode,
+  type SystemCode as SystemCodeType,
+  type UnitCode,
+} from "../../shared/kartoteka/loca-catalog";
 import {
   EswOpsIcon,
   KarIcon,
@@ -10,68 +18,37 @@ import {
   SrvIcon,
   SrvOpsIcon,
 } from "./icons";
+import { LEGACY_SERVICE_CODE_ALIASES } from "./service-codes";
+import type { ServiceCode, ServiceItem } from "./types";
+import type { SVGProps, ReactNode } from "react";
 
-type ServiceDefinition = Omit<ServiceItem, "code"> & {
-  aliases: string[];
-  url: string;
+type ServiceIcon = (props: SVGProps<SVGSVGElement>) => ReactNode;
+
+const SYSTEM_ICONS: Record<SystemCodeType, ServiceIcon> = {
+  [SystemCode.KAR_ADMIN]: KarIcon,
+  [SystemCode.KD_ADMIN]: KdIcon,
+  [SystemCode.RCP_ADMIN]: RcpOpsIcon,
+  [SystemCode.RCP]: RcpIcon,
+  [SystemCode.ESW_ADMIN]: EswOpsIcon,
+  [SystemCode.KRT_ADMIN]: KrtIcon,
+  [SystemCode.KRT_OPS]: KrtOpsIcon,
+  [SystemCode.SRV_ADMIN]: SrvIcon,
+  [SystemCode.SRV_OPS]: SrvOpsIcon,
 };
 
-const SERVICE_DEFINITIONS: ServiceDefinition[] = [
-  {
-    label: "Kontrola Dostępu",
-    Icon: KdIcon,
-    aliases: ["KD"],
-    url: "https://kontrola-dostepu.loca.pl/dashboard",
-  },
-  {
-    label: "Karty Loca",
-    Icon: KrtIcon,
-    aliases: ["KRT"],
-    url: "https://karty.loca.pl/dashboard",
-  },
-  {
-    label: "Administracja Kart Loca",
-    Icon: KrtOpsIcon,
-    aliases: ["KRT_OPS"],
-    url: "https://admin-karty.loca.pl/dashboard",
-  },
-  {
-    label: "Kartoteka",
-    Icon: KarIcon,
-    aliases: ["KAR"],
-    url: "https://kartoteka.loca.pl/dashboard",
-  },
-  {
-    label: "Rejestr Czasu Pracy",
-    Icon: RcpIcon,
-    aliases: ["RCP_PRACOWNIK"],
-    url: "https://rcp.loca.pl/dashboard",
-  },
-  {
-    label: "Administracja Rejestru Czasu Pracy",
-    Icon: RcpOpsIcon,
-    aliases: ["RCP_ADMIN"],
-    url: "https://rcp-admin.loca.pl/dashboard",
-  },
-  {
-    label: "Serwis",
-    Icon: SrvIcon,
-    aliases: ["SRV"],
-    url: "https://serwis-nowy.loca.pl/dashboard",
-  },
-  {
-    label: "Administracja Serwisu",
-    Icon: SrvOpsIcon,
-    aliases: ["SRV_OPS"],
-    url: "https://serwis-nowy-admin.loca.pl/dashboard",
-  },
-  {
-    label: "Administracja e-Świetlicy",
-    Icon: EswOpsIcon,
-    aliases: ["ESW"],
-    url: "https://e-swietlica.loca.pl/dashboard",
-  },
-];
+const toDashboardUrl = (baseUrl: string) =>
+  baseUrl.endsWith("/") ? `${baseUrl}dashboard` : `${baseUrl}/dashboard`;
+
+const SERVICE_BY_SYSTEM_CODE = new Map(
+  SYSTEMS.map((system) => [
+    system.code,
+    {
+      label: system.name,
+      Icon: SYSTEM_ICONS[system.code],
+      url: toDashboardUrl(system.url),
+    },
+  ])
+);
 
 const normalizeCode = (code: ServiceCode) =>
   code
@@ -80,29 +57,59 @@ const normalizeCode = (code: ServiceCode) =>
     .toUpperCase()
     .replace(/[\s-]+/g, "_");
 
-const REGISTRY = new Map(
-  SERVICE_DEFINITIONS.flatMap((definition) =>
-    definition.aliases.map((alias) => [alias, definition] as const)
-  )
-);
+const resolveUnitToSystemCode = (unitCode: UnitCode): SystemCodeType | null => {
+  const administrativeSystems = getSystemsForUnit(unitCode).filter(
+    (system) => system.isAdministrative
+  );
+
+  if (administrativeSystems.length === 1) {
+    return administrativeSystems[0]!.code;
+  }
+
+  const preferredAdminSystem = administrativeSystems.find((system) =>
+    system.code.endsWith("_ADMIN")
+  );
+
+  return preferredAdminSystem?.code ?? administrativeSystems[0]?.code ?? null;
+};
+
+const resolveSystemCode = (code: ServiceCode): SystemCodeType | null => {
+  const normalized = normalizeCode(code);
+
+  if (isSystemCode(normalized)) {
+    return normalized;
+  }
+
+  if (Object.hasOwn(LEGACY_SERVICE_CODE_ALIASES, normalized)) {
+    return LEGACY_SERVICE_CODE_ALIASES[
+      normalized as keyof typeof LEGACY_SERVICE_CODE_ALIASES
+    ];
+  }
+
+  if (isUnitCode(normalized)) {
+    return resolveUnitToSystemCode(normalized);
+  }
+
+  return null;
+};
 
 export const getServicesFromCodes = (
   serviceCodes: ServiceCode[]
 ): ServiceItem[] => {
-  const normalized = serviceCodes.map((code) => ({
-    original: code,
-    normalized: normalizeCode(code),
-  }));
+  return serviceCodes.flatMap((code) => {
+    const systemCode = resolveSystemCode(code);
+    if (!systemCode) {
+      return [];
+    }
 
-  return normalized.flatMap(({ original, normalized }) => {
-    const service = REGISTRY.get(normalized);
+    const service = SERVICE_BY_SYSTEM_CODE.get(systemCode);
     if (!service) {
       return [];
     }
 
     return [
       {
-        code: original,
+        code,
         label: service.label,
         Icon: service.Icon,
         url: service.url,

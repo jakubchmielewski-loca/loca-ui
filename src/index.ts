@@ -22,6 +22,8 @@ export * from "./components/table-footer";
 
 export { default as useNavbar } from "./hooks/use-navbar";
 
+export * from "./shared/kartoteka/loca-catalog";
+
 export * from "@mantine/core";
 export { Tabs } from "./components/tabs";
 export * from "@mantine/hooks";

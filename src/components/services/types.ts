@@ -1,16 +1,7 @@
 import type { ReactNode, SVGProps } from "react";
+import type { KnownServiceCode } from "./service-codes";
 
-export type KnownServiceCode =
-  | "KD"
-  | "KRT"
-  | "KRT_OPS"
-  | "KAR"
-  | "RCP"
-  | "RCP_OPS"
-  | "SRV"
-  | "SRV_OPS"
-  | "ESW"
-  | "ESW_OPS";
+export type { KnownServiceCode, LegacyServiceCode } from "./service-codes";
 
 export type ServiceCode = KnownServiceCode | (string & {});
 
