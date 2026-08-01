@@ -1,7 +1,7 @@
 {
   "name": "@grupa-loca/loca-ui",
   "type": "module",
-  "version": "0.0.116",
+  "version": "0.0.117",
   "description": "A starter for creating a React component library.",
   "author": "Author Name <author.name@mail.com>",
   "license": "MIT",
@@ -63,7 +63,7 @@
   "dependencies": {
     "@fontsource-variable/open-sans": "^5.2.7",
     "@fontsource-variable/outfit": "^5.2.8",
-    "@grupa-loca/loca-catalog": "^0.0.3",
+    "@grupa-loca/loca-catalog": "file:../loca-catalog",
     "@mantine/carousel": "^9.4.1",
     "@mantine/charts": "^9.4.1",
     "@mantine/core": "^9.4.1",
