@@ -5,6 +5,7 @@ export const AppFooterProvider = ({
   children,
   user,
   serviceCodes = [],
+  organizationId,
   onLogout,
 }: {
   user: {
@@ -13,6 +14,7 @@ export const AppFooterProvider = ({
     isAdmin?: boolean;
   };
   serviceCodes?: ServiceCode[];
+  organizationId?: number;
   onLogout: () => void;
   children: React.ReactNode;
 }) => {
@@ -21,10 +23,14 @@ export const AppFooterProvider = ({
       value={{
         user,
         serviceCodes,
+        organizationId,
         onLogout,
       }}
     >
-      <ServicesProvider serviceCodes={serviceCodes}>
+      <ServicesProvider
+        serviceCodes={serviceCodes}
+        {...(organizationId !== undefined ? { organizationId } : {})}
+      >
         {children}
       </ServicesProvider>
     </AppFooterContext.Provider>

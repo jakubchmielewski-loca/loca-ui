@@ -8,6 +8,7 @@ export type AppFooterContextType = {
     isAdmin?: boolean;
   };
   serviceCodes: ServiceCode[];
+  organizationId?: number | undefined;
   onServiceClick?: (code: ServiceCode) => void;
   onViewAllServices?: () => void;
   onLogout: () => void;

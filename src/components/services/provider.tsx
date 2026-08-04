@@ -9,19 +9,21 @@ import type { ServicesContextValue, ServicesProviderProps } from "./types";
 export const ServicesProvider = ({
   children,
   serviceCodes,
+  organizationId,
   onServiceClick,
   onViewAll,
 }: ServicesProviderProps) => {
   const [isOpen, { open, close, toggle }] = useDisclosure(false);
 
   const items = useMemo(
-    () => getServicesFromCodes(serviceCodes),
-    [serviceCodes]
+    () => getServicesFromCodes(serviceCodes, organizationId),
+    [serviceCodes, organizationId]
   );
 
   const value = useMemo<ServicesContextValue>(
     () => ({
       serviceCodes,
+      organizationId,
       items,
       isOpen,
       open,
@@ -32,6 +34,7 @@ export const ServicesProvider = ({
     }),
     [
       serviceCodes,
+      organizationId,
       items,
       isOpen,
       open,

@@ -14,6 +14,7 @@ export type ServiceItem = {
 
 export type ServicesData = {
   serviceCodes: ServiceCode[];
+  organizationId?: number | undefined;
 };
 
 export type ServicesContextValue = ServicesData & {
@@ -22,6 +23,8 @@ export type ServicesContextValue = ServicesData & {
   open: () => void;
   close: () => void;
   toggle: () => void;
+  onServiceClick?: (code: ServiceCode) => void;
+  onViewAll?: () => void;
 };
 
 export type ServicesProviderProps = ServicesData & {

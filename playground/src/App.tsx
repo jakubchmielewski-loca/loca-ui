@@ -414,6 +414,7 @@ function PlaygroundContent() {
                 SystemCode.SRV_ADMIN,
                 SystemCode.SRV_OPS,
               ]}
+              organizationId={12}
               onLogout={() => {}}
             >
               <AppFooter />

@@ -36,8 +36,8 @@ const SYSTEM_ICONS: Record<SystemCodeType, ServiceIcon> = {
   [SystemCode.SRV_OPS]: SrvOpsIcon,
 };
 
-const toDashboardUrl = (baseUrl: string) =>
-  baseUrl.endsWith("/") ? `${baseUrl}dashboard` : `${baseUrl}/dashboard`;
+const toDashboardUrl = (baseUrl: string, organizationId?: number) =>
+  `${baseUrl}${organizationId ? `?organizationId=${organizationId}` : ""}`;
 
 const SERVICE_BY_SYSTEM_CODE = new Map(
   SYSTEMS.map((system) => [
@@ -45,7 +45,7 @@ const SERVICE_BY_SYSTEM_CODE = new Map(
     {
       label: system.name,
       Icon: SYSTEM_ICONS[system.code],
-      url: toDashboardUrl(system.url),
+      url: system.url,
     },
   ])
 );
@@ -94,7 +94,8 @@ const resolveSystemCode = (code: ServiceCode): SystemCodeType | null => {
 };
 
 export const getServicesFromCodes = (
-  serviceCodes: ServiceCode[]
+  serviceCodes: ServiceCode[],
+  organizationId?: number
 ): ServiceItem[] => {
   return serviceCodes.flatMap((code) => {
     const systemCode = resolveSystemCode(code);
@@ -112,7 +113,7 @@ export const getServicesFromCodes = (
         code,
         label: service.label,
         Icon: service.Icon,
-        url: service.url,
+        url: toDashboardUrl(service.url, organizationId),
       },
     ];
   });
