@@ -22,6 +22,7 @@ export * from "./components/radio-options";
 export * from "./components/search-input";
 export * from "./components/search-select";
 export * from "./components/table-footer";
+export * from "./components/table-selection";
 
 export { default as useNavbar } from "./hooks/use-navbar";
 

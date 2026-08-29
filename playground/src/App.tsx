@@ -43,6 +43,12 @@ import { PageWrapper } from "../../src/components/page-wrapper";
 import { AltTableTh } from "../../src/components/alt-table-th";
 import { AltStepper } from "../../src/components/alt-stepper";
 import { TableFooter } from "../../src/components/table-footer";
+import {
+  TableBulkActionsBar,
+  TableSelectionCheckbox,
+  TABLE_SELECTION_COLUMN_WIDTH,
+  useTableSelection,
+} from "../../src/components/table-selection";
 import { notifications } from "@mantine/notifications";
 import { DateSwitcher } from "../../src/components/date-switcher";
 import useNavbar from "../../src/hooks/use-navbar";
@@ -308,6 +314,11 @@ function PlaygroundContent() {
   const [accessMode, setAccessMode] = useState("limited");
   const [contextKey, setContextKey] = useState("school-mm");
   const [page, setPage] = useState(1);
+  const tableSelection = useTableSelection<number>();
+  const tablePageIds = useMemo(
+    () => elements.map((element) => element.position),
+    [],
+  );
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const isMobile = useMediaQuery("(max-width: 48em)");
 
@@ -345,6 +356,13 @@ function PlaygroundContent() {
 
   const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
+      <Table.Td w={TABLE_SELECTION_COLUMN_WIDTH}>
+        <TableSelectionCheckbox
+          variant="row"
+          checked={tableSelection.isSelected(element.position)}
+          onChange={() => tableSelection.toggle(element.position)}
+        />
+      </Table.Td>
       <Table.Td>{element.position}</Table.Td>
       <Table.Td>{element.name}</Table.Td>
       <Table.Td>{element.symbol}</Table.Td>
@@ -656,6 +674,88 @@ function PlaygroundContent() {
                         </Text>
                       </Tabs.Panel>
                     </Tabs>
+                  </Stack>
+                </Paper>
+
+                <Paper withBorder p="md">
+                  <Stack gap="sm">
+                    <Title order={4}>Table with bulk selection</Title>
+                    <Stack gap={0}>
+                      <TableBulkActionsBar
+                        selectedCount={tableSelection.selectedCount}
+                        selectedIds={tableSelection.selectedIds}
+                        onClear={tableSelection.clear}
+                        actions={[
+                          {
+                            id: "demo-grant",
+                            label: "Nadaj dostęp (demo)",
+                            onClick: (selectedIds) => {
+                              notifications.show({
+                                color: "green",
+                                message: `Nadano dostęp ${selectedIds.length} pozycjom`,
+                              });
+                              tableSelection.clear();
+                            },
+                          },
+                          {
+                            id: "demo-revoke",
+                            label: "Odbierz dostęp (demo)",
+                            color: "red",
+                            onClick: (selectedIds) => {
+                              notifications.show({
+                                color: "orange",
+                                message: `Odebrano dostęp ${selectedIds.length} pozycjom`,
+                              });
+                              tableSelection.clear();
+                            },
+                          },
+                        ]}
+                      />
+                      <Table.ScrollContainer minWidth={600} type="native">
+                        <Table highlightOnHover>
+                          <Table.Thead>
+                            <Table.Tr>
+                              <Table.Th w={TABLE_SELECTION_COLUMN_WIDTH}>
+                                <TableSelectionCheckbox
+                                  variant="header"
+                                  state={tableSelection.pageSelectionState(
+                                    tablePageIds,
+                                  )}
+                                  onChange={() =>
+                                    tableSelection.togglePage(tablePageIds)
+                                  }
+                                />
+                              </Table.Th>
+                              <Table.Th>
+                                <AltTableTh
+                                  text="Position"
+                                  order={sort}
+                                  onSort={handleSort}
+                                />
+                              </Table.Th>
+                              <Table.Th>
+                                <AltTableTh text="Name" />
+                              </Table.Th>
+                              <Table.Th>
+                                <AltTableTh text="Symbol" />
+                              </Table.Th>
+                              <Table.Th>
+                                <AltTableTh text="Mass" />
+                              </Table.Th>
+                            </Table.Tr>
+                          </Table.Thead>
+                          <Table.Tbody>{rows}</Table.Tbody>
+                        </Table>
+                      </Table.ScrollContainer>
+                      <TableFooter
+                        total={120}
+                        totalPages={12}
+                        page={page}
+                        setPage={setPage}
+                        itemsPerPage={10}
+                        setItemsPerPage={() => {}}
+                      />
+                    </Stack>
                   </Stack>
                 </Paper>
 
