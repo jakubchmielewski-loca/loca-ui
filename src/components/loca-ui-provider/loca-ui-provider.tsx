@@ -11,16 +11,19 @@ import { Notifications } from "@mantine/notifications";
 import dayjs from "dayjs";
 import { DatesProvider } from "@mantine/dates";
 import "dayjs/locale/pl";
+import { ModalsProvider } from "@mantine/modals";
 
 dayjs.locale("pl");
 
 export const LocaUiProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <MantineProvider theme={theme} cssVariablesResolver={cssVariablesResolver}>
-      <DatesProvider settings={{ locale: "pl" }}>
-        <Notifications />
-        {children}
-      </DatesProvider>
+      <ModalsProvider>
+        <DatesProvider settings={{ locale: "pl" }}>
+          <Notifications />
+          {children}
+        </DatesProvider>
+      </ModalsProvider>
     </MantineProvider>
   );
 };

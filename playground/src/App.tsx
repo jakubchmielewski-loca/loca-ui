@@ -317,7 +317,7 @@ function PlaygroundContent() {
   const tableSelection = useTableSelection<number>();
   const tablePageIds = useMemo(
     () => elements.map((element) => element.position),
-    [],
+    []
   );
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const isMobile = useMediaQuery("(max-width: 48em)");
@@ -688,26 +688,88 @@ function PlaygroundContent() {
                         actions={[
                           {
                             id: "demo-grant",
-                            label: "Nadaj dostęp (demo)",
-                            onClick: (selectedIds) => {
-                              notifications.show({
-                                color: "green",
-                                message: `Nadano dostęp ${selectedIds.length} pozycjom`,
-                              });
-                              tableSelection.clear();
-                            },
+                            label: "Nadaj dostęp",
+                            children: [
+                              {
+                                id: "demo-grant-esw",
+                                label: "e-Świetlica",
+                                confirm: true,
+                                onClick: (selectedIds) => {
+                                  notifications.show({
+                                    color: "green",
+                                    message: `Nadano dostęp e-Świetlica ${selectedIds.length} pozycjom`,
+                                  });
+                                  tableSelection.clear();
+                                },
+                              },
+                              {
+                                id: "demo-grant-kd",
+                                label: "Kontrola Dostępu",
+                                confirm: true,
+                                onClick: (selectedIds) => {
+                                  notifications.show({
+                                    color: "green",
+                                    message: `Nadano dostęp KD ${selectedIds.length} pozycjom`,
+                                  });
+                                  tableSelection.clear();
+                                },
+                              },
+                              {
+                                id: "demo-grant-rcp",
+                                label: "Rejestracja Czasu Pracy",
+                                confirm: true,
+                                onClick: (selectedIds) => {
+                                  notifications.show({
+                                    color: "green",
+                                    message: `Nadano dostęp RCP ${selectedIds.length} pozycjom`,
+                                  });
+                                  tableSelection.clear();
+                                },
+                              },
+                            ],
                           },
                           {
                             id: "demo-revoke",
-                            label: "Odbierz dostęp (demo)",
+                            label: "Odbierz dostęp",
                             color: "red",
-                            onClick: (selectedIds) => {
-                              notifications.show({
-                                color: "orange",
-                                message: `Odebrano dostęp ${selectedIds.length} pozycjom`,
-                              });
-                              tableSelection.clear();
-                            },
+                            children: [
+                              {
+                                id: "demo-revoke-esw",
+                                label: "e-Świetlica",
+                                confirm: { confirmColor: "red" },
+                                onClick: (selectedIds) => {
+                                  notifications.show({
+                                    color: "orange",
+                                    message: `Odebrano dostęp e-Świetlica ${selectedIds.length} pozycjom`,
+                                  });
+                                  tableSelection.clear();
+                                },
+                              },
+                              {
+                                id: "demo-revoke-kd",
+                                label: "Kontrola Dostępu",
+                                confirm: { confirmColor: "red" },
+                                onClick: (selectedIds) => {
+                                  notifications.show({
+                                    color: "orange",
+                                    message: `Odebrano dostęp KD ${selectedIds.length} pozycjom`,
+                                  });
+                                  tableSelection.clear();
+                                },
+                              },
+                              {
+                                id: "demo-revoke-rcp",
+                                label: "Rejestracja Czasu Pracy",
+                                confirm: { confirmColor: "red" },
+                                onClick: (selectedIds) => {
+                                  notifications.show({
+                                    color: "orange",
+                                    message: `Odebrano dostęp RCP ${selectedIds.length} pozycjom`,
+                                  });
+                                  tableSelection.clear();
+                                },
+                              },
+                            ],
                           },
                         ]}
                       />
@@ -719,7 +781,7 @@ function PlaygroundContent() {
                                 <TableSelectionCheckbox
                                   variant="header"
                                   state={tableSelection.pageSelectionState(
-                                    tablePageIds,
+                                    tablePageIds
                                   )}
                                   onChange={() =>
                                     tableSelection.togglePage(tablePageIds)
