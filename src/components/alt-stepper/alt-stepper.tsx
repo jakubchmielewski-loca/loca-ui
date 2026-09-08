@@ -16,6 +16,7 @@ import { uiColors } from "../loca-ui-provider/theme-tokens";
 
 type AltStepperContextValue = {
   active: number;
+  maxReached: number;
   allowNextStepsSelect: boolean;
   onStepClick: ((stepIndex: number) => void) | undefined;
   stepsCount: number;
@@ -35,6 +36,13 @@ function useAltStepperContext(component: string): AltStepperContextValue {
 
 export type AltStepperProps = {
   active: number;
+  /**
+   * Highest step index the user has reached so far.
+   * Steps between `active` and `maxReached` stay marked as completed and remain
+   * selectable when `allowNextStepsSelect` is false.
+   * Defaults to `active` (previous behavior).
+   */
+  maxReached?: number;
   onStepClick?: (stepIndex: number) => void;
   allowNextStepsSelect?: boolean;
   children: ReactNode;
@@ -76,6 +84,7 @@ type AltStepperCompound = FC<AltStepperProps> & {
 
 function AltStepperComponent({
   active,
+  maxReached: maxReachedProp,
   onStepClick,
   allowNextStepsSelect = true,
   children,
@@ -85,6 +94,7 @@ function AltStepperComponent({
   const allChildren = Children.toArray(children);
   const stepChildren = allChildren.filter(isAltStepperStep);
   const completedChild = allChildren.find(isAltStepperCompleted);
+  const maxReached = Math.max(maxReachedProp ?? active, active);
 
   const getColors = (index: number) => {
     if (active === index) {
@@ -97,7 +107,7 @@ function AltStepperComponent({
       };
     }
 
-    if (index > active) {
+    if (index > maxReached) {
       return {
         text: uiColors.textMuted,
         check: uiColors.textMuted,
@@ -118,6 +128,7 @@ function AltStepperComponent({
 
   const contextValue: AltStepperContextValue = {
     active,
+    maxReached,
     allowNextStepsSelect,
     onStepClick,
     stepsCount: stepChildren.length,
@@ -144,13 +155,23 @@ function AltStepperComponent({
           {stepChildren.map((step, index) => {
             const colors = getColors(index);
 
-            const allowByIndex = allowNextStepsSelect || index <= active;
+            const allowByIndex = allowNextStepsSelect || index <= maxReached;
             const isSelectable =
               step.props.allowStepSelect ?? allowByIndex ?? false;
+            const canClick = Boolean(onStepClick && isSelectable);
+
+            const handleSelect = () => {
+              if (!canClick) return;
+              onStepClick?.(index);
+            };
 
             return (
               <Box key={index} flex={1}>
-                <Stack gap={8}>
+                <Stack
+                  gap={8}
+                  style={{ cursor: canClick ? "pointer" : "default" }}
+                  onClick={handleSelect}
+                >
                   <Group gap={8} align="center" pt={4}>
                     <Box flex={1} h={1} bg={colors.border} />
                     <Center
@@ -161,13 +182,6 @@ function AltStepperComponent({
                         borderRadius: "50%",
                         border: `1px solid ${colors.border}`,
                         boxShadow: colors.boxShadow,
-                        cursor:
-                          onStepClick && isSelectable ? "pointer" : "default",
-                      }}
-                      onClick={() => {
-                        if (!onStepClick) return;
-                        if (!isSelectable) return;
-                        onStepClick(index);
                       }}
                     >
                       <Check color={colors.check} size={16} strokeWidth={3} />

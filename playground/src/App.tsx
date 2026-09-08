@@ -290,8 +290,15 @@ function PlaygroundContent() {
   const [sort, setSort] = useState<"asc" | "desc" | null>(null);
 
   const [active, setActive] = useState(1);
-  const nextStep = () =>
-    setActive((current) => (current < 3 ? current + 1 : current));
+  const [maxReached, setMaxReached] = useState(1);
+  const goToStep = (step: number) => {
+    setActive(step);
+    setMaxReached((current) => Math.max(current, step));
+  };
+  const handleStepClick = (step: number) => {
+    goToStep(step);
+  };
+  const nextStep = () => goToStep(active < 3 ? active + 1 : active);
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
@@ -888,7 +895,12 @@ function PlaygroundContent() {
                 <Paper withBorder p="md">
                   <Stack gap="sm">
                     <Title order={4}>Stepper & chart</Title>
-                    <AltStepper active={active}>
+                    <AltStepper
+                      active={active}
+                      maxReached={maxReached}
+                      onStepClick={handleStepClick}
+                      allowNextStepsSelect={false}
+                    >
                       <AltStepper.Step label="Krok 1" />
                       <AltStepper.Step label="Krok 2" />
                       <AltStepper.Step label="Krok 3" />
