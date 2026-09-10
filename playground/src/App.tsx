@@ -69,6 +69,7 @@ import { ContextSelect } from "../../src/components/context-select";
 import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 import { PhotoTiles } from "../../src/components/photo-tiles";
 import { RadioOptions } from "../../src/components/radio-options";
+import { CardScanZone } from "../../src/components/card-scan-zone";
 import { Tabs } from "../../src";
 
 const photoTilesItems = [
@@ -933,6 +934,24 @@ function PlaygroundContent() {
                     <Carousel.Slide>3</Carousel.Slide>
                     {/* ...other slides */}
                   </Carousel>
+                </Paper>
+
+                <Paper withBorder p="md">
+                  <Stack gap="sm">
+                    <Title order={4}>Card scan zone</Title>
+                    <Text size="sm" c="dimmed">
+                      Kliknij strefę, wpisz lub zeskanuj kod i naciśnij Enter.
+                    </Text>
+                    <CardScanZone
+                      onScan={(code) =>
+                        notifications.show({
+                          title: "Zeskanowano kartę",
+                          message: code,
+                          color: "green",
+                        })
+                      }
+                    />
+                  </Stack>
                 </Paper>
               </Stack>
             )}
