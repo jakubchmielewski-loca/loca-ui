@@ -18,6 +18,7 @@ import {
   TextInput,
   Title,
   Textarea,
+  PinInput,
 } from "@mantine/core";
 import { DateInput, DatePicker } from "@mantine/dates";
 import { BarChart } from "@mantine/charts";
@@ -327,6 +328,7 @@ function PlaygroundContent() {
     () => elements.map((element) => element.position),
     []
   );
+  const [pin, setPin] = useState("");
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const isMobile = useMediaQuery("(max-width: 48em)");
 
@@ -598,6 +600,9 @@ function PlaygroundContent() {
                         data={["Option 1", "Option 2", "Option 3"]}
                       />
                       <FileInput label="FileInput" />
+                    </Group>
+                    <Group>
+                      <PinInput length={4} value={pin} onChange={setPin} />
                     </Group>
                     <Group grow>
                       <DetailedSelect

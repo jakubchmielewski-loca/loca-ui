@@ -22,9 +22,6 @@ a {
     font-weight: 600 !important;
 }
 
-.mantine-Input-wrapper .mantine-Input-input {
-    --input-padding-inline-start: 1rem;
-}
 
 .mantine-Input-wrapper[data-with-left-section] {
     --section-size: 410px;

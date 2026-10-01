@@ -166,6 +166,9 @@ export const theme = createTheme({
 
     Input: {
       vars: (theme: MantineTheme) => ({
+        wrapper: {
+          "--input-padding": rem(16),
+        },
         input: {
           "--input-height": rem(40),
           "--input-bd": theme.other["uiColors"].inputBorder,
