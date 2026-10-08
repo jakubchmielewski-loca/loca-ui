@@ -20,7 +20,8 @@ import {
   Textarea,
   PinInput,
 } from "@mantine/core";
-import { DateInput, DatePicker } from "@mantine/dates";
+import { DatePicker } from "@mantine/dates";
+import { SearchDate } from "../../src/components/search-date";
 import { BarChart } from "@mantine/charts";
 import { Carousel } from "@mantine/carousel";
 
@@ -581,10 +582,11 @@ function PlaygroundContent() {
                     </Group>
                     <ActiveFilters filters={activeFilters} />
                     <Group>
-                      <DateInput
+                      <SearchDate
+                        placeholder="Wybierz datę"
                         value={date}
-                        onChange={(date) =>
-                          setDate(new Date(date ?? new Date()))
+                        onChange={(value) =>
+                          setDate(new Date(value ?? new Date()))
                         }
                       />
                     </Group>

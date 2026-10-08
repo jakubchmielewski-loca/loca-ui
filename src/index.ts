@@ -20,6 +20,7 @@ export * from "./components/page-wrapper";
 export * from "./components/filter-chip";
 export * from "./components/radio-options";
 export * from "./components/card-scan-zone";
+export * from "./components/search-date";
 export * from "./components/search-input";
 export * from "./components/search-select";
 export * from "./components/table-footer";
