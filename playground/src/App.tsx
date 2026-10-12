@@ -72,6 +72,7 @@ import { PageBreadcrumbs } from "../../src/components/page-breadcrumbs";
 import { PhotoTiles } from "../../src/components/photo-tiles";
 import { RadioOptions } from "../../src/components/radio-options";
 import { CardScanZone } from "../../src/components/card-scan-zone";
+import { CardCodeField } from "../../src/components/card-code-field";
 import { Tabs } from "../../src";
 
 const photoTilesItems = [
@@ -330,6 +331,7 @@ function PlaygroundContent() {
     []
   );
   const [pin, setPin] = useState("");
+  const [cardCode, setCardCode] = useState("");
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const isMobile = useMediaQuery("(max-width: 48em)");
 
@@ -950,6 +952,26 @@ function PlaygroundContent() {
                       Kliknij strefę, wpisz lub zeskanuj kod i naciśnij Enter.
                     </Text>
                     <CardScanZone
+                      onScan={(code) =>
+                        notifications.show({
+                          title: "Zeskanowano kartę",
+                          message: code,
+                          color: "green",
+                        })
+                      }
+                    />
+                    <Title order={4} mt="sm">
+                      Card code field
+                    </Title>
+                    <Text size="sm" c="dimmed">
+                      Wpisz kod albo kliknij ikonę i zeskanuj kartę (Enter
+                      zatwierdza).
+                    </Text>
+                    <CardCodeField
+                      label="Kod karty"
+                      placeholder="Np. 1234567890"
+                      value={cardCode}
+                      onChange={(event) => setCardCode(event.currentTarget.value)}
                       onScan={(code) =>
                         notifications.show({
                           title: "Zeskanowano kartę",
