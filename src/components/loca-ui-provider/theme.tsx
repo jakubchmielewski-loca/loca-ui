@@ -43,6 +43,7 @@ export const theme = createTheme({
   other: {
     uiColors,
   },
+  cursorType: "pointer",
   components: {
     AppShell: {
       defaultProps: {
