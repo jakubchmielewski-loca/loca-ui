@@ -6,7 +6,12 @@ import {
   useSearchSelectSingleValue,
 } from "./use-search-select-value";
 
-export type { SearchSelectOption, SearchSelectProps } from "./types";
+export type {
+  SearchSelectData,
+  SearchSelectOption,
+  SearchSelectOptionGroup,
+  SearchSelectProps,
+} from "./types";
 
 const SearchSelectSingle = ({
   value,

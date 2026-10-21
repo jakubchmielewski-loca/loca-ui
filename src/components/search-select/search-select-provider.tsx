@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { SEARCH_SELECT_DEFAULTS } from "./constants";
 import { SearchSelectContext } from "./context";
 import type { SearchSelectProviderProps } from "./types";
-import { filterOptions, normalizeData } from "./utils";
+import { filterItems, flattenOptions, normalizeData } from "./utils";
 
 export const SearchSelectProvider = ({
   children,
@@ -22,7 +22,8 @@ export const SearchSelectProvider = ({
 }: SearchSelectProviderProps) => {
   const [search, setSearch] = useState("");
 
-  const options = useMemo(() => normalizeData(data), [data]);
+  const parsedItems = useMemo(() => normalizeData(data), [data]);
+  const options = useMemo(() => flattenOptions(parsedItems), [parsedItems]);
 
   const combobox = useCombobox({
     onDropdownOpen: () => {
@@ -34,9 +35,9 @@ export const SearchSelectProvider = ({
     },
   });
 
-  const filteredOptions = useMemo(
-    () => filterOptions(options, search),
-    [options, search]
+  const filteredItems = useMemo(
+    () => filterItems(parsedItems, search),
+    [parsedItems, search]
   );
 
   const handleOptionSubmit = useCallback(
@@ -64,7 +65,7 @@ export const SearchSelectProvider = ({
       search,
       setSearch,
       options,
-      filteredOptions,
+      filteredItems,
       handleOptionSubmit,
       triggerProps,
     }),
@@ -81,7 +82,7 @@ export const SearchSelectProvider = ({
       combobox,
       search,
       options,
-      filteredOptions,
+      filteredItems,
       handleOptionSubmit,
       triggerProps,
     ]

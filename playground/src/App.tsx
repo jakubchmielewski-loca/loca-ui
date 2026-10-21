@@ -595,6 +595,24 @@ function PlaygroundContent() {
                         onChange={setPerson}
                         triggerProps={{ miw: 280 }}
                       />
+                      <SearchSelect
+                        label="Technologia"
+                        searchPlaceholder="Szukaj technologii"
+                        data={[
+                          {
+                            group: "Frontend",
+                            items: ["React", "Angular", "Vue"],
+                          },
+                          {
+                            group: "Backend",
+                            items: [
+                              { value: "express", label: "Express" },
+                              { value: "django", label: "Django" },
+                            ],
+                          },
+                        ]}
+                        triggerProps={{ miw: 280 }}
+                      />
                     </Stack>
                     <ActiveFilters filters={activeFilters} />
                     <Group>

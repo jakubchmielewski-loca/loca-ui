@@ -7,12 +7,33 @@ export type SearchSelectOption = {
   disabled?: boolean;
 };
 
+export type SearchSelectOptionGroup = {
+  group: string;
+  items: (string | SearchSelectOption)[];
+};
+
+export type SearchSelectDataItem =
+  | string
+  | SearchSelectOption
+  | SearchSelectOptionGroup;
+
+export type SearchSelectData = SearchSelectDataItem[];
+
+export type SearchSelectNormalizedGroup = {
+  group: string;
+  items: SearchSelectOption[];
+};
+
+export type SearchSelectParsedItem =
+  | SearchSelectOption
+  | SearchSelectNormalizedGroup;
+
 export type SearchSelectTriggerProps = UnstyledButtonProps &
   ComponentPropsWithoutRef<"button">;
 
 export type SearchSelectBaseProps = {
   label: string;
-  data: (string | SearchSelectOption)[];
+  data: SearchSelectData;
   searchPlaceholder?: string;
   nothingFoundMessage?: string;
   disabled?: boolean;
@@ -51,7 +72,7 @@ export type SearchSelectContextValue = {
   search: string;
   setSearch: (value: string) => void;
   options: SearchSelectOption[];
-  filteredOptions: SearchSelectOption[];
+  filteredItems: SearchSelectParsedItem[];
   handleOptionSubmit: (value: string) => void;
   triggerProps?: SearchSelectTriggerProps;
 };

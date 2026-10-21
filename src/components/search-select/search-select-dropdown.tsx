@@ -1,3 +1,5 @@
+import { Combobox } from "@mantine/core";
+
 import {
   ComboboxDropdown,
   ComboboxDropdownOptions,
@@ -5,6 +7,7 @@ import {
 } from "../combobox-dropdown";
 import { SearchSelectOptionItem } from "./search-select-option-item";
 import { useSearchSelect } from "./use-search-select";
+import { flattenOptions, isOptionGroup } from "./utils";
 
 export const SearchSelectDropdown = () => {
   const {
@@ -12,10 +15,12 @@ export const SearchSelectDropdown = () => {
     search,
     setSearch,
     searchPlaceholder,
-    filteredOptions,
+    filteredItems,
     nothingFoundMessage,
     maxDropdownHeight,
   } = useSearchSelect();
+
+  const isEmpty = flattenOptions(filteredItems).length === 0;
 
   return (
     <ComboboxDropdown>
@@ -28,11 +33,21 @@ export const SearchSelectDropdown = () => {
       <ComboboxDropdownOptions
         maxHeight={maxDropdownHeight}
         emptyMessage={nothingFoundMessage}
-        isEmpty={filteredOptions.length === 0}
+        isEmpty={isEmpty}
       >
-        {filteredOptions.map((option) => (
-          <SearchSelectOptionItem key={option.value} option={option} />
-        ))}
+        {filteredItems.map((item) => {
+          if (isOptionGroup(item)) {
+            return (
+              <Combobox.Group label={item.group} key={item.group}>
+                {item.items.map((option) => (
+                  <SearchSelectOptionItem key={option.value} option={option} />
+                ))}
+              </Combobox.Group>
+            );
+          }
+
+          return <SearchSelectOptionItem key={item.value} option={item} />;
+        })}
       </ComboboxDropdownOptions>
     </ComboboxDropdown>
   );
