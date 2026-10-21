@@ -15,6 +15,7 @@ export const SearchSelectProvider = ({
   disabled = false,
   maxDropdownHeight = SEARCH_SELECT_DEFAULTS.maxDropdownHeight,
   dropdownWidth = SEARCH_SELECT_DEFAULTS.dropdownWidth,
+  triggerProps,
   multiple,
   selectedValues,
   onToggleValue,
@@ -62,8 +63,10 @@ export const SearchSelectProvider = ({
       combobox,
       search,
       setSearch,
+      options,
       filteredOptions,
       handleOptionSubmit,
+      triggerProps,
     }),
     [
       label,
@@ -77,8 +80,10 @@ export const SearchSelectProvider = ({
       onToggleValue,
       combobox,
       search,
+      options,
       filteredOptions,
       handleOptionSubmit,
+      triggerProps,
     ]
   );
 

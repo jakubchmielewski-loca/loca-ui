@@ -582,6 +582,20 @@ function PlaygroundContent() {
                         onChange={setPerson}
                       />
                     </Group>
+                    <Stack align="flex-start">
+                      <SearchSelect
+                        label="Osoba"
+                        searchPlaceholder="Szukaj osoby"
+                        data={[
+                          "Jan Kowalski",
+                          "Anna Nowak",
+                          "Piotr Wiśniewski",
+                        ]}
+                        value={person}
+                        onChange={setPerson}
+                        triggerProps={{ miw: 280 }}
+                      />
+                    </Stack>
                     <ActiveFilters filters={activeFilters} />
                     <Group>
                       <SearchDate
@@ -971,7 +985,9 @@ function PlaygroundContent() {
                       label="Kod karty"
                       placeholder="Np. 1234567890"
                       value={cardCode}
-                      onChange={(event) => setCardCode(event.currentTarget.value)}
+                      onChange={(event) =>
+                        setCardCode(event.currentTarget.value)
+                      }
                       onScan={(code) =>
                         notifications.show({
                           title: "Zeskanowano kartę",
