@@ -996,12 +996,11 @@ function PlaygroundContent() {
                       Card code field
                     </Title>
                     <Text size="sm" c="dimmed">
-                      Wpisz kod albo kliknij ikonę i zeskanuj kartę (Enter
-                      zatwierdza).
+                      Kliknij pole, aby rozpocząć skanowanie. Enter zatwierdza;
+                      kliknij ponownie, by zeskanować inną kartę.
                     </Text>
                     <CardCodeField
                       label="Kod karty"
-                      placeholder="Np. 1234567890"
                       value={cardCode}
                       onChange={(event) =>
                         setCardCode(event.currentTarget.value)
