@@ -1,4 +1,4 @@
-import { Button, Group, Menu, Text } from "@mantine/core";
+import { ActionBar, Button, Menu, Text } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { ChevronDown } from "lucide-react";
 import type { ReactNode } from "react";
@@ -132,10 +132,6 @@ export const TableBulkActionsBar = <TId,>({
 }: TableBulkActionsBarProps<TId>) => {
   const modals = useModals();
 
-  if (selectedCount === 0) {
-    return null;
-  }
-
   const hasEnabledActions = actions.some(isBulkActionEnabled);
 
   const handleActionClick = (
@@ -179,46 +175,45 @@ export const TableBulkActionsBar = <TId,>({
   };
 
   return (
-    <Group
-      justify="space-between"
-      align="center"
-      px={24}
-      py={12}
-      wrap="nowrap"
-      gap={16}
+    <ActionBar
+      opened={selectedCount > 0}
+      onClose={onClear}
+      closeOnEscape
+      shadow="md"
+      aria-label="Akcje masowe dla zaznaczonych wierszy"
     >
-      <Text fz={14} fw={600}>
+      <Text size="sm" fw={600}>
         {formatSelectedCount(selectedCount)}
       </Text>
-
-      <Group gap={8} wrap="nowrap">
-        <Menu shadow="md" width={280} position="bottom-end">
-          <Menu.Target>
-            <Button
-              variant="default"
-              rightSection={<ChevronDown size={16} />}
-              loading={loading}
-              disabled={!hasEnabledActions}
-            >
-              Wybierz akcję
-            </Button>
-          </Menu.Target>
-          <Menu.Dropdown>
-            {actions.map((action) =>
-              renderBulkActionItem({
-                action,
-                selectedIds,
-                loading,
-                onActionClick: handleActionClick,
-              }),
-            )}
-          </Menu.Dropdown>
-        </Menu>
-
-        <Button variant="subtle" onClick={onClear} disabled={loading}>
-          Wyczyść zaznaczenie
-        </Button>
-      </Group>
-    </Group>
+      <ActionBar.Divider />
+      <Menu shadow="md" width={280} position="top-start" withinPortal>
+        <Menu.Target>
+          <Button
+            size="compact-sm"
+            variant="default"
+            rightSection={<ChevronDown size={16} />}
+            loading={loading}
+            disabled={!hasEnabledActions}
+          >
+            Wybierz akcję
+          </Button>
+        </Menu.Target>
+        <Menu.Dropdown>
+          {actions.map((action) =>
+            renderBulkActionItem({
+              action,
+              selectedIds,
+              loading,
+              onActionClick: handleActionClick,
+            }),
+          )}
+        </Menu.Dropdown>
+      </Menu>
+      <ActionBar.Divider />
+      <ActionBar.CloseButton
+        aria-label="Odznacz wszystko"
+        disabled={loading}
+      />
+    </ActionBar>
   );
 };

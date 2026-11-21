@@ -728,7 +728,9 @@ function PlaygroundContent() {
 
                 <Paper withBorder p="md">
                   <Stack gap="sm">
-                    <Title order={4}>Table with bulk selection</Title>
+                    <Title order={4}>
+                      Table with bulk selection (ActionBar)
+                    </Title>
                     <Stack gap={0}>
                       <TableBulkActionsBar
                         selectedCount={tableSelection.selectedCount}
