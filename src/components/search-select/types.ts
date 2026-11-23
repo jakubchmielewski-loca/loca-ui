@@ -34,6 +34,8 @@ export type SearchSelectTriggerProps = UnstyledButtonProps &
 export type SearchSelectBaseProps = {
   label: string;
   data: SearchSelectData;
+  /** Whether to show the search input in the dropdown. Defaults to true. */
+  searchField?: boolean;
   searchPlaceholder?: string;
   nothingFoundMessage?: string;
   disabled?: boolean;
@@ -60,6 +62,7 @@ export type SearchSelectProps =
 
 export type SearchSelectContextValue = {
   label: string;
+  searchField: boolean;
   searchPlaceholder: string;
   nothingFoundMessage: string;
   disabled: boolean;

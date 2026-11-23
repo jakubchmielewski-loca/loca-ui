@@ -321,6 +321,7 @@ function PlaygroundContent() {
   const [zones, setZones] = useState<string[]>(["A", "B"]);
   const [passages, setPassages] = useState<string[]>([]);
   const [person, setPerson] = useState<string | null>(null);
+  const [activeOption, setActiveOption] = useState<string | null>("tak");
   const [schoolId, setSchoolId] = useState<string | null>(null);
   const [accessMode, setAccessMode] = useState("limited");
   const [contextKey, setContextKey] = useState("school-mm");
@@ -611,6 +612,17 @@ function PlaygroundContent() {
                             ],
                           },
                         ]}
+                        triggerProps={{ miw: 280 }}
+                      />
+                      <SearchSelect
+                        label="Aktywny"
+                        searchField={false}
+                        data={[
+                          { value: "tak", label: "Tak" },
+                          { value: "nie", label: "Nie" },
+                        ]}
+                        value={activeOption}
+                        onChange={setActiveOption}
                         triggerProps={{ miw: 280 }}
                       />
                     </Stack>

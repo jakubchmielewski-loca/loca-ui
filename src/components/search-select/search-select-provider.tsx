@@ -10,6 +10,7 @@ export const SearchSelectProvider = ({
   children,
   label,
   data,
+  searchField = true,
   searchPlaceholder,
   nothingFoundMessage = SEARCH_SELECT_DEFAULTS.nothingFoundMessage,
   disabled = false,
@@ -27,7 +28,9 @@ export const SearchSelectProvider = ({
 
   const combobox = useCombobox({
     onDropdownOpen: () => {
-      combobox.focusSearchInput();
+      if (searchField) {
+        combobox.focusSearchInput();
+      }
     },
     onDropdownClose: () => {
       combobox.resetSelectedOption();
@@ -36,8 +39,8 @@ export const SearchSelectProvider = ({
   });
 
   const filteredItems = useMemo(
-    () => filterItems(parsedItems, search),
-    [parsedItems, search]
+    () => (searchField ? filterItems(parsedItems, search) : parsedItems),
+    [parsedItems, search, searchField]
   );
 
   const handleOptionSubmit = useCallback(
@@ -53,6 +56,7 @@ export const SearchSelectProvider = ({
   const value = useMemo(
     () => ({
       label,
+      searchField,
       searchPlaceholder: searchPlaceholder ?? SEARCH_SELECT_DEFAULTS.searchPlaceholder,
       nothingFoundMessage,
       disabled,
@@ -71,6 +75,7 @@ export const SearchSelectProvider = ({
     }),
     [
       label,
+      searchField,
       searchPlaceholder,
       nothingFoundMessage,
       disabled,

@@ -14,6 +14,7 @@ export const SearchSelectDropdown = () => {
     combobox,
     search,
     setSearch,
+    searchField,
     searchPlaceholder,
     filteredItems,
     nothingFoundMessage,
@@ -24,12 +25,14 @@ export const SearchSelectDropdown = () => {
 
   return (
     <ComboboxDropdown>
-      <ComboboxDropdownSearch
-        combobox={combobox}
-        value={search}
-        onChange={setSearch}
-        placeholder={searchPlaceholder}
-      />
+      {searchField ? (
+        <ComboboxDropdownSearch
+          combobox={combobox}
+          value={search}
+          onChange={setSearch}
+          placeholder={searchPlaceholder}
+        />
+      ) : null}
       <ComboboxDropdownOptions
         maxHeight={maxDropdownHeight}
         emptyMessage={nothingFoundMessage}
