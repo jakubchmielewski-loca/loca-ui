@@ -1,5 +1,6 @@
-import { Box, Combobox, Group, Text, UnstyledButton } from "@mantine/core";
-import { ChevronDown } from "lucide-react";
+import { ActionIcon, Box, Combobox, Group, Text, UnstyledButton } from "@mantine/core";
+import { ChevronDown, X } from "lucide-react";
+import type { MouseEvent } from "react";
 
 import { uiColors } from "../loca-ui-provider/theme-tokens";
 import { SelectionCountBadge } from "./selection-count-badge";
@@ -9,10 +10,12 @@ export const SearchSelectTrigger = () => {
   const {
     label,
     disabled,
+    clearable,
     multiple,
     selectedValues,
     options,
     combobox,
+    onClear,
     triggerProps,
   } = useSearchSelect();
 
@@ -24,12 +27,19 @@ export const SearchSelectTrigger = () => {
 
   const selectedCount = selectedValues.length;
   const hasSelection = selectedCount > 0;
+  const showClear = clearable && hasSelection && !disabled;
 
   const selectedLabel =
     !multiple && hasSelection
       ? (options.find((option) => option.value === selectedValues[0])?.label ??
         selectedValues[0])
       : null;
+
+  const handleClear = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    onClear();
+  };
 
   return (
     <Combobox.Target>
@@ -39,7 +49,13 @@ export const SearchSelectTrigger = () => {
         pe={20}
         py={12}
         h={48}
-        bg={hasSelection ? uiColors.surfaceElevated : "white"}
+        bg={
+          disabled
+            ? uiColors.surfaceElevated
+            : hasSelection
+              ? uiColors.surfaceElevated
+              : "white"
+        }
         {...restTriggerProps}
         disabled={disabled}
         onClick={(event) => {
@@ -55,6 +71,8 @@ export const SearchSelectTrigger = () => {
             maxWidth: "100%",
             border: `1px solid ${uiColors.borderSubtle}`,
             borderRadius: 999,
+            opacity: disabled ? 0.55 : 1,
+            cursor: disabled ? "not-allowed" : "pointer",
           },
           triggerStyle,
         ]}
@@ -84,7 +102,7 @@ export const SearchSelectTrigger = () => {
               <Text
                 fz={12}
                 fw={600}
-                c={uiColors.textStrong}
+                c={disabled ? uiColors.textMuted : uiColors.textStrong}
                 h={16}
                 style={{
                   visibility: selectedLabel ? "hidden" : undefined,
@@ -97,7 +115,7 @@ export const SearchSelectTrigger = () => {
                 <Text
                   fz={12}
                   fw={600}
-                  c={uiColors.textStrong}
+                  c={disabled ? uiColors.textMuted : uiColors.textStrong}
                   h={16}
                   truncate
                   pos="absolute"
@@ -111,11 +129,31 @@ export const SearchSelectTrigger = () => {
             </Box>
             {multiple ? <SelectionCountBadge count={selectedCount} /> : null}
           </Group>
-          <ChevronDown
-            size={16}
-            color={uiColors.primaryAccent}
-            style={{ flexShrink: 0 }}
-          />
+          <Group gap={4} wrap="nowrap" align="center" style={{ flexShrink: 0 }}>
+            {showClear ? (
+              <ActionIcon
+                component="span"
+                role="button"
+                variant="transparent"
+                size={16}
+                c={uiColors.primaryAccent}
+                aria-label="Wyczyść wybór"
+                onClick={handleClear}
+                onMouseDown={(event) => {
+                  // Prevent Combobox.Target from treating this as a toggle.
+                  event.preventDefault();
+                  event.stopPropagation();
+                }}
+              >
+                <X size={14} strokeWidth={2.5} />
+              </ActionIcon>
+            ) : null}
+            <ChevronDown
+              size={16}
+              color={disabled ? uiColors.textMuted : uiColors.primaryAccent}
+              style={{ flexShrink: 0 }}
+            />
+          </Group>
         </Group>
       </UnstyledButton>
     </Combobox.Target>

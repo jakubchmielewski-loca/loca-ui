@@ -31,7 +31,12 @@ export const useSearchSelectSingleValue = ({
     onChange?.(nextValue);
   };
 
-  return { selectedValues, onToggleValue };
+  const onClear = () => {
+    setValue(null);
+    onChange?.(null);
+  };
+
+  return { selectedValues, onToggleValue, onClear };
 };
 
 export const useSearchSelectMultipleValue = ({
@@ -53,5 +58,10 @@ export const useSearchSelectMultipleValue = ({
     onChange?.(nextValues);
   };
 
-  return { selectedValues: _value, onToggleValue };
+  const onClear = () => {
+    setValue([]);
+    onChange?.([]);
+  };
+
+  return { selectedValues: _value, onToggleValue, onClear };
 };

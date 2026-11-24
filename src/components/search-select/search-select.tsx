@@ -23,7 +23,7 @@ const SearchSelectSingle = ({
   defaultValue?: string | null;
   onChange?: (value: string | null) => void;
 }) => {
-  const { selectedValues, onToggleValue } = useSearchSelectSingleValue({
+  const { selectedValues, onToggleValue, onClear } = useSearchSelectSingleValue({
     ...(value !== undefined ? { value } : {}),
     ...(defaultValue !== undefined ? { defaultValue } : {}),
     ...(onChange !== undefined ? { onChange } : {}),
@@ -35,6 +35,7 @@ const SearchSelectSingle = ({
       multiple={false}
       selectedValues={selectedValues}
       onToggleValue={onToggleValue}
+      onClear={onClear}
     >
       <SearchSelectRoot />
     </SearchSelectProvider>
@@ -51,11 +52,12 @@ const SearchSelectMultiple = ({
   defaultValue?: string[];
   onChange?: (value: string[]) => void;
 }) => {
-  const { selectedValues, onToggleValue } = useSearchSelectMultipleValue({
-    ...(value !== undefined ? { value } : {}),
-    ...(defaultValue !== undefined ? { defaultValue } : {}),
-    ...(onChange !== undefined ? { onChange } : {}),
-  });
+  const { selectedValues, onToggleValue, onClear } =
+    useSearchSelectMultipleValue({
+      ...(value !== undefined ? { value } : {}),
+      ...(defaultValue !== undefined ? { defaultValue } : {}),
+      ...(onChange !== undefined ? { onChange } : {}),
+    });
 
   return (
     <SearchSelectProvider
@@ -63,6 +65,7 @@ const SearchSelectMultiple = ({
       multiple
       selectedValues={selectedValues}
       onToggleValue={onToggleValue}
+      onClear={onClear}
     >
       <SearchSelectRoot />
     </SearchSelectProvider>

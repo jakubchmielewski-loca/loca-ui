@@ -4,4 +4,5 @@ export const SEARCH_SELECT_DEFAULTS = {
   dropdownWidth: 280,
   searchPlaceholder: "Szukaj",
   dropdownPadding: 12,
+  clearable: true,
 } as const;

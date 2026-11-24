@@ -39,6 +39,8 @@ export type SearchSelectBaseProps = {
   searchPlaceholder?: string;
   nothingFoundMessage?: string;
   disabled?: boolean;
+  /** Whether to show a clear (X) control when a value is selected. Defaults to true. */
+  clearable?: boolean;
   maxDropdownHeight?: number | string;
   /** Dropdown width in px; wider than the trigger button by default */
   dropdownWidth?: number;
@@ -66,11 +68,13 @@ export type SearchSelectContextValue = {
   searchPlaceholder: string;
   nothingFoundMessage: string;
   disabled: boolean;
+  clearable: boolean;
   maxDropdownHeight: number | string;
   dropdownWidth: number;
   multiple: boolean;
   selectedValues: string[];
   onToggleValue: (value: string) => void;
+  onClear: () => void;
   combobox: ComboboxStore;
   search: string;
   setSearch: (value: string) => void;
@@ -85,4 +89,5 @@ export type SearchSelectProviderProps = SearchSelectBaseProps & {
   multiple: boolean;
   selectedValues: string[];
   onToggleValue: (value: string) => void;
+  onClear: () => void;
 };
