@@ -20,8 +20,8 @@ import {
   Textarea,
   PinInput,
 } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
-import { SearchDate } from "../../src/components/search-date";
+import { DatePicker, type DatesRangeValue } from "@mantine/dates";
+import { SearchDate, SearchDateInput } from "../../src/components/search-date";
 import { BarChart } from "@mantine/charts";
 import { Carousel } from "@mantine/carousel";
 
@@ -317,6 +317,7 @@ function PlaygroundContent() {
   };
 
   const [date, setDate] = useState(new Date());
+  const [dateRange, setDateRange] = useState<DatesRangeValue>([null, null]);
   const [search, setSearch] = useState("");
   const [zones, setZones] = useState<string[]>(["A", "B"]);
   const [passages, setPassages] = useState<string[]>([]);
@@ -634,6 +635,13 @@ function PlaygroundContent() {
                         onChange={(value) =>
                           setDate(new Date(value ?? new Date()))
                         }
+                      />
+                      <SearchDateInput
+                        type="range"
+                        placeholder="Wybierz zakres dat"
+                        value={dateRange}
+                        onChange={setDateRange}
+                        miw={280}
                       />
                     </Group>
                     <Group grow>
